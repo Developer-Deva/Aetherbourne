@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "LK/bIfzseIA=",
+  "success": true,
+  "projectFilePath": "/workspaces/Aetherbourne/Aetherbourne/Aetherbourne.csproj",
+  "expectedPackageFiles": [
+    "/home/vscode/.nuget/packages/raylib-cs/8.0.0/raylib-cs.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
