@@ -1,8 +1,8 @@
 # Event System
 
-**Description:** Modular event generation, memory formation, and personality development systems for Aetherbourne
+**Description:** Modular event generation, emotional response, memory formation, and emergent storytelling systems for Aetherbourne
 
-**Last Updated:** 2026-06-15
+**Last Updated:** 2026-06-17
 
 ---
 
@@ -16,12 +16,19 @@ Events do not directly modify personality.
 
 Instead:
 
+```text
 Event
-→ Emotional Response
-→ Memory
-→ Personality Drift
-→ Behavioral Change
-→ Future Events
+↓
+Emotional Response
+↓
+Memory
+↓
+Personality Drift
+↓
+Behavioral Change
+↓
+Future Events
+```
 
 This creates a feedback loop where creatures are shaped by their experiences throughout their lives.
 
@@ -36,6 +43,7 @@ Events emerge naturally from simulation systems.
 Just as biomes emerge from environmental variables, events emerge from:
 
 * Actors
+* Witnesses
 * Actions
 * Targets
 * Causes
@@ -61,6 +69,8 @@ public struct EventData
 
     public EventActor[] Actors;
 
+    public EventWitness[] Witnesses;
+
     public EventAction Action;
 
     public EventTarget[] Targets;
@@ -79,30 +89,73 @@ public struct EventData
 
 # Event Formula
 
+```text
+Cause + Conditions = Action
+
+Actor + Action + Target = Event
+
+Event + Severity + Scale = Outcomes
+```
+
+---
+
+# Event Lifecycle
+
+Every event follows a common lifecycle.
+
+```text
 Cause
-+
-Conditions
-==========
+↓
+Conditions Checked
+↓
+Action Performed
+↓
+Event Generated
+↓
+Witness Processing
+↓
+Emotional Responses
+↓
+Outcomes Applied
+↓
+Memory Evaluation
+↓
+Historical Recording
+```
 
+This ensures every system interacts with events consistently.
+
+---
+
+# Event Generation
+
+Events are not created manually.
+
+They emerge from actions performed by actors under valid conditions.
+
+```text
+Need
+↓
+Goal
+↓
 Action
-
-Actor
-+
-Action
-+
-Target
-======
-
+↓
 Event
+```
 
-Event
-+
-Severity
-+
-Scale
-=====
+Example:
 
-Outcomes
+```text
+Hunger
+↓
+Need Food
+↓
+Hunt Deer
+↓
+Successful Hunt Event
+```
+
+An action may fail to generate an event if conditions are not satisfied.
 
 ---
 
@@ -123,6 +176,8 @@ Examples:
 * Volcanic Eruptions
 * Cave-ins
 
+---
+
 ## Biological
 
 Life-cycle and ecological events.
@@ -135,6 +190,8 @@ Examples:
 * Migration
 * Disease
 * Mutation
+
+---
 
 ## Social
 
@@ -149,6 +206,8 @@ Examples:
 * Betrayal
 * Reconciliation
 
+---
+
 ## Conflict
 
 Competitive interactions.
@@ -161,6 +220,8 @@ Examples:
 * Raids
 * Wars
 
+---
+
 ## Discovery
 
 Knowledge and exploration events.
@@ -170,6 +231,8 @@ Examples:
 * Resource Discovery
 * New Territory Found
 * Ancient Ruin Discovered
+
+---
 
 ## Economic
 
@@ -182,6 +245,8 @@ Examples:
 * Resource Shortage
 * Resource Surplus
 
+---
+
 ## Cultural
 
 Shared group events.
@@ -192,6 +257,8 @@ Examples:
 * Festivals
 * Ceremonies
 * Religious Gatherings
+
+---
 
 ## Personal
 
@@ -236,13 +303,46 @@ Affects the entire world.
 
 ---
 
+# Event Visibility
+
+Not every creature is aware of every event.
+
+Events possess a visibility level which determines potential witnesses.
+
+```csharp
+public enum EventVisibility
+{
+    Personal,
+    Local,
+    Settlement,
+    Regional,
+    Global
+}
+```
+
+Examples:
+
+| Event         | Visibility |
+| ------------- | ---------- |
+| Eat Berry     | Personal   |
+| Fight         | Local      |
+| Festival      | Settlement |
+| Flood         | Regional   |
+| Meteor Impact | Global     |
+
+Visibility determines which creatures may perceive an event.
+
+---
+
 # Event Severity
 
-Severity measures event impact.
+Severity measures immediate event impact.
 
 Range:
 
+```text
 0.0 - 100.0
+```
 
 | Severity | Classification |
 | -------- | -------------- |
@@ -254,10 +354,59 @@ Range:
 
 Severity influences:
 
+* Emotional intensity
 * Memory formation
 * Memory longevity
-* Personality drift magnitude
 * Story significance
+
+---
+
+# Historical Significance
+
+Significance measures long-term narrative importance.
+
+Significance is separate from severity.
+
+Examples:
+
+```text
+Birth of Future Leader
+
+Severity = 10
+Significance = 95
+```
+
+```text
+Broken Leg
+
+Severity = 70
+Significance = 15
+```
+
+Severity measures immediate impact.
+
+Significance measures lasting influence on individuals, communities, societies, and history.
+
+---
+
+# Event Importance
+
+Overall importance may be estimated through:
+
+```text
+Importance =
+Severity
+× Scale
+× Witness Count
+× Historical Influence
+```
+
+High-importance events are more likely to:
+
+* Become lasting memories
+* Influence culture
+* Shape communities
+* Appear in generated stories
 
 ---
 
@@ -276,7 +425,58 @@ Examples:
 * Storm
 * Region
 
-Multiple actors may participate.
+Multiple actors may participate in a single event.
+
+---
+
+# Witnesses
+
+Witnesses perceive events but are not necessarily participants.
+
+Witnesses may:
+
+* Fully observe an event
+* Partially observe an event
+* Learn about an event indirectly
+
+Witness perception influences emotional responses and memory formation.
+
+---
+
+# Event Interpretation
+
+Events are objective.
+
+Interpretations are subjective.
+
+```text
+Event
+↓
+Perception
+↓
+Interpretation
+↓
+Emotion
+↓
+Memory
+```
+
+The same event may generate different memories for different creatures.
+
+Example:
+
+```text
+Won Duel
+
+Victor:
+Pride
+
+Loser:
+Shame
+
+Observer:
+Admiration
+```
 
 ---
 
@@ -351,13 +551,13 @@ Examples:
 
 Conditions represent possibility.
 
-An event may have a valid cause but fail if conditions are not met.
+A cause may exist without an event occurring if conditions are not satisfied.
 
 ---
 
 # Outcomes
 
-Outcomes represent state changes.
+Outcomes represent immediate state changes.
 
 Outcomes should be modular.
 
@@ -375,169 +575,142 @@ Events may generate multiple outcomes.
 
 ---
 
-# Memory Formation
+# Event Chains
 
-Not all events become memories.
+Events may generate additional events.
 
-Memory creation depends on:
+```text
+Parent Event
+↓
+Child Events
+```
 
-* Event Severity
-* Personal Relevance
-* Emotional Response
+Example:
 
-Formula:
+```text
+Drought
+↓
+Crop Failure
+↓
+Food Shortage
+↓
+Migration
+↓
+Territory Conflict
+↓
+War
+```
 
-MemoryStrength =
-Severity
-× PersonalRelevance
-× EmotionalResponse
-
-Low-strength memories may never be stored.
-
-High-strength memories may persist for years or an entire lifetime.
+Event chains are one of the primary sources of emergent narratives.
 
 ---
 
-# Memory Decay
+# Event Persistence
 
-Memories decay over time.
+Events are permanent historical facts.
+
+Even when memories fade, the event itself remains part of simulation history.
+
+```text
+Events = Objective History
+
+Memories = Subjective Experience
+```
+
+This distinction allows history to exist independently from individual recollection.
+
+---
+
+# Event Tags
+
+Events may contain modular tags.
 
 ```csharp
-public struct Memory
+public enum EventTag
 {
-    public EventData SourceEvent;
-
-    public float Strength;
-
-    public float EmotionalWeight;
-
-    public float DecayRate;
+    Combat,
+    Family,
+    Trade,
+    Leadership,
+    Discovery,
+    Survival,
+    Crime,
+    Culture
 }
 ```
 
-Minor events fade quickly.
-
-Major life events decay slowly.
+Tags allow systems to react to broad event types without requiring specific event definitions.
 
 Examples:
 
-Shared Food
+```text
+All Combat Events
 
-Strength = 10
+All Family Events
 
-DecayRate = High
-
-Lost Parent
-
-Strength = 95
-
-DecayRate = Very Low
+All Leadership Events
+```
 
 ---
 
-# Personality Development
+# Event Consequences
+
+Events create both immediate and long-term consequences.
+
+## Immediate Consequences
+
+Applied directly through outcomes.
+
+```text
+Health -10
+Food +3
+Relationship +5
+```
+
+## Long-Term Consequences
+
+Handled by later systems.
+
+```text
+Event
+↓
+Emotional Response
+↓
+Memory
+↓
+Personality Drift
+↓
+Behavioral Change
+```
 
 Events never directly modify personality.
-
-Instead:
-
-Event
-→ Memory
-→ Personality Drift
-
-This allows creatures to gradually evolve through lived experiences.
-
----
-
-# Personality Drift
-
-Each memory contains personality influence values.
-
-Example:
-
-Betrayal Memory
-
-Trusting = -5
-
-Hopeful = -3
-
-Empathetic = -2
-
-Mentorship Memory
-
-Trusting = +3
-
-Cooperative = +4
-
-Merciful = +2
-
-These influences accumulate over time.
-
----
-
-# Personality Drift Formula
-
-PersonalityChange =
-(
-MemoryStrength
-× EmotionalWeight
-× AxisModifier
-)
-/
-PersonalityResistance
-
-Repeated experiences create larger changes than isolated incidents.
-
----
-
-# Personality Persistence
-
-Memories may fade.
-
-Personality changes may remain.
-
-Example:
-
-Repeated Childhood Betrayal
-
-Memory eventually decays.
-
-Trusting → Guarded shift remains.
-
-This allows experiences to permanently shape creatures.
 
 ---
 
 # Event → Story Pipeline
 
+```text
 Simulation Layer
-
+↓
 Events
-
 ↓
-
-Memory Layer
-
-Personal Memories
-
+Emotions
 ↓
-
-Personality Layer
-
-Personality Development
-
+Memories
 ↓
-
-Behavior Layer
-
+Relationships
+↓
+Personality
+↓
 Decision Making
-
 ↓
-
-Narrative Layer
-
-Emergent Stories
+Behavior
+↓
+Future Events
+↓
+Emergent Narrative
+```
 
 Stories are not authored.
 
-Stories emerge naturally from the accumulation of events, memories, relationships, and personality development.
+Stories emerge naturally from interconnected events experienced by individuals, groups, communities, and societies over time.
