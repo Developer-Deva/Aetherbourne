@@ -58,10 +58,6 @@ class Program
                 }
             }
 
-            // Debug: draw a persistent test string and a small box so we can verify rendering
-            Raylib.DrawText("RENDER CHECK", 6, 6, 14, Color.Red);
-            Raylib.DrawRectangle(6, 28, 20, 20, Color.Gold);
-
             Raylib.EndDrawing();
         }
 
@@ -70,7 +66,150 @@ class Program
 
     static void UpdateSimulation()
     {
-        // This is where your custom rules, cellular automata formulas, 
-        // or entity logic functions will be called every frame.
+        int[,] newGrid = new int[GridWidth, GridHeight];
+        bool[,] moved = new bool[GridWidth, GridHeight];
+
+        // 1) Plants spread and copy into newGrid
+        for (int x = 0; x < GridWidth; x++)
+        {
+            for (int y = 0; y < GridHeight; y++)
+            {
+                if (grid[x, y] == 1)
+                {
+                    // keep plant
+                    if (newGrid[x, y] == 0) newGrid[x, y] = 1;
+
+                    // small chance to spread to a random adjacent empty cell
+                    if (rand.NextDouble() < 0.05)
+                    {
+                        var dirs = GetShuffledDirections();
+                        foreach (var d in dirs)
+                        {
+                            int nx = x + d.dx; int ny = y + d.dy;
+                            if (InBounds(nx, ny) && newGrid[nx, ny] == 0 && grid[nx, ny] == 0)
+                            {
+                                newGrid[nx, ny] = 1;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // helper to process animals in random order to avoid bias
+        var coords = new System.Collections.Generic.List<(int x, int y)>();
+        for (int x = 0; x < GridWidth; x++) for (int y = 0; y < GridHeight; y++) coords.Add((x, y));
+        // shuffle
+        for (int i = coords.Count - 1; i > 0; i--)
+        {
+            int j = rand.Next(i + 1);
+            var t = coords[i]; coords[i] = coords[j]; coords[j] = t;
+        }
+
+        // 2) Herbivores (2): try to eat plants, else move randomly
+        foreach (var (x, y) in coords)
+        {
+            if (grid[x, y] != 2) continue;
+            if (moved[x, y]) continue;
+
+            // try to eat adjacent plant
+            var dirs = GetShuffledDirections();
+            bool acted = false;
+            foreach (var d in dirs)
+            {
+                int nx = x + d.dx; int ny = y + d.dy;
+                if (!InBounds(nx, ny)) continue;
+                if (grid[nx, ny] == 1 && newGrid[nx, ny] != 2)
+                {
+                    // move and eat plant
+                    newGrid[nx, ny] = 2;
+                    moved[nx, ny] = true;
+                    acted = true;
+                    break;
+                }
+            }
+
+            if (acted) continue;
+
+            // else move to random empty adjacent cell
+            foreach (var d in dirs)
+            {
+                int nx = x + d.dx; int ny = y + d.dy;
+                if (!InBounds(nx, ny)) continue;
+                if (newGrid[nx, ny] == 0 && grid[nx, ny] == 0)
+                {
+                    newGrid[nx, ny] = 2;
+                    moved[nx, ny] = true;
+                    acted = true;
+                    break;
+                }
+            }
+
+            if (!acted)
+            {
+                if (newGrid[x, y] == 0) newGrid[x, y] = 2; // stay
+            }
+        }
+
+        // 3) Carnivores (3): try to eat adjacent herbivores, else move randomly
+        foreach (var (x, y) in coords)
+        {
+            if (grid[x, y] != 3) continue;
+            if (moved[x, y]) continue;
+
+            var dirs = GetShuffledDirections();
+            bool acted = false;
+            foreach (var d in dirs)
+            {
+                int nx = x + d.dx; int ny = y + d.dy;
+                if (!InBounds(nx, ny)) continue;
+                if (grid[nx, ny] == 2 && newGrid[nx, ny] != 3)
+                {
+                    // move and eat herbivore
+                    newGrid[nx, ny] = 3;
+                    moved[nx, ny] = true;
+                    acted = true;
+                    break;
+                }
+            }
+
+            if (acted) continue;
+
+            foreach (var d in dirs)
+            {
+                int nx = x + d.dx; int ny = y + d.dy;
+                if (!InBounds(nx, ny)) continue;
+                if (newGrid[nx, ny] == 0 && grid[nx, ny] == 0)
+                {
+                    newGrid[nx, ny] = 3;
+                    moved[nx, ny] = true;
+                    acted = true;
+                    break;
+                }
+            }
+
+            if (!acted)
+            {
+                if (newGrid[x, y] == 0) newGrid[x, y] = 3; // stay
+            }
+        }
+
+        // If any empty cells remain, they stay 0 (already default)
+        grid = newGrid;
+    }
+
+    static bool InBounds(int x, int y) => x >= 0 && x < GridWidth && y >= 0 && y < GridHeight;
+
+    static (int dx, int dy)[] GetShuffledDirections()
+    {
+        var dirs = new (int dx, int dy)[] { (1,0), (-1,0), (0,1), (0,-1) };
+        // shuffle locally
+        for (int i = dirs.Length - 1; i > 0; i--)
+        {
+            int j = rand.Next(i + 1);
+            var t = dirs[i]; dirs[i] = dirs[j]; dirs[j] = t;
+        }
+        return dirs;
     }
 }

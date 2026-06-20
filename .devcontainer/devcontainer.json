@@ -1,5 +1,5 @@
 {
-  "name": "C# Raylib GUI Dev Environment",
+  "name": "Aetherbourne",
   "image": "mcr.microsoft.com/devcontainers/dotnet:10.0",
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
@@ -14,7 +14,7 @@
   "forwardPorts": [6080],
   "portsAttributes": {
     "6080": {
-      "label": "noVNC Virtual Monitor",
+      "label": "Aetherbourne",
       "onAutoForward": "notify",
       "visibility": "public"
     }
