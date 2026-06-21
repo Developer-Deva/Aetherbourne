@@ -350,13 +350,8 @@ Life experiences shape the individual.
 *   **Generation:** At birth, the simulation captures the Phase, Selene phase, and Karael position to lock the Aethersign.
 *   **Integration:** These values are passed to the `PersonalitySystem` to initialize the creature's `PersonalityResistance` and `MemoryWeight` multipliers.
 *   **Persistence:** The Aethersign is a permanent part of the creature's identity and does not change, even if the creature moves to a different region or world.
----
 
-## Implementation / Notes
-
----
-
-# Personality Modifiers
+## Personality Modifiers
 
 Aethersigns should influence:
 
