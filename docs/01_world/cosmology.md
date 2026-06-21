@@ -1,11 +1,11 @@
-Cosmology & Aethersigns
+# Cosmology & Aethersigns
 
-Description: Celestial influences, Aethersigns, and personality predispositions for creatures in Aetherbourne
-Last Updated: 2026-06-21
+**Description**: Celestial influences, Aethersigns, and personality predispositions for creatures in Aetherbourne
+**Last Updated**: 2026-06-21
 
 ---
 
-Overview
+# Overview
 
 The Cosmology System defines how celestial cycles influence creature development.
 
@@ -24,7 +24,7 @@ Personality ultimately emerges through experiences, memories, relationships, and
 
 ---
 
-Design Philosophy
+# Design Philosophy
 
 - Astrology should influence development without determining destiny.
 - Two creatures with the same Aethersign should still develop differently.
@@ -34,9 +34,9 @@ Design Philosophy
 
 ---
 
-Core Concepts
+# Core Concepts
 
-Aethersigns
+## Aethersigns
 
 An Aethersign consists of three components:
 
@@ -56,7 +56,7 @@ Together these influences create a creature's astrological predispositions.
 
 ---
 
-State
+## State
 
 State is determined by the birth Phase.
 
@@ -64,7 +64,7 @@ State represents a creature's foundational nature and influences which personali
 
 ---
 
-Modality
+## Modality
 
 Modality is determined by Selene.
 
@@ -74,7 +74,7 @@ Modality primarily affects Personality Resistance.
 
 ---
 
-Drive
+## Drive
 
 Drive is determined by Karael.
 
@@ -84,9 +84,9 @@ Different Drives assign greater weight to different categories of memories.
 
 ---
 
-States
+# States
 
-Solid
+## Solid
 
 Associated Concepts:
 
@@ -103,7 +103,7 @@ Domain Affinities:
 
 ---
 
-Liquid
+## Liquid
 
 Associated Concepts:
 
@@ -120,7 +120,7 @@ Domain Affinities:
 
 ---
 
-Gas
+## Gas
 
 Associated Concepts:
 
@@ -136,7 +136,7 @@ Domain Affinities:
 
 ---
 
-Plasma
+## Plasma
 
 Associated Concepts:
 
@@ -152,7 +152,7 @@ Domain Affinities:
 
 ---
 
-Aether
+## Aether
 
 Associated Concepts:
 
@@ -169,31 +169,32 @@ Domain Affinities:
 
 ---
 
-State Assignment
+# State Assignment
 
 States are determined by the creature's birth Phase.
 
-Phase| State
-Brigide| Solid
-Imbolka| Liquid
-Floralis| Gas
-Lithara| Plasma
-Heliax| Aether
-Aestium| Solid
-Mabonel| Liquid
-Ceresio| Gas
-Yulith| Plasma
-Hibernis| Aether
+| Phase | State |
+| --- | --- |
+| Brigide | Solid |
+| Imbolka | Liquid |
+| Floralis | Gas |
+| Lithara | Plasma |
+| Heliax | Aether |
+| Aestium | Solid |
+| Mabonel | Liquid |
+| Ceresio | Gas |
+| Yulith | Plasma |
+| Hibernis | Aether |
 
 Each State appears twice during every Span.
 
 ---
 
-Modalities
+# Modalities
 
 Modalities describe how a creature responds to change and development.
 
-Catalyst
+## Catalyst
 
 Characteristics:
 
@@ -207,7 +208,7 @@ Lower Personality Resistance
 
 ---
 
-Anchor
+## Anchor
 
 Characteristics:
 
@@ -221,7 +222,7 @@ Higher Personality Resistance
 
 ---
 
-Current
+## Current
 
 Characteristics:
 
@@ -235,27 +236,28 @@ Situational Personality Resistance
 
 ---
 
-Modality Assignment
+## Modality Assignment
 
 Modality is determined by Selene's current phase.
 
-Selene Phase| Modality
-New Moon| Anchor
-Waxing Crescent| Catalyst
-First Quarter| Catalyst
-Waxing Gibbous| Catalyst
-Full Moon| Anchor
-Waning Gibbous| Current
-Last Quarter| Current
-Waning Crescent| Current
+| Selene Phase | Modality |
+| --- | --- |
+| New Moon | Anchor |
+| Waxing Crescent | Catalyst |
+| First Quarter | Catalyst |
+| Waxing Gibbous | Catalyst |
+| Full Moon | Anchor |
+| Waning Gibbous | Current |
+| Last Quarter | Current |
+| Waning Crescent | Current |
 
 ---
 
-Drives
+# Drives
 
 Drives determine which experiences exert the greatest influence on personality development.
 
-Growth
+## Growth
 
 Values:
 
@@ -271,7 +273,7 @@ Memory Affinities:
 
 ---
 
-Conflict
+## Conflict
 
 Values:
 
@@ -287,7 +289,7 @@ Memory Affinities:
 
 ---
 
-Discovery
+## Discovery
 
 Values:
 
@@ -303,7 +305,7 @@ Memory Affinities:
 
 ---
 
-Reflection
+## Reflection
 
 Values:
 
@@ -319,7 +321,7 @@ Memory Affinities:
 
 ---
 
-Renewal
+## Renewal
 
 Values:
 
@@ -335,42 +337,43 @@ Memory Affinities:
 
 ---
 
-Drive Assignment
+# Drive Assignment
 
 Drive is determined by Karael's orbital position at birth.
 
 Karael's 17-Turn orbit is divided into five celestial regions.
 
-Orbital Region| Drive
-Region I| Growth
-Region II| Conflict
-Region III| Discovery
-Region IV| Reflection
-Region V| Renewal
+| Orbital Region | Drive |
+| --- | --- |
+| Region I | Growth |
+| Region II | Conflict |
+| Region III | Discovery |
+| Region IV | Reflection |
+| Region V | Renewal |
 
 Because Karael completes its orbit every 17 Turns, Drive distribution shifts continuously throughout the calendar.
 
 ---
 
-Personality Integration
+# Personality Integration
 
 Aethersigns influence personality through three mechanisms.
 
-Domain Affinity
+## Domain Affinity
 
 State influences which personality domains naturally exert greater influence throughout development.
 
-Personality Resistance
+## Personality Resistance
 
 Modality influences how easily personality changes in response to experiences.
 
-Memory Weighting
+## Memory Weighting
 
 Drive influences which memories produce stronger personality drift.
 
 ---
 
-Development Flow
+# Development Flow
 
 Birth
     ↓
@@ -392,7 +395,7 @@ Life experiences shape the individual.
 
 ---
 
-Implementation / Notes
+# Implementation / Notes
 
 Aethersign Generation
 
@@ -411,7 +414,7 @@ Store these values permanently as part of the creature's identity.
 
 ---
 
-Personality Modifiers
+# Personality Modifiers
 
 Aethersigns should influence:
 
@@ -432,7 +435,7 @@ These outcomes should emerge naturally through simulation.
 
 ---
 
-Future Expansion
+# Future Expansion
 
 Potential future systems:
 
