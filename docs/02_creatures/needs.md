@@ -2,7 +2,7 @@
 
 **Description:** Motivation and behavioral drive system for creatures in Aetherbourne
 
-**Last Updated:** 2026-06-17
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -593,3 +593,19 @@ Story
 ```
 
 Stories emerge from creatures attempting to satisfy their needs within a changing world.
+
+---
+
+## Design Philosophy
+
+Needs should create clear motivational pressure while allowing personality and context to shape final decisions.
+
+## Core Concepts
+
+- Drive vs maintenance needs
+- Shared urgency scale
+- Weight modifiers for species and personality
+
+## Implementation / Notes
+
+* Use normalized urgency values so different needs can compete consistently in decision-making.

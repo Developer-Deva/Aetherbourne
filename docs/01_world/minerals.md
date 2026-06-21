@@ -1,7 +1,7 @@
 # Minerals and Geological Resources System
 
 **Description:** Comprehensive documentation of mineral resources and geological materials in Aetherbourne
-**Last Updated:** 2025-10-04
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -196,6 +196,22 @@ Does the mineral give off a physical warning or clue to the player?
 * Fetid (Sulfuric, rotting smell)
 * Odorless (No sensory footprint)
 * Aromatic (Sweet, metallic, or ozone scent)
+
+---
+
+## Design Philosophy
+
+Principles for mineral variety, procedural geology, and balance across biomes.
+
+## Core Concepts
+
+- Global environmental drivers
+- Mineral properties and rarity
+- Resource generation and exploitation
+
+## Implementation / Notes
+
+* Notes on mineral data encoding, generation logic, and crafting integration.
 
 ---
 

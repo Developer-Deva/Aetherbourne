@@ -1,3 +1,14 @@
+# Stats System
+
+**Description:** Core stats, derived stats, and hidden stats that drive behavior and skill growth for creatures in Aetherbourne
+**Last Updated:** 2026-06-21
+
+---
+
+## Overview
+
+Stats are layers of abstraction that help drive behavior, skill growth, personality development, and emergent outcomes.
+
 These are not traditional RPG stats where they directly modify combat calculations. Instead, they are **layers of abstraction** that help drive behavior, skill growth, personality development, and emergent outcomes.
 
 The hierarchy itself is interesting:
@@ -344,4 +355,20 @@ This aligns with the philosophy:
 > Personality emerges from experience.
 
 The hidden stats become the bridge between raw capabilities and the emergent personalities that develop over a creature's lifetime.
+
+---
+
+## Design Philosophy
+
+Stats should clearly distinguish base attributes, derived competencies, and hidden emergent factors.
+
+## Core Concepts
+
+- Core stats as primary creature attributes
+- Advanced stats as computed values
+- Hidden stats as emergent behavior influencers
+
+## Implementation / Notes
+
+* Keep core stats explicit and derive others on demand for clarity in simulation code.
 

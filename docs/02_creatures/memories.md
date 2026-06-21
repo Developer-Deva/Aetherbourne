@@ -1,5 +1,13 @@
+# Memory System
 
-## Memory Formation
+**Description:** Memory formation, decay, and influence on personality development for Aetherbourne creatures
+**Last Updated:** 2026-06-21
+
+---
+
+## Overview
+
+Memories are the bridge between events and personality development.
 
 Not all events become memories.
 
@@ -58,3 +66,17 @@ Strength = 95
 DecayRate = Very Low
 
 ---
+
+## Design Philosophy
+
+Principles for memory formation, persistence, and behavioral influence.
+
+## Core Concepts
+
+- Event strength and relevance
+- Emotional weighting
+- Memory decay and retention
+
+## Implementation / Notes
+
+* Notes on memory data structures, storage conditions, and retrieval rules.

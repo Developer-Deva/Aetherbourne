@@ -2,7 +2,7 @@
 
 **Description:** Modular event generation, emotional response, memory formation, and emergent storytelling systems for Aetherbourne
 
-**Last Updated:** 2026-06-17
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -714,3 +714,19 @@ Emergent Narrative
 Stories are not authored.
 
 Stories emerge naturally from interconnected events experienced by individuals, groups, communities, and societies over time.
+
+---
+
+## Design Philosophy
+
+Events should capture simulation facts and enable emergent narrative without being treated as authored content.
+
+## Core Concepts
+
+- Standardized event structure and lifecycle
+- Category, scale, visibility, and severity
+- Event-driven emotion and memory generation
+
+## Implementation / Notes
+
+* Use a common event payload format so all systems can emit and process events consistently.

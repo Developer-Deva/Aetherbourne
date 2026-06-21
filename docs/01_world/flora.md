@@ -1,7 +1,7 @@
 # Flora and Botanical Systems
 
 **Description:** Comprehensive documentation of flora, plants, vegetation, and botanical resources in Aetherbourne
-**Last Updated:** 2025-10-04
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -325,6 +325,22 @@ Describes the physical architecture and form of the plant structure.
 * Bulbous (Forms bulbs, corms, or tubers as storage organs)
 * Mat-Forming (Dense carpet of foliage or mossy cover)
 * Spore Cluster (Mushroom caps, puffballs, or fungal tufts)
+
+---
+
+## Design Philosophy
+
+High-level principles for botanical system design, procedural generation, and ecosystem consistency.
+
+## Core Concepts
+
+- Biome-driven plant generation
+- Flora properties and categories
+- Harvest and growth lifecycle
+
+## Implementation / Notes
+
+* Notes on data structure, flora generation rules, and rendering guidance.
 
 ## 34. Harvest Output
 

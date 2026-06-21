@@ -2,7 +2,7 @@
 
 **Description:** Emotional state, emotional processing, and emotional influence systems for Aetherbourne
 
-**Last Updated:** 2026-06-17
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -720,3 +720,19 @@ Memories are persistent.
 Personality is enduring.
 
 This separation allows creatures to be shaped by their experiences while remaining consistent individuals throughout their lives.
+
+---
+
+## Design Philosophy
+
+The emotion system should represent short-term affect, support diverse responses, and feed into memory formation without hardcoding personality.
+
+## Core Concepts
+
+- Emotional axes instead of fixed emotion lists
+- Arousal separate from directional responses
+- Emotional output drives memory salience
+
+## Implementation / Notes
+
+* Use axis values and sensitivity modifiers to calculate emotional impact on events.

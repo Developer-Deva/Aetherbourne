@@ -2,7 +2,7 @@
 
 **Description:** Reusable, modular creature actions that bridge **Needs → Goals → Action → Events → Outcomes**
 
-**Last Updated:** 2026-06-20
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -57,16 +57,35 @@ public enum ActionCategory
     Work,          // labor/farming/building
     Exploration,   // scouting/learning/locating
     Gathering,     // flora/minerals resources
-    Crafting,      // tool/item production (if you add later)
+    Crafting,      // tool/item production
     Combat,        // attack/defend/fight
     Escape,        // flee/evade
     Social,        // talk/share/mentor
     Economic,      // trade/theft/assist exchanges
     Rest,          // sleep/rest/heal-by-time
     Culture,       // rituals/festivals/ceremonies
-    Magic          // spellcasting if/when added
+    Magic          // spellcasting
 }
 ```
+```csharp
+public enum AltActionCategory
+{
+  Movement,        // walk/run/jump/climb/carry/crouch/swim
+  Interaction,     // inspect/pick up/use/speak/trade/fight
+  Social,          // befriend/persuade/lie/intimidate/bond/appease/rally/reproduce/flee/steal/give/observe/conceal 
+  Trade,           // haggle/deliver/manage
+  Combat,          // attack/defend/dodge/equip or swap/feint/counter
+  Tactical,        // wait/prepare/distract/camo/ambush/track/strageize/scout
+  Utility,         // craft/heal/rest/signal
+  Construction,    // build/repair/survey/excavate/fortify/decorate
+  Resource,        // plant/harvest/tame/hunt/fish/mine/gather/trap/preserve
+  Crafting,        // forge/carve/weave/tinker/refine/assemble
+  Consumable,      // cook/bake/brew
+  Daily,           // clean/organize/care/teach
+  Magic,           // mix/cast spell/enchant/divine
+  Culture,         // preform/write/study/paint
+  Cognitive        // desire/remember/decide/plan/forget/learn
+}
 
 ## Goal Link
 Each action declares which needs/goals it can satisfy.
@@ -620,4 +639,20 @@ When writing a new action, confirm:
 - [ ] It emits one or more event(s)
 - [ ] Outcomes are expressible with outcome tags
 - [ ] It can be parameterized via variants
+
+---
+
+## Design Philosophy
+
+The actions system is designed to stay modular, data-driven, and aligned with the event/emotion pipeline.
+
+## Core Concepts
+
+- Action definitions use Purpose, Requirements, and Results
+- Outcomes are expressed with standardized tags
+- Actions emit events rather than directly modifying personality
+
+## Implementation / Notes
+
+* Keep new actions consistent with existing templates and variant patterns.
 

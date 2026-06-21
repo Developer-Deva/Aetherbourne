@@ -1,4 +1,11 @@
-# Aging & Personality Evolution
+# Personality System
+
+**Description:** Personality development, aging, emotional domains, and emergent behavioral systems for Aetherbourne creatures
+**Last Updated:** 2026-06-21
+
+---
+
+## Overview
 
 Personality develops throughout a creature's life as new psychological domains emerge and existing domains mature.
 
@@ -48,7 +55,10 @@ Perspective
 Morals
     (Independent)
 ```
-# Personality Domains
+
+---
+
+## Personality Domains
 
 Personality develops throughout a creature's life.
 
@@ -361,3 +371,19 @@ Memory eventually decays.
 Trusting → Guarded shift remains.
 
 This allows experiences to permanently shape creatures.
+
+---
+
+## Design Philosophy
+
+Personality should emerge slowly from experience, memories, and internal traits rather than being changed instantly by single events.
+
+## Core Concepts
+
+- Developmental personality domains
+- Personality drift driven by memory and emotion
+- Hidden stats as behavioral amplifiers
+
+## Implementation / Notes
+
+* Keep personality axis data consistent and ensure memory influence values are recorded in event outcomes.

@@ -1,7 +1,7 @@
 # World and Biome Systems
 
 **Description:** Core environmental driver systems and biome taxonomy for Aetherbourne
-**Last Updated:** 2026-06-15
+**Last Updated:** 2026-06-21
 
 ---
 
@@ -136,6 +136,22 @@ Water features influence:
 * Resource abundance
 * Disease spread
 * Seasonal ecosystem shifts
+
+---
+
+## Design Philosophy
+
+High-level goals for world generation, environmental consistency, and system interoperability.
+
+## Core Concepts
+
+- Planetary context vectors
+- Climate overlays and hazards
+- Biome-driven simulation
+
+## Implementation / Notes
+
+* Notes on context struct usage, biome selection, and event hooks.
 
 ---
 
