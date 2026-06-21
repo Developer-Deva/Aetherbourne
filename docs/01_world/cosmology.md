@@ -1,6 +1,8 @@
 # Cosmology & Aethersigns
+
 **Description:** Celestial influences, Aethersigns, and personality predispositions for creatures in Aetherbourne
 **Last Updated:** 2026-06-21
+
 ---
 
 ## Overview
@@ -14,8 +16,6 @@ Aethersigns do not determine behavior directly. Instead, they create development
 *   **Influence, Not Destiny:** Astrology should guide development without forcing a specific behavioral outcome.
 *   **Emergent Diversity:** Two creatures with the same Aethersign will still develop differently based on their unique lived experiences.
 *   **Systemic Integration:** Celestial influences interact naturally with personality drift and resistance formulas.
-
----
 
 ## The Three Pillars of the Aethersign
 An Aethersign consists of three components: **State**, **Modality**, and **Drive**.
@@ -51,9 +51,12 @@ Determined by **Karael's Orbital Region**. It determines which categories of exp
 | Region IV | **Reflection** | Beauty, Spirituality, Loss |
 | Region V | **Renewal** | Migration, Healing, New Beginnings |
 
----
-
 ## Implementation Notes
 *   **Generation:** At birth, the simulation captures the Phase, Selene phase, and Karael position to lock the Aethersign.
 *   **Integration:** These values are passed to the `PersonalitySystem` to initialize the creature's `PersonalityResistance` and `MemoryWeight` multipliers.
 *   **Persistence:** The Aethersign is a permanent part of the creature's identity and does not change, even if the creature moves to a different region or world.
+---
+
+## Implementation / Notes
+
+* Technical implementation details are pending further development.

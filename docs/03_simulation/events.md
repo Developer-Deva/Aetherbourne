@@ -1,12 +1,11 @@
 # Event System
 
 **Description:** Modular event generation, emotional response, memory formation, and emergent storytelling systems for Aetherbourne
-
 **Last Updated:** 2026-06-21
 
 ---
 
-# Overview
+## Overview
 
 The Event System serves as the primary bridge between simulation activity and emergent storytelling.
 
@@ -32,9 +31,7 @@ Future Events
 
 This creates a feedback loop where creatures are shaped by their experiences throughout their lives.
 
----
-
-# Event Philosophy
+## Event Philosophy
 
 Events are not handcrafted narrative content.
 
@@ -54,9 +51,7 @@ Events are simulation facts.
 
 Narratives emerge later from collections of related events.
 
----
-
-# Event Structure
+## Event Structure
 
 ```csharp
 public struct EventData
@@ -85,9 +80,7 @@ public struct EventData
 }
 ```
 
----
-
-# Event Formula
+## Event Formula
 
 ```text
 Cause + Conditions = Action
@@ -97,9 +90,7 @@ Actor + Action + Target = Event
 Event + Severity + Scale = Outcomes
 ```
 
----
-
-# Event Lifecycle
+## Event Lifecycle
 
 Every event follows a common lifecycle.
 
@@ -125,9 +116,7 @@ Historical Recording
 
 This ensures every system interacts with events consistently.
 
----
-
-# Event Generation
+## Event Generation
 
 Events are not created manually.
 
@@ -157,9 +146,7 @@ Successful Hunt Event
 
 An action may fail to generate an event if conditions are not satisfied.
 
----
-
-# Event Categories
+## Event Categories
 
 Events are grouped into broad simulation domains.
 
@@ -176,8 +163,6 @@ Examples:
 * Volcanic Eruptions
 * Cave-ins
 
----
-
 ## Biological
 
 Life-cycle and ecological events.
@@ -190,8 +175,6 @@ Examples:
 * Migration
 * Disease
 * Mutation
-
----
 
 ## Social
 
@@ -206,8 +189,6 @@ Examples:
 * Betrayal
 * Reconciliation
 
----
-
 ## Conflict
 
 Competitive interactions.
@@ -220,8 +201,6 @@ Examples:
 * Raids
 * Wars
 
----
-
 ## Discovery
 
 Knowledge and exploration events.
@@ -231,8 +210,6 @@ Examples:
 * Resource Discovery
 * New Territory Found
 * Ancient Ruin Discovered
-
----
 
 ## Economic
 
@@ -245,8 +222,6 @@ Examples:
 * Resource Shortage
 * Resource Surplus
 
----
-
 ## Cultural
 
 Shared group events.
@@ -257,8 +232,6 @@ Examples:
 * Festivals
 * Ceremonies
 * Religious Gatherings
-
----
 
 ## Personal
 
@@ -271,9 +244,7 @@ Examples:
 * First Hunt
 * Leadership Appointment
 
----
-
-# Event Scale
+## Event Scale
 
 Scale determines event reach.
 
@@ -301,9 +272,7 @@ Affects a biome or large territory.
 
 Affects the entire world.
 
----
-
-# Event Visibility
+## Event Visibility
 
 Not every creature is aware of every event.
 
@@ -332,9 +301,7 @@ Examples:
 
 Visibility determines which creatures may perceive an event.
 
----
-
-# Event Severity
+## Event Severity
 
 Severity measures immediate event impact.
 
@@ -359,9 +326,7 @@ Severity influences:
 * Memory longevity
 * Story significance
 
----
-
-# Historical Significance
+## Historical Significance
 
 Significance measures long-term narrative importance.
 
@@ -387,9 +352,7 @@ Severity measures immediate impact.
 
 Significance measures lasting influence on individuals, communities, societies, and history.
 
----
-
-# Event Importance
+## Event Importance
 
 Overall importance may be estimated through:
 
@@ -408,9 +371,7 @@ High-importance events are more likely to:
 * Shape communities
 * Appear in generated stories
 
----
-
-# Actors
+## Actors
 
 Actors initiate events.
 
@@ -427,9 +388,7 @@ Examples:
 
 Multiple actors may participate in a single event.
 
----
-
-# Witnesses
+## Witnesses
 
 Witnesses perceive events but are not necessarily participants.
 
@@ -441,9 +400,7 @@ Witnesses may:
 
 Witness perception influences emotional responses and memory formation.
 
----
-
-# Event Interpretation
+## Event Interpretation
 
 Events are objective.
 
@@ -478,9 +435,7 @@ Observer:
 Admiration
 ```
 
----
-
-# Actions
+## Actions
 
 Actions describe what occurred.
 
@@ -499,9 +454,7 @@ Examples:
 
 Actions are reusable and independent of category.
 
----
-
-# Targets
+## Targets
 
 Targets receive event effects.
 
@@ -515,9 +468,7 @@ Examples:
 
 Events may affect multiple targets.
 
----
-
-# Causes
+## Causes
 
 Causes explain why an action occurred.
 
@@ -534,9 +485,7 @@ Examples:
 
 Causes represent motivation.
 
----
-
-# Conditions
+## Conditions
 
 Conditions determine whether an event can occur.
 
@@ -553,9 +502,7 @@ Conditions represent possibility.
 
 A cause may exist without an event occurring if conditions are not satisfied.
 
----
-
-# Outcomes
+## Outcomes
 
 Outcomes represent immediate state changes.
 
@@ -573,9 +520,7 @@ Examples:
 
 Events may generate multiple outcomes.
 
----
-
-# Event Chains
+## Event Chains
 
 Events may generate additional events.
 
@@ -603,9 +548,7 @@ War
 
 Event chains are one of the primary sources of emergent narratives.
 
----
-
-# Event Persistence
+## Event Persistence
 
 Events are permanent historical facts.
 
@@ -619,9 +562,7 @@ Memories = Subjective Experience
 
 This distinction allows history to exist independently from individual recollection.
 
----
-
-# Event Tags
+## Event Tags
 
 Events may contain modular tags.
 
@@ -651,9 +592,7 @@ All Family Events
 All Leadership Events
 ```
 
----
-
-# Event Consequences
+## Event Consequences
 
 Events create both immediate and long-term consequences.
 
@@ -685,9 +624,7 @@ Behavioral Change
 
 Events never directly modify personality.
 
----
-
-# Event → Story Pipeline
+## Event → Story Pipeline
 
 ```text
 Simulation Layer
@@ -726,6 +663,8 @@ Events should capture simulation facts and enable emergent narrative without bei
 - Standardized event structure and lifecycle
 - Category, scale, visibility, and severity
 - Event-driven emotion and memory generation
+
+---
 
 ## Implementation / Notes
 

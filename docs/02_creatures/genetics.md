@@ -9,8 +9,6 @@
 
 The genetics system defines how traits are inherited, how mutations arise, and how biodiversity emerges through reproduction.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ Principles for heredity, mutation rates, and trait expression.
 - Genotype vs phenotype
 - Inheritance models
 - Mutation and recombination
+
+---
 
 ## Implementation / Notes
 

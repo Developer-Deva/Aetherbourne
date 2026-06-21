@@ -9,8 +9,6 @@
 
 The tools system defines all tools used for harvesting resources, crafting items, and performing specialized tasks.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ Principles around tool balance, progression, and multi-use mechanics.
 - Tool tiers and durability
 - Efficiency and speed modifiers
 - Tool-specific abilities and restrictions
+
+---
 
 ## Implementation / Notes
 

@@ -9,8 +9,6 @@
 
 This system manages all mineral deposits, ores, gems, and geological materials that form the foundation of crafting, construction, and magical systems in the game world. Minerals integrate with the global macro drivers (Latitude, Altitude, Humidity, DepthLayer, Magical Anomalies, Contamination) to procedurally generate contextual resources tailored to geological conditions across all 15 biomes. Custom 2D rendering properties enable hex-color palette matching, sprite animation, particle effects, and Y-layer sorting for pixel-perfect 32x32 tile rendering.
 
----
-
 ## Macro Global Drivers (Planetary Context)
 
 Mineral generation uses the same environmental parameter vectors as flora:
@@ -20,8 +18,6 @@ Mineral generation uses the same environmental parameter vectors as flora:
 - **Humidity** (0.0 = Arid → 1.0 = Saturated): Influences mineral purity and oxidation state
 - **Depth Layer** (0 = Surface, 1 = Subterranean, 2 = Mantle): Dictates geological origin (Sedimentary → Magmatic → Mantle)
 - **System Flags** (Boolean): `IsMagicalAnomaly` spawns Glowstone/Gems; `IsContaminated` spawns Toxic/Irradiated variants
-
----
 
 ## Mineral Properties and Categories
 
@@ -209,11 +205,11 @@ Principles for mineral variety, procedural geology, and balance across biomes.
 - Mineral properties and rarity
 - Resource generation and exploitation
 
+---
+
 ## Implementation / Notes
 
 * Notes on mineral data encoding, generation logic, and crafting integration.
-
----
 
 ## Custom 2D Engine Rendering Properties
 
@@ -249,8 +245,6 @@ Integer value determining draw order (higher renders on top):
 - Mid-elevation crystals: Layer 2
 - Tall crystal formations: Layer 3-4
 - Floating anomalies: Layer 5+
-
----
 
 ## Data Dictionary
 This table maps out specific gameplay stat bonuses for the extreme and unique points across all 23 categories.
@@ -295,7 +289,7 @@ This table maps out specific gameplay stat bonuses for the extreme and unique po
 | 22. Cleavage & Fracture | Dictates salvage yield (Perfect breaks into 4 flawless items, Hackly yields scraps). |
 | 23. Sensory Feedback | Alerts player to invisible hazards (Fetid = Poison trap nearby, Aromatic = Magic source nearby). |
 
-------------------------------
+---------------------------
 ## Procedural Generation System
 
 The procedural naming generator accepts rolled data across all 23 categories, determines which properties are the most extreme anomalies, converts them into grammatically correct word forms, and formats them into a clean naming blueprint:
@@ -681,10 +675,10 @@ public class Location
 
 ```python
 def calculate_mineral_value(mineral, quality, quantity, market_conditions):
-    # Base value per unit
+## Base value per unit
     base_value = mineral.base_market_value
 
-    # Quality multiplier
+## Quality multiplier
     quality_multipliers = {
         'poor': 0.5,
         'fair': 0.8,
@@ -694,13 +688,13 @@ def calculate_mineral_value(mineral, quality, quantity, market_conditions):
     }
     quality_value = base_value * quality_multipliers[quality]
 
-    # Quantity discount (bulk sales are slightly less per unit)
+## Quantity discount (bulk sales are slightly less per unit)
     quantity_discount = min(1.0, 0.95 ** (quantity / 10))
 
-    # Market conditions
+## Market conditions
     supply_demand_modifier = calculate_supply_demand(mineral, market_conditions)
 
-    # Rarity bonus
+## Rarity bonus
     rarity_bonus = 1.0 + (mineral.rarity_score * 0.1)
 
     total_value = (quality_value * quantity * quantity_discount *

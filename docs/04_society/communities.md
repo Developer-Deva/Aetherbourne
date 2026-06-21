@@ -9,8 +9,6 @@
 
 The communities system defines how creatures form settlements, organize societies, and establish governance structures.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ Core goals and constraints for community generation and governance.
 - Settlement templates
 - Governance and roles
 - Resource distribution
+
+---
 
 ## Implementation / Notes
 

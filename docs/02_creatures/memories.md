@@ -28,8 +28,6 @@ Low-strength memories may never be stored.
 
 High-strength memories may persist for years or an entire lifetime.
 
----
-
 ## Memory Decay
 
 Memories decay over time.
@@ -76,6 +74,8 @@ Principles for memory formation, persistence, and behavioral influence.
 - Event strength and relevance
 - Emotional weighting
 - Memory decay and retention
+
+---
 
 ## Implementation / Notes
 

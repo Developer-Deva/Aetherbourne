@@ -9,8 +9,6 @@
 
 The relationships system defines how creatures form social bonds, maintain relationships, and establish hierarchies within groups.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ High-level goals around social modeling and relationship persistence.
 - Relationship metrics
 - Bond formation and decay
 - Social hierarchies and roles
+
+---
 
 ## Implementation / Notes
 

@@ -9,8 +9,6 @@
 
 This system manages all plant species, vegetation, herbs, crops, and botanical materials that form the foundation of alchemy, medicine, sustenance, and magical systems in the game world. Flora integrates with the global macro drivers (Latitude, Altitude, Humidity, DepthLayer, Magical Anomalies, Contamination) to procedurally generate contextual plants tailored to environmental conditions across 15 distinct biomes. Custom 2D rendering properties enable pixel-perfect sprite composition using a modular morphology matrix.
 
----
-
 ## Macro Global Drivers (Planetary Context)
 
 All flora generation references these normalized (0.0 to 1.0) environmental parameters:
@@ -21,8 +19,6 @@ All flora generation references these normalized (0.0 to 1.0) environmental para
 - **Distance From Water** (0.0 = Shoreline → 1.0 = Landlocked): Drives aquatic vs. xerophytic traits
 - **Depth Layer** (0 = Surface, 1 = Subterranean, 2 = Mantle): Determines light level and biome type
 - **System Flags** (Boolean): `IsMagicalAnomaly`, `IsContaminated` trigger special mutations
-
----
 
 ## Flora Properties and Categories
 
@@ -338,6 +334,8 @@ High-level principles for botanical system design, procedural generation, and ec
 - Flora properties and categories
 - Harvest and growth lifecycle
 
+---
+
 ## Implementation / Notes
 
 * Notes on data structure, flora generation rules, and rendering guidance.
@@ -373,8 +371,6 @@ Dictates the primary functional purpose and utility category of the plant.
 * Ritual (Used for ceremonies, offerings, and magical rites)
 * Environmental (Used to shape ecosystems, terrain, or weather)
 * Utility (Used for traps, tools, dyes, preservatives, or household goods)
-
----
 
 ## Data Dictionary
 
@@ -503,8 +499,6 @@ This table maps out specific gameplay stat bonuses for the extreme and unique po
 | 35. Ritual | Boosts ritual potency / Used in ceremonies, wards, and offerings |
 | 35. Environmental | Supports ecosystem effects / Affects terrain, weather, or biomes |
 | 35. Utility | Useful for tools, dyes, traps, and everyday crafting |
-
----
 
 ## Procedural Generation System
 
@@ -850,8 +844,6 @@ var result = FloraNameGenerator.GenerateProceduralName("Luminagaric", new()
 // Output: Eternal Venerated Arcane Luminagaric of Reagents
 ```
 
----
-
 ## Botanical Classification and Harvesting
 
 ### Plant Family Types
@@ -1014,8 +1006,6 @@ public class EnvironmentalConditions
 }
 ```
 
----
-
 ## Processing and Refinement
 
 ### Herbalism and Preparation
@@ -1041,8 +1031,6 @@ public class EnvironmentalConditions
 - **Transplanting**: Moving seedlings to permanent growing locations
 - **Companion Planting**: Growing compatible plants together for enhanced yields
 - **Pest Management**: Protecting plants from disease and harmful creatures
-
----
 
 ## Economic Flora Systems
 
@@ -1155,8 +1143,6 @@ public class MarketConditions
 - **Cross-Breeding**: Combining traits from different flora to create hybrids
 - **Magical Cultivation**: Using arcane methods to enhance growth and properties
 
----
-
 ## Advanced Flora Features
 
 ### Magical Flora Properties
@@ -1191,8 +1177,6 @@ public class MarketConditions
 - **Cursed Plants**: Plants corrupted by dark magic with special effects
 - **Blessed Flora**: Plants infused with divine or protective magic
 
----
-
 ## Performance Optimization
 
 ### Flora Management
@@ -1210,8 +1194,6 @@ public class MarketConditions
 - **Lazy Evaluation**: Only calculate stats when flora is directly interacted with
 - **Garden Snapshots**: Store garden states to reduce recalculation
 - **Yield Prediction**: Precalculate harvest values to avoid runtime computation
-
----
 
 ## Missing Information Checklist
 
@@ -1240,5 +1222,3 @@ The following information has been verified as complete in this system:
 - Cooperative garden management
 - Flora-centered NPCs and herbalist storylines
 - Cross-game seasonal event flora appearances
-
----

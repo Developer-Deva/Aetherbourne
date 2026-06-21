@@ -11,8 +11,6 @@ The behavior system describes how creatures make decisions, execute plans, and i
 
 Creature behavior emerges from the interaction of needs, goals, memories, personality traits, and environmental factors.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -28,6 +26,8 @@ High-level goals and motivations behind the behavior design.
 - Decision pipelines
 - Goal arbitration
 - Action selection and execution
+
+---
 
 ## Implementation / Notes
 

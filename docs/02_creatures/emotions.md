@@ -1,12 +1,11 @@
 # Emotion System
 
 **Description:** Emotional state, emotional processing, and emotional influence systems for Aetherbourne
-
 **Last Updated:** 2026-06-21
 
 ---
 
-# Overview
+## Overview
 
 Emotions are the bridge between events and memories.
 
@@ -44,7 +43,7 @@ Those emotional responses determine whether an experience is remembered, forgott
 
 ---
 
-# Design Philosophy
+## Design Philosophy
 
 Emotions are not personality.
 
@@ -63,9 +62,7 @@ Two creatures may experience the same event but produce different emotional resp
 
 This allows creatures to experience the world differently despite sharing similar circumstances.
 
----
-
-# Emotional Model
+## Emotional Model
 
 Aetherbourne uses a modified version of Plutchik's emotional model.
 
@@ -75,9 +72,7 @@ Complex emotions emerge from combinations of these axes.
 
 This keeps the system compact, expressive, and computationally efficient.
 
----
-
-# Primary Emotional Axes
+## Primary Emotional Axes
 
 The emotion system contains three global bipolar axes.
 
@@ -90,8 +85,6 @@ Each axis ranges from:
 Negative values represent one emotional extreme.
 
 Positive values represent the opposing emotional extreme.
-
----
 
 ## Valence
 
@@ -118,8 +111,6 @@ Influences:
 * Motivation
 * Memory formation
 
----
-
 ## Threat Response
 
 ```text
@@ -144,8 +135,6 @@ Influences:
 * Aggression
 * Risk tolerance
 * Conflict decisions
-
----
 
 ## Expectation
 
@@ -172,9 +161,7 @@ Influences:
 * Learning
 * Decision making
 
----
-
-# Arousal
+## Arousal
 
 Arousal is stored separately from emotional axes.
 
@@ -226,9 +213,7 @@ Produces:
 Ecstatic Joy
 ```
 
----
-
-# Relationship Trust
+## Relationship Trust
 
 Trust is not a global emotion.
 
@@ -270,9 +255,7 @@ Trust influences:
 
 Because trust is relationship-specific, it is stored within the relationship system rather than the emotion system.
 
----
-
-# Emotional State
+## Emotional State
 
 Each creature stores:
 
@@ -289,9 +272,7 @@ struct EmotionalState
 
 These values continuously change over time.
 
----
-
-# Emotional Baselines
+## Emotional Baselines
 
 Creatures possess inherited emotional tendencies.
 
@@ -314,8 +295,6 @@ struct EmotionalTraits
 
 Baselines represent the emotional state a creature gradually returns toward.
 
----
-
 ## Optimistic Creature
 
 ```text
@@ -323,8 +302,6 @@ ValenceBaseline = +20
 ```
 
 Naturally trends toward positive emotions.
-
----
 
 ## Pessimistic Creature
 
@@ -334,8 +311,6 @@ ValenceBaseline = -20
 
 Naturally trends toward negative emotions.
 
----
-
 ## Timid Creature
 
 ```text
@@ -343,8 +318,6 @@ ThreatBaseline = -25
 ```
 
 More likely to respond with fear.
-
----
 
 ## Aggressive Creature
 
@@ -354,9 +327,7 @@ ThreatBaseline = +25
 
 More likely to respond with anger.
 
----
-
-# Emotional Sensitivity
+## Emotional Sensitivity
 
 Creatures also inherit emotional responsiveness.
 
@@ -377,8 +348,6 @@ struct EmotionalTraits
 
 Sensitivity determines how strongly events affect emotions.
 
----
-
 ## Low Sensitivity
 
 ```text
@@ -386,8 +355,6 @@ Insult Event
 
 Valence Change = -10
 ```
-
----
 
 ## High Sensitivity
 
@@ -397,9 +364,7 @@ Insult Event
 Valence Change = -40
 ```
 
----
-
-# Emotional Decay
+## Emotional Decay
 
 Emotions naturally fade over time.
 
@@ -427,15 +392,11 @@ Over time:
 
 Decay rates vary between individuals.
 
----
-
-# Complex Emotions
+## Complex Emotions
 
 Complex emotions are never stored directly.
 
 They are derived from combinations of emotional axes.
-
----
 
 ## Love
 
@@ -458,8 +419,6 @@ Produces:
 Love
 ```
 
----
-
 ## Hope
 
 ```text
@@ -480,8 +439,6 @@ Produces:
 ```text
 Hope
 ```
-
----
 
 ## Anxiety
 
@@ -504,8 +461,6 @@ Produces:
 Anxiety
 ```
 
----
-
 ## Awe
 
 ```text
@@ -526,8 +481,6 @@ Produces:
 ```text
 Awe
 ```
-
----
 
 ## Curiosity
 
@@ -550,13 +503,9 @@ Produces:
 Curiosity
 ```
 
----
-
 Complex emotions emerge naturally from combinations rather than requiring separate storage.
 
----
-
-# Event Response
+## Event Response
 
 Events generate emotional changes.
 
@@ -580,8 +529,6 @@ Result:
 Fear
 ```
 
----
-
 Example:
 
 ```text
@@ -601,8 +548,6 @@ Result:
 ```text
 Joy
 ```
-
----
 
 Example:
 
@@ -626,9 +571,7 @@ Surprise
 Excitement
 ```
 
----
-
-# Emotional Influence on Memory
+## Emotional Influence on Memory
 
 Emotion determines memory strength.
 
@@ -661,9 +604,7 @@ High Emotion
 Powerful Memory
 ```
 
----
-
-# Emotional Influence on Personality
+## Emotional Influence on Personality
 
 Emotions do not directly change personality.
 
@@ -695,9 +636,7 @@ Increased Confidence
 Personality Drift
 ```
 
----
-
-# Emotion → Memory → Personality Pipeline
+## Emotion → Memory → Personality Pipeline
 
 ```text
 Event
@@ -732,6 +671,8 @@ The emotion system should represent short-term affect, support diverse responses
 - Emotional axes instead of fixed emotion lists
 - Arousal separate from directional responses
 - Emotional output drives memory salience
+
+---
 
 ## Implementation / Notes
 

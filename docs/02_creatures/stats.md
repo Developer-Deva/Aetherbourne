@@ -36,8 +36,6 @@ Hidden Stats (Second-order Derived)
 └─ Momentum
 ```
 
----
-
 ## Core Stats
 
 These should be the only stats that actually exist on the creature.
@@ -104,9 +102,7 @@ Affects:
 * Emotional stability
 * Long-term planning
 
----
-
-# Advanced Stats
+## Advanced Stats
 
 Don't store them.
 
@@ -122,8 +118,6 @@ Vitality  = (Stamina + Willpower) / 2
 
 These become useful because they represent broad competencies.
 
----
-
 ## Endurance
 
 How long a creature can physically perform.
@@ -135,8 +129,6 @@ Used by:
 * Combat duration
 * Labor
 
----
-
 ## Prowess
 
 Physical effectiveness.
@@ -146,8 +138,6 @@ Used by:
 * Fighting
 * Athletics
 * Physical skill learning
-
----
 
 ## Finesse
 
@@ -160,8 +150,6 @@ Used by:
 * Tracking
 * Tool mastery
 
----
-
 ## Conviction
 
 Mental clarity and awareness.
@@ -173,8 +161,6 @@ Used by:
 * Social influence
 * Maintaining goals
 
----
-
 ## Vitality
 
 Overall resilience.
@@ -185,17 +171,13 @@ Used by:
 * Disease resistance
 * Survival
 
----
-
-# Hidden Stats
+## Hidden Stats
 
 These are where things become really interesting.
 
 These shouldn't be visible to players.
 
 Instead they should influence emergent behavior.
-
----
 
 ## Focus
 
@@ -217,8 +199,6 @@ Creatures with high Focus:
 * Learn faster
 * Switch tasks less often
 
----
-
 ## Insight
 
 ```cpp
@@ -238,8 +218,6 @@ High Insight creatures:
 * Make smarter choices
 * Predict danger better
 * Select better actions
-
----
 
 ## Creativity
 
@@ -261,8 +239,6 @@ High Creativity creatures:
 * Explore more
 * Develop unique strategies
 
----
-
 ## Fortitude
 
 ```cpp
@@ -282,8 +258,6 @@ High Fortitude creatures:
 * Don't quit easily
 * Survive disasters
 * Continue goals despite setbacks
-
----
 
 ## Momentum
 
@@ -305,9 +279,7 @@ High Momentum creatures:
 * Explore aggressively
 * Accomplish more during their lifetime
 
----
-
-# The interesting part
+## The interesting part
 
 **Personality emerges partly from these hidden stats.**
 
@@ -368,7 +340,8 @@ Stats should clearly distinguish base attributes, derived competencies, and hidd
 - Advanced stats as computed values
 - Hidden stats as emergent behavior influencers
 
+---
+
 ## Implementation / Notes
 
 * Keep core stats explicit and derive others on demand for clarity in simulation code.
-
