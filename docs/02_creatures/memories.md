@@ -1,82 +1,40 @@
 # Memory System
-
-**Description:** Memory formation, decay, and influence on personality development for Aetherbourne creatures
+**Description:** Memory formation, decay, and influence on personality for Aetherbourne
 **Last Updated:** 2026-06-21
-
 ---
 
 ## Overview
+Memories are the stored records of significant emotional experiences. They are the primary driver of **Personality Drift**.
 
-Memories are the bridge between events and personality development.
+---
 
-Not all events become memories.
+## Memory Formation
+A memory is formed when the **Emotional Intensity** of an event exceeds the creature's storage threshold.
+```text
+MemoryStrength = EmotionalIntensity × DriveWeight
+```
+*   **DriveWeight:** If the event category matches the creature's **Aethersign Drive**, the memory is 25% stronger.
 
-Memory creation depends on:
-
-* Event Severity
-* Personal Relevance
-* Emotional Response
-
-Formula:
-
-MemoryStrength =
-Severity
-× PersonalRelevance
-× EmotionalResponse
-
-Low-strength memories may never be stored.
-
-High-strength memories may persist for years or an entire lifetime.
+---
 
 ## Memory Decay
-
-Memories decay over time.
-
-```csharp
-public struct Memory
-{
-    public EventData SourceEvent;
-
-    public float Strength;
-
-    public float EmotionalWeight;
-
-    public float DecayRate;
-}
+All memories decay over time, but at different rates.
+```text
+CurrentStrength = InitialStrength × e^(-DecayRate × Time)
 ```
+*   **Minor Events:** High DecayRate (fades in days).
+*   **Traumatic/Significant Events:** Low DecayRate (may last a lifetime).
 
-Minor events fade quickly.
+---
 
-Major life events decay slowly.
-
-Examples:
-
-Shared Food
-
-Strength = 10
-
-DecayRate = High
-
-Lost Parent
-
-Strength = 95
-
-DecayRate = Very Low
+## Influence on Personality
+Memories do not change personality directly; they provide "drift" values that accumulate.
+```text
+DriftContribution = CurrentStrength × AxisModifier
+```
 
 ---
 
 ## Design Philosophy
-
-Principles for memory formation, persistence, and behavioral influence.
-
-## Core Concepts
-
-- Event strength and relevance
-- Emotional weighting
-- Memory decay and retention
-
----
-
-## Implementation / Notes
-
-* Notes on memory data structures, storage conditions, and retrieval rules.
+*   **Selective Retention:** The brain (simulation) only keeps what matters.
+*   **Dynamic History:** As memories decay, their influence on future decisions weakens, but their effect on the *past* personality drift is permanent.
