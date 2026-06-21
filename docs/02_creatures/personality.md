@@ -4,7 +4,34 @@
 ---
 
 ## Overview
-Personality in Aetherbourne is not a static set of stats but a layered, developmental architecture. It represents a creature's long-term behavioral tendencies that emerge from genetics and are refined by experience.
+Personality in Aetherbourne is a layered, developmental architecture. It represents a creature's long-term behavioral tendencies that emerge from a combination of celestial predispositions (**Aethersigns**), genetic inheritance, and lived experience.
+
+---
+
+## The Aethersign Layer (Predispositions)
+Every creature is born under an **Aethersign**, a celestial imprint that provides "discreet influence" on their psychological development. An Aethersign consists of three components: **State**, **Modality**, and **Drive**.
+
+### 1. State (Foundational Nature)
+Determined by the birth Phase (e.g., Solid, Liquid, Gas). State defines **Domain Affinity**, providing a -10% reduction in Personality Resistance for traits within specific domains.
+*   **Solid:** Affined to *Temperament, Purpose, Legacy*.
+*   **Liquid:** Affined to *Socialization, Interaction, Morals*.
+*   **Gas:** Affined to *Cognition, Perspective*.
+*   **Plasma:** Affined to *Identity, Purpose*.
+*   **Aether:** Affined to *Emotional, Morals, Perspective*.
+
+### 2. Modality (Developmental Pace)
+Determined by Selene's phase. Modality directly modifies the **Personality Resistance** (PR) stat.
+*   **Catalyst:** -20% PR (Learns and changes quickly).
+*   **Anchor:** +20% PR (Resistant to change; high consistency).
+*   **Current:** PR fluctuates ±15% based on current environmental stability.
+
+### 3. Drive (Memory Weighting)
+Determined by Karael's orbital position. Drive determines which types of memories exert the strongest influence on **Personality Drift**.
+*   **Growth:** +25% weight to Family and Mentorship memories.
+*   **Conflict:** +25% weight to Rivalry and Failure memories.
+*   **Discovery:** +25% weight to Exploration and Research memories.
+*   **Reflection:** +25% weight to Loss and Beauty memories.
+*   **Renewal:** +25% weight to Healing and Migration memories.
 
 ---
 
@@ -20,16 +47,6 @@ As creatures age, new psychological domains "unlock" and mature. While a domain 
 | **Young Adult** | Purpose, Morals |
 | **Adult** | Perspective |
 | **Elder** | Legacy |
-
-### Domain Evolution Tree
-The architecture follows a branching path where early traits form the foundation for complex adult behaviors.
-```text
-Temperament (Innate) → Emotional (Regulated)
-Socialization (Bonding) → Interaction (Influence)
-Cognition (Understanding) → Purpose (Direction) → Legacy (Impact)
-Identity (Self) → Perspective (Worldview)
-Morals (Values) — Independent but influenced by Socialization
-```
 
 ---
 
@@ -129,31 +146,31 @@ Tendency to share "Skills" or "Knowledge" with younger creatures.
 ---
 
 ## Personality Drift & Resistance
-Personality never changes instantly. It "drifts" based on the accumulation of memories.
+Personality "drifts" based on the accumulation of memories, filtered through the creature's Aethersign and current age.
 
-### Personality Resistance
-**Personality Resistance** is the "inertia" of a creature's character. It represents how difficult it is to change an existing trait.
+### Personality Resistance (PR)
+**Personality Resistance** represents the "inertia" of a creature's character.
 *   **Base Resistance:** Starts at 10.0 for Infants.
-*   **Age Scaling:** Resistance increases by +5.0 per Age Stage.
-*   **Domain Depth:** Traits in earlier domains (Temperament) have +10.0 additional resistance compared to later domains (Legacy).
+*   **Age Scaling:** PR increases by +5.0 per Age Stage.
+*   **Modality Modifier:** Applied to the total PR (e.g., Anchor = ×1.2).
+*   **Domain Affinity:** If a trait belongs to a domain affined to the creature's **State**, PR for that trait is ×0.9.
 
 ### Personality Drift Formula
 ```text
-PersonalityChange = (MemoryStrength × EmotionalWeight × AxisModifier) / (PersonalityResistance × FrequencyFactor)
+PersonalityChange = (MemoryStrength × EmotionalWeight × AxisModifier × DriveWeight) / PR
 ```
 *   **MemoryStrength:** Derived from the Event (0-100).
 *   **EmotionalWeight:** How strongly the creature felt during the event.
-*   **AxisModifier:** The specific "direction" of the memory (e.g., a Betrayal has a -5.0 modifier on Trust Baseline).
-*   **FrequencyFactor:** A multiplier that increases if the same type of event happens repeatedly in a short time.
+*   **AxisModifier:** The specific "direction" of the memory.
+*   **DriveWeight:** If the memory category matches the creature's **Drive**, this is 1.25; otherwise, it is 1.0.
 
 ---
 
 ## Design Philosophy
-*   **Slow Emergence:** Personality is a trailing indicator of a life lived, not a leading cause of every action.
-*   **Layered Complexity:** Adult behavior is the result of infant temperament being filtered through years of socialization and cognition.
-*   **Stability with Age:** The older a creature gets, the more "set in its ways" it becomes (via increasing Resistance).
+*   **Celestial Foundation:** Aethersigns provide the "flavor" and "speed" of development without forcing a specific outcome.
+*   **Slow Emergence:** Personality is a trailing indicator of a life lived, filtered through a celestial lens.
+*   **Stability with Age:** The older a creature gets, the more "set in its ways" it becomes (via increasing PR).
 
 ## Implementation / Notes
-*   **Storage:** Store personality as a `float[-100, 100]` for each axis.
-*   **Inheritance:** Infants inherit a randomized ±10% of their parents' Temperament and Socialization axes.
-*   **Drift Processing:** Run personality drift calculations during the "Sleep" or "Long Rest" state to simulate psychological consolidation.
+*   **Storage:** Store Aethersign (State, Modality, Drive) permanently in the creature's data block.
+*   **Processing:** Run personality drift calculations during the "Sleep" or "Long Rest" state.
