@@ -1,389 +1,159 @@
 # Personality System
-
 **Description:** Personality development, aging, emotional domains, and emergent behavioral systems for Aetherbourne creatures
 **Last Updated:** 2026-06-21
-
 ---
 
 ## Overview
+Personality in Aetherbourne is not a static set of stats but a layered, developmental architecture. It represents a creature's long-term behavioral tendencies that emerge from genetics and are refined by experience.
 
-Personality develops throughout a creature's life as new psychological domains emerge and existing domains mature.
-
-Each personality domain contains two axes ranging from **-100 to 100**. These axes are gradually shaped by genetics, experiences, memories, relationships, and life events.
-
-Domains do not disappear when a creature ages. Instead, they become foundational personality layers that influence the development of later domains. For example, a creature's Temperament evolves into Emotional traits during childhood, while the original Temperament domain remains as part of the creature's underlying personality foundation.
-
-This system allows personality to develop organically across a lifetime while preserving the influence of earlier experiences and developmental stages.
+---
 
 ## Personality Development by Age
+As creatures age, new psychological domains "unlock" and mature. While a domain becomes active at a certain age, it remains active for the rest of the creature's life.
 
-| Age         | New Domain    | Evolution                   | Active Domains                                       | Mature Domains                                           |
-| ----------- | ------------- | --------------------------- | ---------------------------------------------------- | -------------------------------------------------------- |
-| Infant      | Temperament   | N/A                         | Temperament                                          | N/A                                                      |
-| Toddler     | Socialization | N/A                         | Temperament, Socialization                           | N/A                                                      |
-| Child       | Cognition     | Temperament → Emotional     | Emotional, Socialization, Cognition                  | Temperament                                              |
-| Teenager    | Identity      | Socialization → Interaction | Emotional, Interaction, Cognition, Identity          | Temperament, Socialization                               |
-| Young Adult | Morals        | Cognition → Purpose         | Emotional, Interaction, Purpose, Identity, Morals    | Temperament, Socialization, Cognition                    |
-| Adult       | N/A           | Identity → Perspective      | Emotional, Interaction, Purpose, Perspective, Morals | Temperament, Socialization, Cognition, Identity          |
-| Elder       | N/A           | Purpose → Legacy            | Emotional, Interaction, Legacy, Perspective, Morals  | Temperament, Socialization, Cognition, Identity, Purpose |
+| Age Stage | Active Domains |
+| :--- | :--- |
+| **Infant** | Temperament |
+| **Toddler** | Socialization |
+| **Child** | Cognition, Emotional |
+| **Teenager** | Identity, Interaction |
+| **Young Adult** | Purpose, Morals |
+| **Adult** | Perspective |
+| **Elder** | Legacy |
 
 ### Domain Evolution Tree
-
-```
-Temperament
-    ↓
-Emotional
-```
-```
-Socialization
-    ↓
-Interaction
-```
-```
-Cognition
-    ↓
-Purpose
-    ↓
-Legacy
-```
-```
-Identity
-    ↓
-Perspective
-```
-```
-Morals
-    (Independent)
+The architecture follows a branching path where early traits form the foundation for complex adult behaviors.
+```text
+Temperament (Innate) → Emotional (Regulated)
+Socialization (Bonding) → Interaction (Influence)
+Cognition (Understanding) → Purpose (Direction) → Legacy (Impact)
+Identity (Self) → Perspective (Worldview)
+Morals (Values) — Independent but influenced by Socialization
 ```
 
 ---
 
 ## Personality Domains
-
-Personality develops throughout a creature's life.
-
-Each domain contains two axes ranging from **-100 to 100**.
-
-Earlier domains do not disappear as creatures age. Instead, they become foundational personality layers that influence later domains.
-
----
-
-## Temperament (Infant)
-
-Represents innate emotional tendencies.
-
-#### Emotional Reactivity
-
-```text
-Calm (-100) ↔ Reactive (+100)
-```
-
-How strongly emotions are triggered.
-
-#### Security
-
-```text
-Content (-100) ↔ Anxious (+100)
-```
-
-Baseline sense of safety and comfort.
-
----
-
-## Socialization (Toddler)
-
-Represents early social learning.
-
-#### Dependence
-
-```text
-Dependent (-100) ↔ Independent (+100)
-```
-
-Reliance on others versus self-reliance.
-
-#### Cooperation
-
-```text
-Reserved (-100) ↔ Cooperative (+100)
-```
-
-Willingness to engage and work with others.
-
----
-
-## Cognition (Child)
-
-Represents how a creature understands the world.
-
-#### Curiosity
-
-```text
-Cautious (-100) ↔ Curious (+100)
-```
-
-Desire to explore and discover.
-
-#### Thinking Style
-
-```text
-Practical (-100) ↔ Imaginative (+100)
-```
-
-Preference for concrete versus abstract thinking.
-
----
-
-## Identity (Teenager)
-
-Represents self-discovery and self-image.
-
-#### Individuality
-
-```text
-Conforming (-100) ↔ Independent (+100)
-```
-
-Need for self-expression and uniqueness.
-
-#### Self-Worth
-
-```text
-Humble (-100) ↔ Proud (+100)
-```
-
-Perception of personal value and importance.
-
----
-
-## Emotional (Child+)
-
-Evolved from Temperament.
-
-Represents emotional regulation and outlook.
-
-#### Regulation
-
-```text
-Impulsive (-100) ↔ Composed (+100)
-```
-
-Ability to regulate emotional responses.
-
-#### Outlook
-
-```text
-Pessimistic (-100) ↔ Optimistic (+100)
-```
-
-Expectation of future outcomes.
-
----
-
-## Interaction (Teenager+)
-
-Evolved from Socialization.
-
-Represents social behavior and influence.
-
-#### Sociability
-
-```text
-Introverted (-100) ↔ Extroverted (+100)
-```
-
-Preference for social engagement.
-
-#### Social Presence
-
-```text
-Passive (-100) ↔ Assertive (+100)
-```
-
-Willingness to influence others.
-
----
-
-## Purpose (Young Adult+)
-
-Evolved from Cognition.
-
-Represents motivation and direction.
-
+Each domain contains two unique axes ranging from **-100 to 100**.
+
+### 1. Temperament (Infant)
+*Innate biological responses to stimuli.*
+#### Sensitivity
+`Dull (-100) ↔ Acute (+100)`
+Threshold for noticing and reacting to environmental changes or needs.
+#### Baseline Mood
+`Somber (-100) ↔ Cheerful (+100)`
+The default emotional state when no external events are occurring.
+
+### 2. Socialization (Toddler)
+*Early attachment and group-entry behaviors.*
+#### Attachment Style
+`Avoidant (-100) ↔ Secure (+100)`
+How the creature reacts to the presence or absence of caregivers/peers.
+#### Trust Baseline
+`Skeptical (-100) ↔ Trusting (+100)`
+The default assumption when meeting a new creature.
+
+### 3. Cognition (Child)
+*How the creature processes information and exploration.*
+#### Inquiry
+`Passive (-100) ↔ Inquisitive (+100)`
+The drive to explore unknown tiles or interact with new objects.
+#### Mental Focus
+`Fluid (-100) ↔ Concentrated (+100)`
+Ability to stick to a single task versus being easily distracted by new stimuli.
+
+### 4. Identity (Teenager)
+*Formation of the "Self" in relation to the group.*
+#### Conformity
+`Rebellious (-100) ↔ Compliant (+100)`
+Tendency to follow group norms versus seeking unique expression.
+#### Ego
+`Modest (-100) ↔ Vain (+100)`
+How much the creature's own needs and status weigh in decision making.
+
+### 5. Emotional (Child+)
+*Developed from Temperament; represents emotional regulation.*
+#### Impulse Control
+`Volatile (-100) ↔ Restrained (+100)`
+The ability to delay an action driven by a high-urgency emotion.
+#### Resilience
+`Fragile (-100) ↔ Robust (+100)`
+How quickly emotional intensity decays back to the Baseline Mood.
+
+### 6. Interaction (Teenager+)
+*Developed from Socialization; represents social strategy.*
+#### Social Energy
+`Solitary (-100) ↔ Gregarious (+100)`
+Whether the creature gains or loses "Energy" need when near others.
+#### Influence Strategy
+`Submissive (-100) ↔ Dominant (+100)`
+Preference for following orders versus attempting to lead or assert control.
+
+### 7. Purpose (Young Adult+)
+*Developed from Cognition; represents long-term motivation.*
 #### Ambition
+`Content (-100) ↔ Driven (+100)`
+The weight given to "Purpose" and "Fulfillment" needs over biological needs.
+#### Grit
+`Fickle (-100) ↔ Tenacious (+100)`
+Likelihood of abandoning a long-term goal after a "Failure" event.
 
-```text
-Content (-100) ↔ Ambitious (+100)
-```
+### 8. Morals (Young Adult+)
+*Internalized ethical framework.*
+#### Empathy
+`Callous (-100) ↔ Empathetic (+100)`
+How much a witness's "Emotion" mirrors the "Target's" emotion in an event.
+#### Integrity
+`Opportunistic (-100) ↔ Principled (+100)`
+Willingness to violate "Trust" or "Social Norms" to satisfy an urgent need.
 
-Desire for achievement and advancement.
+### 9. Perspective (Adult+)
+*Developed from Identity; represents worldview.*
+#### Adaptability
+`Rigid (-100) ↔ Flexible (+100)`
+Openness to changing a "Goal" when the "World" state changes.
+#### Horizon
+`Parochial (-100) ↔ Universal (+100)`
+Focus on immediate family/settlement versus the broader species/world.
 
-#### Persistence
-
-```text
-Flexible (-100) ↔ Determined (+100)
-```
-
-Commitment to long-term goals.
-
----
-
-## Morals (Young Adult+)
-
-Represents ethical beliefs and values.
-
-#### Compassion
-
-```text
-Cruel (-100) ↔ Compassionate (+100)
-```
-
-Concern for the wellbeing of others.
-
-#### Ethics
-
-```text
-Pragmatic (-100) ↔ Principled (+100)
-```
-
-Outcome-focused versus value-focused decision making.
+### 10. Legacy (Elder)
+*Developed from Purpose; concern for lasting impact.*
+#### Preservation
+`Transient (-100) ↔ Ancestral (+100)`
+Drive to consume resources now versus leaving them for future generations.
+#### Mentorship
+`Self-Centered (-100) ↔ Altruistic (+100)`
+Tendency to share "Skills" or "Knowledge" with younger creatures.
 
 ---
 
-## Perspective (Adult+)
+## Personality Drift & Resistance
+Personality never changes instantly. It "drifts" based on the accumulation of memories.
 
-Evolved from Identity.
+### Personality Resistance
+**Personality Resistance** is the "inertia" of a creature's character. It represents how difficult it is to change an existing trait.
+*   **Base Resistance:** Starts at 10.0 for Infants.
+*   **Age Scaling:** Resistance increases by +5.0 per Age Stage.
+*   **Domain Depth:** Traits in earlier domains (Temperament) have +10.0 additional resistance compared to later domains (Legacy).
 
-Represents worldview and accumulated wisdom.
-
-#### Tradition
-
+### Personality Drift Formula
 ```text
-Traditional (-100) ↔ Progressive (+100)
+PersonalityChange = (MemoryStrength × EmotionalWeight × AxisModifier) / (PersonalityResistance × FrequencyFactor)
 ```
-
-Openness to change and new ideas.
-
-#### Scope
-
-```text
-Local (-100) ↔ Global (+100)
-```
-
-Focus on immediate surroundings versus broader systems.
-
----
-
-## Legacy (Elder)
-
-Evolved from Purpose.
-
-Represents concern for lasting impact.
-
-#### Endurance
-
-```text
-Momentary (-100) ↔ Enduring (+100)
-```
-
-Preference for immediate outcomes versus lasting impact.
-
-#### Generativity
-
-```text
-Individualistic (-100) ↔ Generative (+100)
-```
-
-Focus on personal benefit versus creating value that outlives oneself.
-
-```
-
-A creature high in Enduring and Generative traits is more likely to mentor others, preserve knowledge, establish traditions, and invest in future generations.
-```
----
-## Personality Development
-
-Events never directly modify personality.
-
-Instead:
-
-Event
-→ Memory
-→ Personality Drift
-
-This allows creatures to gradually evolve through lived experiences.
-
----
-
-## Personality Drift
-
-Each memory contains personality influence values.
-
-Example:
-
-Betrayal Memory
-
-Trusting = -5
-
-Hopeful = -3
-
-Empathetic = -2
-
-Mentorship Memory
-
-Trusting = +3
-
-Cooperative = +4
-
-Merciful = +2
-
-These influences accumulate over time.
-
----
-
-## Personality Drift Formula
-
-PersonalityChange =
-(
-MemoryStrength
-× EmotionalWeight
-× AxisModifier
-)
-/
-PersonalityResistance
-
-Repeated experiences create larger changes than isolated incidents.
-
----
-
-## Personality Persistence
-
-Memories may fade.
-
-Personality changes may remain.
-
-Example:
-
-Repeated Childhood Betrayal
-
-Memory eventually decays.
-
-Trusting → Guarded shift remains.
-
-This allows experiences to permanently shape creatures.
+*   **MemoryStrength:** Derived from the Event (0-100).
+*   **EmotionalWeight:** How strongly the creature felt during the event.
+*   **AxisModifier:** The specific "direction" of the memory (e.g., a Betrayal has a -5.0 modifier on Trust Baseline).
+*   **FrequencyFactor:** A multiplier that increases if the same type of event happens repeatedly in a short time.
 
 ---
 
 ## Design Philosophy
-
-Personality should emerge slowly from experience, memories, and internal traits rather than being changed instantly by single events.
-
-## Core Concepts
-
-- Developmental personality domains
-- Personality drift driven by memory and emotion
-- Hidden stats as behavioral amplifiers
+*   **Slow Emergence:** Personality is a trailing indicator of a life lived, not a leading cause of every action.
+*   **Layered Complexity:** Adult behavior is the result of infant temperament being filtered through years of socialization and cognition.
+*   **Stability with Age:** The older a creature gets, the more "set in its ways" it becomes (via increasing Resistance).
 
 ## Implementation / Notes
-
-* Keep personality axis data consistent and ensure memory influence values are recorded in event outcomes.
+*   **Storage:** Store personality as a `float[-100, 100]` for each axis.
+*   **Inheritance:** Infants inherit a randomized ±10% of their parents' Temperament and Socialization axes.
+*   **Drift Processing:** Run personality drift calculations during the "Sleep" or "Long Rest" state to simulate psychological consolidation.
