@@ -9,8 +9,6 @@
 
 The equipment system defines all armor, protective gear, and wearable items that creatures can equip to improve their capabilities.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ Design goals for equipment tradeoffs, durability, and progression.
 - Armor classes and coverage
 - Durability and repair
 - Stat modifiers and sockets
+
+---
 
 ## Implementation / Notes
 

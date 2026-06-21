@@ -9,8 +9,6 @@
 
 The creatures system defines the fundamental types, species, and biological properties that characterize all living beings in Aetherbourne.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ Intent and guiding principles for creature categories, lifecycles, and taxonomy.
 - Species definition
 - Life stages and reproduction
 - Interaction hooks (AI, spawn rules)
+
+---
 
 ## Implementation / Notes
 

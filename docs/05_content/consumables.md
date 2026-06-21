@@ -9,8 +9,6 @@
 
 The consumables system defines all food, potions, elixirs, and other consumable items that creatures can use to satisfy needs, heal, or gain temporary effects.
 
----
-
 ## Content Coming Soon
 
 This documentation is currently in development. Please check back for updates.
@@ -26,6 +24,8 @@ Goals for balance, stacking behavior, and effect resolution.
 - Effect categories (healing, buff, debuff)
 - Nutrition and spoilage
 - Crafting and recipes
+
+---
 
 ## Implementation / Notes
 

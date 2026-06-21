@@ -1,12 +1,12 @@
 # Personality System
+
 **Description:** Personality development, aging, emotional domains, and emergent behavioral systems for Aetherbourne creatures
 **Last Updated:** 2026-06-21
+
 ---
 
 ## Overview
 Personality in Aetherbourne is a layered, developmental architecture. It represents a creature's long-term behavioral tendencies that emerge from a combination of celestial predispositions (**Aethersigns**), genetic inheritance, and lived experience.
-
----
 
 ## The Aethersign Layer (Predispositions)
 Every creature is born under an **Aethersign**, a celestial imprint that provides "discreet influence" on their psychological development. An Aethersign consists of three components: **State**, **Modality**, and **Drive**.
@@ -33,8 +33,6 @@ Determined by Karael's orbital position. Drive determines which types of memorie
 *   **Reflection:** +25% weight to Loss and Beauty memories.
 *   **Renewal:** +25% weight to Healing and Migration memories.
 
----
-
 ## Personality Development by Age
 As creatures age, new psychological domains "unlock" and mature. While a domain becomes active at a certain age, it remains active for the rest of the creature's life.
 
@@ -47,8 +45,6 @@ As creatures age, new psychological domains "unlock" and mature. While a domain 
 | **Young Adult** | Purpose, Morals |
 | **Adult** | Perspective |
 | **Elder** | Legacy |
-
----
 
 ## Personality Domains
 Each domain contains two unique axes ranging from **-100 to 100**.
@@ -143,8 +139,6 @@ Drive to consume resources now versus leaving them for future generations.
 `Self-Centered (-100) ↔ Altruistic (+100)`
 Tendency to share "Skills" or "Knowledge" with younger creatures.
 
----
-
 ## Personality Drift & Resistance
 Personality "drifts" based on the accumulation of memories, filtered through the creature's Aethersign and current age.
 
@@ -170,6 +164,8 @@ PersonalityChange = (MemoryStrength × EmotionalWeight × AxisModifier × DriveW
 *   **Celestial Foundation:** Aethersigns provide the "flavor" and "speed" of development without forcing a specific outcome.
 *   **Slow Emergence:** Personality is a trailing indicator of a life lived, filtered through a celestial lens.
 *   **Stability with Age:** The older a creature gets, the more "set in its ways" it becomes (via increasing PR).
+
+---
 
 ## Implementation / Notes
 *   **Storage:** Store Aethersign (State, Modality, Drive) permanently in the creature's data block.

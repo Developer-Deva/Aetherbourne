@@ -1,12 +1,11 @@
 # Time System
 
-**Description**: Temporal mechanics, calendar systems, and time progression for Aetherbourne simulation
-
-**Last Updated**: 2026-06-21
+**Description:** Document summary placeholder
+**Last Updated:** 2026-06-21
 
 ---
 
-# Overview
+## Overview
 
 The Time System defines how time progresses throughout the simulation.
 
@@ -16,7 +15,7 @@ These cycles influence creature behavior, agriculture, ecology, scheduling syste
 
 ---
 
-# Design Philosophy
+## Design Philosophy
 
 Time should provide a predictable simulation framework while still feeling natural and alive.
 
@@ -31,9 +30,7 @@ The calendar and celestial systems are designed to:
 
 The simulation should remain deterministic when provided the same seed and inputs.
 
----
-
-# Core Concepts
+## Core Concepts
 
 - Tick rate and simulation step
 - Day and night progression
@@ -43,9 +40,7 @@ The simulation should remain deterministic when provided the same seed and input
 - Event scheduling
 - Astrological timing
 
----
-
-# Time Units
+## Time Units
 
 In Aetherbourne, one simulation tick is equivalent to one minute.
 
@@ -58,9 +53,7 @@ In Aetherbourne, one simulation tick is equivalent to one minute.
 | Month | Phase |
 | Year | Span |
 
----
-
-# Calendar Structure
+## Calendar Structure
 
 - 60 Moments per Bell
 - 24 Bells per Turn
@@ -70,8 +63,6 @@ In Aetherbourne, one simulation tick is equivalent to one minute.
 - 360 Turns per Span
 
 The calendar year contains ten Phases whose lengths vary slightly to create a more natural rhythm.
-
----
 
 ## Times of Day
 
@@ -90,8 +81,6 @@ These periods are used culturally and socially throughout the world.
 
 Most creatures think in Bells and named periods rather than precise numerical time.
 
----
-
 ## Phases
 
 The ten annual Phases in order are:
@@ -109,9 +98,7 @@ The ten annual Phases in order are:
 | Yulith | Voidgleam |
 | Hibernis | Voidgleam |
 
----
-
-# Seasons
+## Seasons
 
 The world experiences four primary seasons.
 
@@ -125,8 +112,6 @@ Snow retreats, rains return, and new growth begins.
 
 Associated with beginnings, fertility, and opportunity.
 
----
-
 ## Sunreach
 
 **Phases**: Lithara, Heliax, Aestium
@@ -137,8 +122,6 @@ Long days, warm weather, and rapid growth.
 
 Associated with prosperity, energy, and achievement.
 
----
-
 ## Amberwane
 
 **Phases**: Mabonel, Ceresio
@@ -148,8 +131,6 @@ The season of harvest.
 Growth slows and resources are gathered for the colder months.
 
 Associated with preparation, gratitude, and reflection.
-
----
 
 ## Voidgleam
 
@@ -163,9 +144,7 @@ Associated with mystery, dreams, memory, and the unseen.
 
 The Span begins during Brigide.
 
----
-
-# Celestial Bodies
+## Celestial Bodies
 
 ## Selene
 
@@ -187,8 +166,6 @@ Characteristics
 Orbital Cycle
 
 29 Turns
-
----
 
 ## Karael
 
@@ -215,8 +192,6 @@ Its shorter orbit causes constantly shifting alignments with Selene.
 
 These alignments form the foundation of Aetherbourne astrology.
 
----
-
 ## Moon Phases
 
 Both moons pass through eight visible phases.
@@ -234,8 +209,6 @@ Because Selene and Karael move at different speeds, their relative positions are
 
 Rare alignments may occur only once every several Spans.
 
----
-
 ### Rare Celestial Events
 
 #### Convergence
@@ -244,15 +217,11 @@ Both moons are Full.
 
 Associated with destiny, leadership, and major societal change.
 
----
-
 #### Veilnight
 
 Both moons are New.
 
 Associated with mystery, prophecy, dreams, and spiritual significance.
-
----
 
 #### Split Alignment
 
@@ -260,9 +229,7 @@ One moon is Full while the other is New.
 
 Associated with contradiction, innovation, upheaval, and transformation.
 
----
-
-# Date Format
+## Date Format
 
 Dates are commonly written as:
 
@@ -276,7 +243,7 @@ Informally, most creatures simply refer to the current Phase and Turn.
 
 ---
 
-# Implementation / Notes
+## Implementation / Notes
 
 ## Simulation Time
 

@@ -1,12 +1,11 @@
 # Needs System
 
 **Description:** Motivation and behavioral drive system for creatures in Aetherbourne
-
 **Last Updated:** 2026-06-21
 
 ---
 
-# Overview
+## Overview
 
 Needs are the primary source of creature motivation.
 
@@ -40,7 +39,7 @@ Personality determines how creatures respond to that motivation.
 
 ---
 
-# Design Philosophy
+## Design Philosophy
 
 Needs represent conditions that creatures actively attempt to satisfy or maintain.
 
@@ -59,9 +58,7 @@ Needs are not personality traits.
 
 They are motivational forces that drive behavior.
 
----
-
-# Need Categories
+## Need Categories
 
 Needs are divided into two behavioral groups.
 
@@ -85,8 +82,6 @@ Examples:
 * Curiosity
 * Mating
 
----
-
 ## Maintenance Needs
 
 Maintenance Needs decrease over time.
@@ -107,9 +102,7 @@ Examples:
 * Purpose
 * Fulfillment
 
----
-
-# Universal Need Scale
+## Universal Need Scale
 
 All needs produce a normalized urgency value.
 
@@ -130,9 +123,7 @@ Examples:
 
 This allows all needs to compete within a shared decision-making framework.
 
----
-
-# Need States
+## Need States
 
 All needs use the same urgency thresholds.
 
@@ -145,9 +136,7 @@ All needs use the same urgency thresholds.
 
 Creatures become increasingly likely to prioritize needs as urgency rises.
 
----
-
-# Need Weight
+## Need Weight
 
 Need importance varies between creatures.
 
@@ -177,9 +166,7 @@ Belonging Weight = 0.7
 
 Weights modify how strongly a creature responds to a need.
 
----
-
-# Need Arbitration
+## Need Arbitration
 
 Needs are not democratic.
 
@@ -235,13 +222,9 @@ Creature may continue exploring.
 
 This creates believable survival behavior while still allowing individual personality differences.
 
----
-
-# Biological Needs
+## Biological Needs
 
 These needs originate from physical survival and reproduction.
-
----
 
 ## Health
 
@@ -266,8 +249,6 @@ Reduced by:
 
 Low Health may override nearly all other needs.
 
----
-
 ## Hunger
 
 **Type:** Drive
@@ -284,8 +265,6 @@ Consequences of neglect:
 * Reduced recovery
 * Health loss
 * Death
-
----
 
 ## Thirst
 
@@ -304,8 +283,6 @@ Consequences of neglect:
 * Death
 
 Thirst generally rises faster than Hunger.
-
----
 
 ## Energy
 
@@ -327,8 +304,6 @@ Reduced by:
 
 Low Energy reduces overall effectiveness.
 
----
-
 ## Bladder
 
 **Type:** Drive
@@ -346,8 +321,6 @@ Consequences of neglect:
 * Behavioral disruption
 
 Severity depends on species.
-
----
 
 ## Mating
 
@@ -367,13 +340,9 @@ Influences:
 
 Relationships and family systems are handled separately.
 
----
-
-# Psychological Needs
+## Psychological Needs
 
 These needs originate from cognition, social behavior, and long-term wellbeing.
-
----
 
 ## Belonging
 
@@ -397,8 +366,6 @@ Reduced by:
 
 Low Belonging may contribute to loneliness and reduced Fulfillment.
 
----
-
 ## Curiosity
 
 **Type:** Drive
@@ -414,8 +381,6 @@ Satisfied by:
 * Acquiring knowledge
 
 High Curiosity drives exploration and experimentation.
-
----
 
 ## Purpose
 
@@ -441,8 +406,6 @@ Purpose answers:
 ```text
 "What am I working toward?"
 ```
-
----
 
 ## Fulfillment
 
@@ -488,9 +451,7 @@ High Fulfillment
 
 depending on circumstances.
 
----
-
-# Need Interactions
+## Need Interactions
 
 Needs influence one another.
 
@@ -528,9 +489,7 @@ Purpose increases
 
 These interactions create long-term behavioral feedback loops.
 
----
-
-# Species Variation
+## Species Variation
 
 All creatures possess the same needs.
 
@@ -566,9 +525,7 @@ Curiosity Weight = High
 
 This allows diverse behaviors while maintaining a unified simulation framework.
 
----
-
-# Need → Story Pipeline
+## Need → Story Pipeline
 
 Needs are the foundation of emergent behavior.
 
@@ -605,6 +562,8 @@ Needs should create clear motivational pressure while allowing personality and c
 - Drive vs maintenance needs
 - Shared urgency scale
 - Weight modifiers for species and personality
+
+---
 
 ## Implementation / Notes
 

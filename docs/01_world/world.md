@@ -5,7 +5,11 @@
 
 ---
 
-# Planetary Context (Macro Global Drivers)
+## Overview
+
+Content placeholder.
+
+## Planetary Context (Macro Global Drivers)
 
 All procedural generation for flora, fauna, minerals, environmental hazards, hydrology, weather systems, and ecosystem simulation derives from normalized context vectors applied to each 32x32 simulation tile.
 
@@ -33,9 +37,7 @@ public struct PlanetaryContext
 }
 ```
 
----
-
-# Climate Overlays
+## Climate Overlays
 
 Climate is generated independently from terrain biomes and may apply to any compatible biome.
 
@@ -68,9 +70,7 @@ Climate overlays affect:
 * Fauna adaptation
 * Water freezing behavior
 
----
-
-# Hazard Layers
+## Hazard Layers
 
 Hazards are generated independently from biome assignment.
 
@@ -97,9 +97,7 @@ Examples:
 
 This dramatically increases environmental variety without requiring additional biome definitions.
 
----
-
-# Water Features
+## Water Features
 
 Hydrology is generated independently of biome assignment.
 
@@ -149,13 +147,13 @@ High-level goals for world generation, environmental consistency, and system int
 - Climate overlays and hazards
 - Biome-driven simulation
 
+---
+
 ## Implementation / Notes
 
 * Notes on context struct usage, biome selection, and event hooks.
 
----
-
-# The 15 Base Biomes
+## The 15 Base Biomes
 
 A deterministic cascade evaluates the PlanetaryContext to assign a single BaseBiome enum.
 
@@ -168,8 +166,6 @@ This biome then drives:
 * Fauna spawning
 * Ambient effects
 * Resource tables
-
----
 
 ## Surface World Biomes (DepthLayer 0)
 
@@ -195,8 +191,6 @@ Dense multi-tile tree canopies, herbaceous undergrowth, nutrient-rich soil.
 * Rivers
 * Ponds
 
----
-
 ### 2. Highland
 
 High altitude, low temperature, low humidity.
@@ -214,8 +208,6 @@ Thin-air rocky mountain passes with sparse vegetation.
 * Springs
 * Streams
 * Waterfalls
-
----
 
 ### 3. Grassland
 
@@ -240,8 +232,6 @@ Stable temperate plains dominated by grasses and herbaceous crops.
 * Lakes
 * Ponds
 
----
-
 ### 4. Desert
 
 Arid environment with intense sunlight and high temperatures.
@@ -265,8 +255,6 @@ Sandy tilemaps and sparse xerophytic plants.
 * Oasis (rare)
 * Seasonal streams
 
----
-
 ### 5. Wetland
 
 Saturated moisture, low altitude, stagnant water bodies.
@@ -289,8 +277,6 @@ Sludgy mire tiles and moisture-loving vegetation.
 * Bogs
 * Shallow ponds
 
----
-
 ### 6. Rockland
 
 High altitude, low moisture, exposed bedrock.
@@ -306,8 +292,6 @@ Mountainous stone terrain with minimal vegetation.
 * Springs
 * Waterfalls
 
----
-
 ### 7. Shrubland
 
 Transitional humidity and sparse brush.
@@ -317,8 +301,6 @@ Acts as a transitional biome between forest and grassland.
 **Tile Movement Speed:** 0.9 (minor vegetation)
 
 **Ambient Light:** Radiant (partial canopy)
-
----
 
 ### 8. Coastal
 
@@ -336,8 +318,6 @@ Sandy beach autotiles and salt-tolerant vegetation.
 * Estuaries
 * Coastal wetlands
 
----
-
 ### 9. Freshwater
 
 Inland lakes and rivers.
@@ -353,8 +333,6 @@ Aquatic plant life and drinkable water sources.
 * Lakes
 * Rivers
 * Ponds
-
----
 
 ### 10. Ocean
 
@@ -373,13 +351,9 @@ Bioluminescent organisms, deep trenches, and thermal vents.
 * Deep trenches
 * Thermal vent fields
 
----
-
-# Emergent Surface Biomes
+## Emergent Surface Biomes
 
 Emergent biomes occur when specific environmental thresholds are met.
-
----
 
 ### 11. Tundra
 
@@ -404,8 +378,6 @@ Frozen permafrost, crystalline rock formations, and minimal life.
 * Frozen lakes
 * Seasonal meltwater streams
 
----
-
 ### 12. Volcanic Crag
 
 Low latitude Rockland with extreme tectonic instability.
@@ -424,11 +396,7 @@ Active lava flows, black obsidian fields, and heat distortion.
 
 **Ambient Light:** Dim (heat distortion)
 
----
-
-# Subterranean Biomes
-
----
+## Subterranean Biomes
 
 ### 13. Shallow Caverns
 
@@ -449,8 +417,6 @@ Fungal growth, crystal formations, underground streams, and bioluminescent organ
 * Underground rivers
 * Underground lakes
 
----
-
 ### 14. Abyssal Chasms
 
 Massive deep cave vaults.
@@ -467,8 +433,6 @@ Pitch-black environments containing toxic gases, ancient fossils, and biological
 
 * Deep underground rivers
 * Toxic underground pools
-
----
 
 ### 15. Geothermal Mantle
 
@@ -489,11 +453,7 @@ Extreme pressure and heat create hostile environments where only extremophile or
 * Magma lakes
 * Geothermal vents
 
----
-
-# Biome Physics Modifiers
-
----
+## Biome Physics Modifiers
 
 ## Atmospheric Pressure
 
@@ -518,8 +478,6 @@ Deep Water and Underground Regions
 * +30% Stun Resistance
 * Increased Gear Degradation
 
----
-
 ## Ambient Light Levels
 
 ### Pitch-Black
@@ -536,8 +494,6 @@ Deep Water and Underground Regions
 
 * Visibility Radius: 15 Tiles
 * Bright daylight
-
----
 
 ## Acoustic Profiles
 
@@ -557,8 +513,6 @@ Deep Water and Underground Regions
 * +20% Sonic Damage
 * Increased communication range
 
----
-
 ## Tectonic Activity
 
 ### Stable
@@ -577,15 +531,11 @@ Deep Water and Underground Regions
 * Explosive geysers
 * Rapid environmental changes
 
----
-
-# Hazard Layer Effects
+## Hazard Layer Effects
 
 ## Pristine
 
 No additional environmental hazards.
-
----
 
 ## Miasmic
 
@@ -594,8 +544,6 @@ Poisonous gas clouds and decomposition zones.
 * 2 Poison Damage/Second
 * Reduced Visibility
 
----
-
 ## Irradiated
 
 Radioactive contamination.
@@ -603,16 +551,12 @@ Radioactive contamination.
 * 1 Radiation Damage/Second
 * Increased mutation rates
 
----
-
 ## Cursed
 
 Arcane corruption.
 
 * 1 Curse Damage/Second
 * Temporary magical suppression
-
----
 
 ## Volatile
 
@@ -622,9 +566,7 @@ Extreme geological instability.
 * Fire damage
 * Explosive geothermal activity
 
----
-
-# Fertility System
+## Fertility System
 
 Fertility determines biological productivity.
 
@@ -646,9 +588,7 @@ Fertility determines biological productivity.
 * Increased agricultural output
 * High settlement desirability
 
----
-
-# Drainage System
+## Drainage System
 
 Drainage determines how rapidly water exits an area.
 
@@ -671,25 +611,17 @@ Drainage determines how rapidly water exits an area.
 * Arid environments
 * Desert formation
 
----
-
-# Hydrology Generation
+## Hydrology Generation
 
 Water is generated before biome assignment and acts as a primary ecosystem driver.
-
----
 
 ## Springs
 
 Generated at high elevations where underground water reaches the surface.
 
----
-
 ## Streams
 
 Generated from springs and runoff.
-
----
 
 ## Rivers
 
@@ -697,19 +629,13 @@ Generated when multiple streams converge.
 
 Rivers act as major biodiversity corridors.
 
----
-
 ## Lakes
 
 Generated in natural depressions with sufficient water accumulation.
 
----
-
 ## Ponds
 
 Small isolated water bodies.
-
----
 
 ## Marshes and Bogs
 
@@ -719,15 +645,11 @@ Generated from:
 * Low Drainage
 * Shallow Water
 
----
-
 ## Oases
 
 Generated when groundwater surfaces within desert regions.
 
 Oases become ecological hotspots.
-
----
 
 ## Underground Water Systems
 
@@ -738,13 +660,9 @@ Includes:
 * Underground Rivers
 * Underground Lakes
 
----
-
-# Seasonal Hydrology
+## Seasonal Hydrology
 
 Water systems fluctuate dynamically throughout the year.
-
----
 
 ## Spring
 
@@ -752,20 +670,14 @@ Water systems fluctuate dynamically throughout the year.
 * Wetlands expand
 * Plant growth accelerates
 
----
-
 ## Summer
 
 * Water levels decrease
 * Drought risk increases
 
----
-
 ## Autumn
 
 * Stable water distribution
-
----
 
 ## Winter
 
@@ -773,9 +685,7 @@ Water systems fluctuate dynamically throughout the year.
 * Snow accumulation increases
 * River flow slows
 
----
-
-# Ecological Influence Chain
+## Ecological Influence Chain
 
 Environmental systems influence one another naturally.
 
@@ -795,9 +705,7 @@ Civilization Development
 
 This creates emergent ecological and societal behavior without relying on scripted events.
 
----
-
-# Biome Distribution Parameters
+## Biome Distribution Parameters
 
 | Parameter           | Range     | Effect                              |
 | ------------------- | --------- | ----------------------------------- |
@@ -814,7 +722,7 @@ This creates emergent ecological and societal behavior without relying on script
 
 ---
 
-# Design Philosophy
+## Design Philosophy
 
 Biomes exist primarily as human-readable environmental labels.
 

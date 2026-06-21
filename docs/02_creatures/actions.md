@@ -1,12 +1,11 @@
 # Actions System
 
 **Description:** Reusable, modular creature actions that bridge **Needs → Goals → Action → Events → Outcomes**
-
 **Last Updated:** 2026-06-21
 
 ---
 
-# Overview
+## Overview
 
 Actions are the executable layer of the creature simulation.
 
@@ -34,18 +33,14 @@ Memory
 Personality drift
 ```
 
----
-
-# Design Goals
+## Design Goals
 
 1. **Simple and clear**: an action template should be readable in seconds.
 2. **Versatile**: one action can support variants (tool/target/difficulty) without rewriting everything.
 3. **Consistent with events**: actions emit standardized event categories + scales.
 4. **Data-driven**: the same action definition should drive AI planning and simulation execution.
 
----
-
-# Core Concepts
+## Core Concepts
 
 ## ActionCategory
 Group actions into domains so the planner can reason globally.
@@ -95,9 +90,7 @@ Actions should not “decide urgency” (that’s the needs arbitration). Instea
 - **Consumes or restores**: Hunger/Thirst/Energy/Health/Belonging/Purpose/Fulfillment
 - **Advances**: Exploration discoveries; crafting progress; relationship progress
 
----
-
-# Standard Action Definition Template
+## Standard Action Definition Template
 
 Every action definition should follow the same structure.
 
@@ -138,9 +131,7 @@ Must specify:
 ### Events emitted
 List event categories + recommended visibility and scale.
 
----
-
-# Action Lifecycle (Execution Model)
+## Action Lifecycle (Execution Model)
 
 Actions run through a common lifecycle so they plug into the event/emotion/memory pipeline.
 
@@ -163,9 +154,7 @@ To keep docs simple, define actions in one of these execution styles:
 - **Timed**: duration-based (forage/mine/build/craft)
 - **Ongoing**: continues while condition remains (harvest until depleted, escort until destination)
 
----
-
-# Standard Outcome Tags
+## Standard Outcome Tags
 
 To keep actions versatile without huge prose, outcomes should use a small vocabulary.
 
@@ -195,9 +184,7 @@ To keep actions versatile without huge prose, outcomes should use a small vocabu
 - Infection/poison/radiation/curse exposure checks
 - Injury risks (falls, bites, heat, cold)
 
----
-
-# Standard Event Emission Rules
+## Standard Event Emission Rules
 
 Actions should emit event(s) rather than directly causing emotional change.
 
@@ -217,9 +204,7 @@ Use these ranges consistently:
 If an action has failure that causes injury, severity should skew moderate:
 - typical failure injury: **15..55**
 
----
-
-# Action Variants (Versatility)
+## Action Variants (Versatility)
 
 Instead of redefining actions, use variants as parameters.
 
@@ -230,9 +215,7 @@ Each action supports:
 
 The action template remains identical; only requirements/outcomes/event severity bands shift.
 
----
-
-# Core Action Set (Start Here)
+## Core Action Set (Start Here)
 
 Below are initial actions designed to cover most gameplay loops.
 
@@ -272,8 +255,6 @@ Supports:
 - Scale: **Individual**
 - Severity: **0..60** (higher when injury/hazard)
 
----
-
 ## 2) Forage (Seasonal Gathering)
 
 ### Purpose
@@ -308,8 +289,6 @@ Supports:
 - Category: **Biological** (predation/harassment if encountered)
 - Scale: **Individual**
 
----
-
 ## 3) Drink (From Water Source)
 
 ### Purpose
@@ -337,8 +316,6 @@ Consume water to reduce thirst (and optionally improve recovery if safe and clea
 - Category: **Environmental** (contamination exposure) and/or **Personal**
 - Scale: **Individual**
 - Severity: **0..70** (higher if poisoning)
-
----
 
 ## 4) Hunt (Predation/Chase/Capture)
 
@@ -372,8 +349,6 @@ Chase, track, and capture prey for food or resources.
 - Scale: **Individual**
 - Severity: **0..85**
 
----
-
 ## 5) Mine (Geological Resource Extraction)
 
 ### Purpose
@@ -404,8 +379,6 @@ Extract minerals/ores from geological nodes.
 - Scale: **Individual**
 - Severity: **0..90**
 
----
-
 ## 6) Rest (Recover by Time)
 
 ### Purpose
@@ -432,8 +405,6 @@ Recover energy and reduce fatigue.
 - Category: **Personal**
 - Scale: **Individual**
 - Severity: usually low **0..25**
-
----
 
 ## 7) Heal (Medicine / Care)
 
@@ -463,8 +434,6 @@ Apply medicine, bandages, or rest to improve health.
 - Category: **Biological** (recovery) and **Social** (if by another creature)
 - Scale: **Individual**
 
----
-
 ## 8) Explore (Scout / Map / Discover)
 
 ### Purpose
@@ -492,8 +461,6 @@ Move through unknown or partially known territory to find resources, hazards, ro
 - Category: **Environmental** (if hazards encountered)
 - Scale: **Individual**
 - Severity: **0..80**
-
----
 
 ## 9) Trade (Exchange Resources)
 
@@ -524,8 +491,6 @@ Exchange items/resources with another entity or settlement.
 - Scale: **Settlement** or **Individual** (depending on partner)
 - Severity: **0..70**
 
----
-
 ## 10) Socialize (Share / Talk / Mentor)
 
 ### Purpose
@@ -554,8 +519,6 @@ Interact to improve belonging, trust, and cooperative bonds.
 - Category: **Social**
 - Scale: **Family/Group/Settlement** depending on participants
 - Severity: **0..75**
-
----
 
 ## 11) Attack (Combat Resolution Wrapper)
 
@@ -588,8 +551,6 @@ Perform an aggressive action intended to injure, disable, or deter a target.
 - Scale: **Individual/Group**
 - Severity: **10..100**
 
----
-
 ## 12) Flee (Escape / Evade)
 
 ### Purpose
@@ -618,9 +579,7 @@ Avoid danger by disengaging and moving toward safety.
 - Scale: **Individual**
 - Severity: **0..95**
 
----
-
-# Extending the Action Library
+## Extending the Action Library
 
 To add actions without breaking clarity:
 1. Start with the **template** sections: Purpose → Requirements → Results.
@@ -628,9 +587,7 @@ To add actions without breaking clarity:
 3. Keep outcomes tagged and consistent.
 4. Emit events using the same severity/scale approach from `events.md`.
 
----
-
-# Consistency Checklist
+## Consistency Checklist
 
 When writing a new action, confirm:
 - [ ] It does not directly modify personality
@@ -652,7 +609,8 @@ The actions system is designed to stay modular, data-driven, and aligned with th
 - Outcomes are expressed with standardized tags
 - Actions emit events rather than directly modifying personality
 
+---
+
 ## Implementation / Notes
 
 * Keep new actions consistent with existing templates and variant patterns.
-
