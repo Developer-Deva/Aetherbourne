@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Aetherbourne")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdd1f52ab7d1f35de963a432b3d4fe439b573968")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+418ab6e7b38d5d5151657e56fce4b6e42ec9606c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Aetherbourne")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Aetherbourne")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
