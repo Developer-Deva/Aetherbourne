@@ -17,7 +17,14 @@ MemoryStrength = EmotionalIntensity × DriveWeight
 
 ---
 
-## Memory Decay
+## Memory Taxonomy
+*   **Episodic:** Records of specific events (e.g., "The time I found the cave").
+*   **Semantic:** Generalized knowledge derived from events (e.g., "Caves are dangerous").
+*   **Procedural:** Skills and habits learned through repetition (e.g., "How to forge iron").
+
+---
+
+## Memory Decay & Persistence
 All memories decay over time, but at different rates.
 ```text
 CurrentStrength = InitialStrength × e^(-DecayRate × Time)
@@ -27,14 +34,19 @@ CurrentStrength = InitialStrength × e^(-DecayRate × Time)
 
 ---
 
+## Memory Retrieval & Association
+Memories are not static; they are retrieved when the creature encounters similar stimuli.
+*   **Association:** Encountering a "Snake" may trigger a memory of a "Snake Bite," spiking current *Fear* levels.
+*   **Recall:** High *Cognition* traits increase the accuracy and speed of memory retrieval.
+
+---
+
 ## Influence on Personality
-Memories do not change personality directly; they provide "drift" values that accumulate.
-```text
-DriftContribution = CurrentStrength × AxisModifier
-```
+Memories provide "drift" values that accumulate over time.
+`DriftContribution = CurrentStrength × AxisModifier`
 
 ---
 
 ## Design Philosophy
-*   **Selective Retention:** The brain (simulation) only keeps what matters.
+*   **Selective Retention:** The simulation only keeps what matters.
 *   **Dynamic History:** As memories decay, their influence on future decisions weakens, but their effect on the *past* personality drift is permanent.

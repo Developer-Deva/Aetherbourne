@@ -9,41 +9,44 @@ Emotions are the subjective bridge between objective events and lasting memories
 ---
 
 ## The Emotional Pipeline
-The relationship between systems is:
-```text
-Need → Goal → Action → Event → Interpretation → Emotion → Memory → Personality Drift
-```
+`Need → Goal → Action → Event → Interpretation → Emotion → Memory`
 
 ---
 
 ## Emotional Intensity
-When an event is perceived, it triggers an **Emotional Intensity** (EI) value.
 ```text
 EI = EventSeverity × PersonalRelevance × PersonalityAmplifier
 ```
-*   **EventSeverity:** Objective impact of the event (0-100).
-*   **PersonalRelevance:** How much the event affects the creature's current Needs, Relationships, or Goals.
-*   **PersonalityAmplifier:** Modified by the creature's *Sensitivity* and *Emotional Reactivity* traits.
+*   **EventSeverity:** Objective impact (0-100).
+*   **PersonalRelevance:** Impact on the creature's current state.
+*   **PersonalityAmplifier:** Modified by *Sensitivity* and *Emotional Reactivity*.
+
+---
+
+## Emotional Taxonomy
+Emotions are categorized by their influence on behavioral AI.
+
+### Primary Emotions (Immediate Action)
+*   **Fear:** Triggers `Flight` or `Hide` behaviors.
+*   **Anger:** Triggers `Aggression` or `Assert` behaviors.
+*   **Joy:** Triggers `Socialize` or `Celebrate` behaviors.
+*   **Sadness:** Triggers `Withdraw` or `Seek Comfort` behaviors.
+
+### Secondary Emotions (Long-term Social)
+*   **Pride / Shame:** Influences the *Ego* axis and social status.
+*   **Admiration / Contempt:** Influences *Relationship Points* and social energy.
+*   **Guilt / Gratitude:** Influences *Trust* and future *Integrity* decisions.
 
 ---
 
 ## Subjective Interpretation
 The same event produces different emotions based on the creature's perspective.
-*   **Victor:** Pride / Joy
-*   **Loser:** Shame / Anger
-*   **Witness:** Admiration / Fear (influenced by *Empathy* trait)
-
----
-
-## Emotion → Memory Transition
-Not every emotion becomes a memory. Only those that exceed a certain threshold are stored.
-```text
-MemoryStrength = EI × DurationFactor
-```
-If `MemoryStrength > MemoryThreshold`, a new memory is created.
+*   **Victor:** Pride / Joy.
+*   **Loser:** Shame / Anger.
+*   **Witness:** Admiration / Fear (influenced by *Empathy* trait).
 
 ---
 
 ## Design Philosophy
 *   **Subjectivity:** Events are facts; emotions are interpretations.
-*   **Volatility:** Emotions are short-lived but have long-term consequences via memories.
+*   **Volatility:** Emotions are short-lived but drive long-term character change via memories.
