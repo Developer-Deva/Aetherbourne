@@ -48,6 +48,7 @@ Each domain contains two unique axes ranging from **-100 to 100**.
 `Avoidant (-100) ↔ Secure (+100)`
 #### Trust Baseline
 `Skeptical (-100) ↔ Trusting (+100)`
+
 *Note: High Trust Baseline and Secure Attachment form the "Proto-Morals" that govern early social cooperation before the full Morals domain unlocks.*
 
 ### 3. Cognition (Child)
