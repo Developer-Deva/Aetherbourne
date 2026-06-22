@@ -1,5 +1,5 @@
 # World and Biome Systems
-**Description:** Core environmental driver systems and biome taxonomy for Aetherbourne
+**Description:** Core environmental driver systems, biome taxonomy, and hydrological cycles for Aetherbourne
 **Last Updated:** 2026-06-21
 ---
 
@@ -29,6 +29,35 @@ public struct PlanetaryContext
 
 ---
 
+## Climate & Seasonal Hydrology
+Water systems fluctuate dynamically throughout the year based on the celestial cycles documented in [Cosmology](docs/01_world/cosmology.md).
+
+### Seasonal Cycles
+*   **Spring:** Rivers swell, wetlands expand, and plant growth accelerates due to runoff.
+*   **Summer:** Water levels decrease, drought risk increases in low-humidity zones.
+*   **Autumn:** Stable water distribution; harvest peak in high-fertility zones.
+*   **Winter:** Surface water freezes, snow accumulation increases, and river flow slows.
+
+---
+
+## Biome Taxonomy
+Biomes are categorized by their `PlanetaryContext` profile.
+
+### Tundra
+*   **Profile:** High Latitude, Low Humidity, Low Fertility.
+*   **Characteristics:** Permafrost, sparse hardy vegetation, extreme cold.
+### Rainforest
+*   **Profile:** Low Latitude, High Humidity, High Fertility.
+*   **Characteristics:** Dense canopy, rapid biodiversity, constant rainfall.
+### Desert
+*   **Profile:** Low Humidity, Low Fertility, High Drainage.
+*   **Characteristics:** Extreme temperature shifts, specialized flora/fauna.
+### Deep Caverns (Depth Layer 1-2)
+*   **Profile:** High Altitude (relative to core), Low Light.
+*   **Characteristics:** Bioluminescent flora, echoing acoustics, crushing pressure.
+
+---
+
 ## Fertility & Ecology
 **Fertility** represents the biological potential of the soil, but **Plant Growth** is a function of both Fertility and Water.
 *   **High Fertility + Low Water:** Sparse, hardy vegetation (e.g., Savanna).
@@ -48,18 +77,25 @@ The acoustic profile of a biome directly modifies creature behavior and AI detec
 
 ---
 
+## Hazard Layers & Tectonic Activity
+### Hazard Types
+*   **Miasmic:** Poisonous gas clouds (2 Poison DMG/sec).
+*   **Irradiated:** Radioactive zones (1 Rad DMG/sec; increases mutation rate).
+*   **Cursed:** Arcane corruption (1 Curse DMG/sec; suppresses magic).
+### Tectonic States
+*   **Stable:** No geological hazards.
+*   **Shifting:** Random tremors and unstable footing.
+*   **Volcanic:** Active lava flows and geothermal geysers.
+
+---
+
 ## Biome Physics Modifiers
 *   **Atmospheric Pressure:** High altitudes increase stamina drain (+15%).
-*   **Crushing Pressure:** Deep subterranean or aquatic layers reduce movement speed (-20%) but increase stun resistance.
+*   **Crushing Pressure:** Deep layers reduce movement speed (-20%) but increase stun resistance.
 *   **Light Levels:** Affect visibility radius (2 to 15 tiles) and creature visual awareness.
 
 ---
 
-## Hydrology Generation
-Water is the primary ecosystem driver. It flows from high **Altitude** (Springs) through areas of high **Drainage** (Rivers) to natural depressions (Lakes). Areas with high **Humidity** but low **Drainage** naturally form **Marshes and Bogs**.
-
----
-
 ## Design Philosophy
-*   **Value-Driven:** Biomes are labels for humans; systems should only care about the underlying floats (Latitude, Humidity, etc.).
-*   **Interconnectivity:** Changes in one system (e.g., Hydrology) should naturally ripple through others (e.g., Fertility and Populations).
+*   **Value-Driven:** Biomes are labels for humans; systems should only care about the underlying floats.
+*   **Interconnectivity:** Changes in one system (e.g., Hydrology) ripple through others (e.g., Fertility).
