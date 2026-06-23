@@ -29,6 +29,93 @@ public struct PlanetaryContext
 
 ---
 
+## Climate Overlays
+Climate is generated independently from terrain biomes and may apply to any compatible biome.
+
+```csharp
+public enum ClimateZone
+{
+    Tropical,
+    Temperate,
+    Boreal,
+    Polar
+}
+```
+
+Examples:
+* Tropical Forest
+* Temperate Forest
+* Boreal Forest
+* Polar Forest
+
+Climate overlays affect:
+* Temperature
+* Snow accumulation
+* Rainfall frequency
+* Seasonal transitions
+* Flora distribution
+* Fauna adaptation
+* Water freezing behavior
+
+---
+
+## Hazard Layers
+Hazards are generated independently from biome assignment. A biome no longer dictates hazard state.
+
+```csharp
+public enum HazardLayer
+{
+    Pristine,
+    Miasmic,
+    Irradiated,
+    Cursed,
+    Volatile
+}
+```
+
+Examples:
+* Miasmic Forest
+* Irradiated Desert
+* Cursed Grassland
+* Volatile Highland
+* Pristine Wetland
+
+This increases environmental variety without additional biome definitions.
+
+---
+
+## Water Features
+Hydrology is generated independently from biome assignment.
+
+```csharp
+public enum WaterFeature
+{
+    None,
+    Pond,
+    Lake,
+    Stream,
+    River,
+    Spring,
+    Oasis,
+    Marsh,
+    Bog,
+    Waterfall,
+    UndergroundRiver,
+    UndergroundLake
+}
+```
+
+Water features influence:
+* Vegetation density
+* Animal migration
+* Settlement desirability
+* Agriculture
+* Resource abundance
+* Disease spread
+* Seasonal ecosystem shifts
+
+---
+
 ## Climate & Seasonal Hydrology
 Water systems fluctuate dynamically throughout the year based on the celestial cycles documented in [Cosmology](docs/01_world/cosmology.md).
 
@@ -43,18 +130,29 @@ Water systems fluctuate dynamically throughout the year based on the celestial c
 ## Biome Taxonomy
 Biomes are categorized by their `PlanetaryContext` profile.
 
-### Tundra
-*   **Profile:** High Latitude, Low Humidity, Low Fertility.
-*   **Characteristics:** Permafrost, sparse hardy vegetation, extreme cold.
-### Rainforest
-*   **Profile:** Low Latitude, High Humidity, High Fertility.
-*   **Characteristics:** Dense canopy, rapid biodiversity, constant rainfall.
-### Desert
-*   **Profile:** Low Humidity, Low Fertility, High Drainage.
-*   **Characteristics:** Extreme temperature shifts, specialized flora/fauna.
-### Deep Caverns (Depth Layer 1-2)
-*   **Profile:** High Altitude (relative to core), Low Light.
-*   **Characteristics:** Bioluminescent flora, echoing acoustics, crushing pressure.
+A deterministic cascade evaluates the context into one of 15 base biomes.
+Each biome then drives rendering, tile generation, physics modifiers, flora, fauna, ambient effects, and resources.
+
+*   **Surface Biomes:** Forest, Highland, Grassland, Desert, Wetland, Rockland, Shrubland, Coastal, Freshwater, Ocean
+*   **Emergent Biomes:** Tundra, Volcanic Crag
+*   **Subterranean Biomes:** Shallow Caverns, Abyssal Chasms, Geothermal Mantle
+
+### Base Biome Summaries
+*   **Forest:** Dense vegetation, moderate moisture, and abundant life.
+*   **Highland:** Rocky, high-altitude terrain with thin air and sparse flora.
+*   **Grassland:** Open plains with grasses, steady movement, and balanced ecology.
+*   **Desert:** Dry, high-drainage terrain with extreme heat and limited resources.
+*   **Wetland:** Waterlogged ground, stagnant pools, and specialized plants.
+*   **Rockland:** Exposed bedrock and sparse growth in dry, rugged terrain.
+*   **Shrubland:** Transitional brushlands between forest and grassland.
+*   **Coastal:** Shoreline zones with mixed land-water influence and salt-tolerant life.
+*   **Freshwater:** Inland lakes and rivers with aquatic plants and drinkable water.
+*   **Ocean:** Deep saltwater regions with limited light and strong currents.
+*   **Tundra:** Cold, low-fertility zones with permafrost and hardy species.
+*   **Volcanic Crag:** Heat-scarred rocky terrain with lava, ash, and instability.
+*   **Shallow Caverns:** Upper subterranean networks with roots, fungus, and dim light.
+*   **Abyssal Chasms:** Deep caves with crushing pressure, darkness, and toxic zones.
+*   **Geothermal Mantle:** Extreme heat and pressure around magma chambers.
 
 ---
 
@@ -93,6 +191,11 @@ The acoustic profile of a biome directly modifies creature behavior and AI detec
 *   **Atmospheric Pressure:** High altitudes increase stamina drain (+15%).
 *   **Crushing Pressure:** Deep layers reduce movement speed (-20%) but increase stun resistance.
 *   **Light Levels:** Affect visibility radius (2 to 15 tiles) and creature visual awareness.
+
+---
+
+## Hydrology Generation
+Water is the primary ecosystem driver. It flows from high **Altitude** (Springs) through areas of high **Drainage** (Rivers) to natural depressions (Lakes). Areas with high **Humidity** but low **Drainage** naturally form **Marshes and Bogs**.
 
 ---
 
