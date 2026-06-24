@@ -31,7 +31,7 @@
 
 # Aetherbourne
 
-Aetherbourne is a 2D top-down pixel-art life simulation built around systemic design, procedural generation, and emergent storytelling. Rather than relying on scripted narratives, the world operates through interconnected systems that allow unique stories to emerge naturally from the actions, experiences, and relationships of its inhabitants.
+Aetherbourne is a modular 2D top-down pixel-art life simulation built around systemic design, procedural generation, and emergent storytelling. Rather than relying on scripted narratives, the world operates through interconnected systems that allow unique stories to emerge naturally from the actions, experiences, and relationships of its inhabitants.
 
 Every creature is an individual. They are born with inherited genetic traits that determine their physical characteristics, natural capabilities, strengths, and weaknesses. Beyond genetics, creatures possess needs, emotions, memories, and evolving personalities that develop throughout their lives. Who a creature becomes is shaped not only by what it inherits, but by what it experiences.
 
@@ -89,6 +89,93 @@ public struct PlanetaryContext
 
 ---
 
+## Climate Overlays
+Climate is generated independently from terrain biomes and may apply to any compatible biome.
+
+```csharp
+public enum ClimateZone
+{
+    Tropical,
+    Temperate,
+    Boreal,
+    Polar
+}
+```
+
+Examples:
+* Tropical Forest
+* Temperate Forest
+* Boreal Forest
+* Polar Forest
+
+Climate overlays affect:
+* Temperature
+* Snow accumulation
+* Rainfall frequency
+* Seasonal transitions
+* Flora distribution
+* Fauna adaptation
+* Water freezing behavior
+
+---
+
+## Hazard Layers
+Hazards are generated independently from biome assignment. A biome no longer dictates hazard state.
+
+```csharp
+public enum HazardLayer
+{
+    Pristine,
+    Miasmic,
+    Irradiated,
+    Cursed,
+    Volatile
+}
+```
+
+Examples:
+* Miasmic Forest
+* Irradiated Desert
+* Cursed Grassland
+* Volatile Highland
+* Pristine Wetland
+
+This increases environmental variety without additional biome definitions.
+
+---
+
+## Water Features
+Hydrology is generated independently from biome assignment.
+
+```csharp
+public enum WaterFeature
+{
+    None,
+    Pond,
+    Lake,
+    Stream,
+    River,
+    Spring,
+    Oasis,
+    Marsh,
+    Bog,
+    Waterfall,
+    UndergroundRiver,
+    UndergroundLake
+}
+```
+
+Water features influence:
+* Vegetation density
+* Animal migration
+* Settlement desirability
+* Agriculture
+* Resource abundance
+* Disease spread
+* Seasonal ecosystem shifts
+
+---
+
 ## Climate & Seasonal Hydrology
 Water systems fluctuate dynamically throughout the year based on the celestial cycles documented in [Cosmology](docs/01_world/cosmology.md).
 
@@ -103,18 +190,29 @@ Water systems fluctuate dynamically throughout the year based on the celestial c
 ## Biome Taxonomy
 Biomes are categorized by their `PlanetaryContext` profile.
 
-### Tundra
-*   **Profile:** High Latitude, Low Humidity, Low Fertility.
-*   **Characteristics:** Permafrost, sparse hardy vegetation, extreme cold.
-### Rainforest
-*   **Profile:** Low Latitude, High Humidity, High Fertility.
-*   **Characteristics:** Dense canopy, rapid biodiversity, constant rainfall.
-### Desert
-*   **Profile:** Low Humidity, Low Fertility, High Drainage.
-*   **Characteristics:** Extreme temperature shifts, specialized flora/fauna.
-### Deep Caverns (Depth Layer 1-2)
-*   **Profile:** High Altitude (relative to core), Low Light.
-*   **Characteristics:** Bioluminescent flora, echoing acoustics, crushing pressure.
+A deterministic cascade evaluates the context into one of 15 base biomes.
+Each biome then drives rendering, tile generation, physics modifiers, flora, fauna, ambient effects, and resources.
+
+*   **Surface Biomes:** Forest, Highland, Grassland, Desert, Wetland, Rockland, Shrubland, Coastal, Freshwater, Ocean
+*   **Emergent Biomes:** Tundra, Volcanic Crag
+*   **Subterranean Biomes:** Shallow Caverns, Abyssal Chasms, Geothermal Mantle
+
+### Base Biome Summaries
+*   **Forest:** Dense vegetation, moderate moisture, and abundant life.
+*   **Highland:** Rocky, high-altitude terrain with thin air and sparse flora.
+*   **Grassland:** Open plains with grasses, steady movement, and balanced ecology.
+*   **Desert:** Dry, high-drainage terrain with extreme heat and limited resources.
+*   **Wetland:** Waterlogged ground, stagnant pools, and specialized plants.
+*   **Rockland:** Exposed bedrock and sparse growth in dry, rugged terrain.
+*   **Shrubland:** Transitional brushlands between forest and grassland.
+*   **Coastal:** Shoreline zones with mixed land-water influence and salt-tolerant life.
+*   **Freshwater:** Inland lakes and rivers with aquatic plants and drinkable water.
+*   **Ocean:** Deep saltwater regions with limited light and strong currents.
+*   **Tundra:** Cold, low-fertility zones with permafrost and hardy species.
+*   **Volcanic Crag:** Heat-scarred rocky terrain with lava, ash, and instability.
+*   **Shallow Caverns:** Upper subterranean networks with roots, fungus, and dim light.
+*   **Abyssal Chasms:** Deep caves with crushing pressure, darkness, and toxic zones.
+*   **Geothermal Mantle:** Extreme heat and pressure around magma chambers.
 
 ---
 
@@ -153,6 +251,11 @@ The acoustic profile of a biome directly modifies creature behavior and AI detec
 *   **Atmospheric Pressure:** High altitudes increase stamina drain (+15%).
 *   **Crushing Pressure:** Deep layers reduce movement speed (-20%) but increase stun resistance.
 *   **Light Levels:** Affect visibility radius (2 to 15 tiles) and creature visual awareness.
+
+---
+
+## Hydrology Generation
+Water is the primary ecosystem driver. It flows from high **Altitude** (Springs) through areas of high **Drainage** (Rivers) to natural depressions (Lakes). Areas with high **Humidity** but low **Drainage** naturally form **Marshes and Bogs**.
 
 ---
 
@@ -2622,7 +2725,9 @@ Potential future systems:
 # FILE: docs/02_creatures/personality.md
 
 # Personality System
+
 **Description:** Personality development, aging, emotional domains, and emergent behavioral systems for Aetherbourne creatures
+
 **Last Updated:** 2026-06-21
 ---
 
@@ -2631,97 +2736,566 @@ Personality in Aetherbourne is a layered, developmental architecture. It represe
 
 ---
 
-## The Aethersign Layer (Predispositions)
+## Core model (what personality is)
+Each creature has a small set of **persistent personality axes** ranging from -100 to 100.
+
+- These are **not** temporary moods; they are **long-term tendencies**.
+- They shape how a creature perceives needs, selects goals, and responds to events.
+- Personality develops in stages. Each new domain unlocks at a certain age and is shaped by earlier domains, inherited traits, and lived experience.
+
+A good rule is:
+- **Genes** define starting potentials and tendencies.
+- **Aethersigns** define celestial predispositions and bias growth direction.
+- **Experience** shifts the axes slowly over time.
+- **Memories** reinforce repeated patterns.
+- **Relationships** and social feedback can accelerate change.
+- **Age** unlocks new domains and increases the influence of prior ones.
+
+---
+
+## Domain structure (what unlocks when)
+| Age stage | Active domain | Primary purpose | Influenced by |
+|---|---|---|---|
+| Infant | Temperament | Baseline reactivity and recovery | Genetics, Aethersigns |
+| Toddler | Socialization | Attachment and early social style | Temperament |
+| Child | Cognition | Learning style and mental habits | Temperament, Socialization |
+| Child | Emotional | Emotional interpretation and recovery | Temperament |
+| Teen | Identity | Self-concept and individuation | Socialization, Cognition, Emotional |
+| Teen | Interaction | Social behavior under pressure | Socialization, Identity |
+| Young Adult | Purpose | Goal selection and ambition | Cognition, Identity |
+| Young Adult | Morals | Value formation and social judgment | Socialization, Emotional, Identity |
+| Adult | Perspective | Reflection, empathy across time, systems thinking | Identity, Purpose, Morals |
+| Elder | Legacy | Transmission, memory, and lasting impact | Purpose, Perspective |
+
+---
+
+## The Aethersign layer (predispositions)
 Every creature is born under an **Aethersign**, a celestial imprint that provides "discreet influence" on their psychological development.
 
-*   **State (Foundational Nature):** Defines **Domain Affinity**, providing a -10% reduction in Personality Resistance for traits within specific domains.
-*   **Modality (Developmental Pace):** Directly modifies the **Personality Resistance** (PR) stat (e.g., Catalyst -20% PR).
-*   **Drive (Memory Weighting):** Determines which categories of experiences produce the strongest **Personality Drift** (+25% weight).
+* **State (Foundational Nature):** Defines **Domain Affinity**, providing a -10% reduction in Personality Resistance for traits within specific domains.
+* **Modality (Developmental Pace):** Directly modifies the **Personality Resistance** (PR) stat (e.g., Catalyst -20% PR).
+* **Drive (Memory Weighting):** Determines which categories of experiences produce the strongest **Personality Drift** (+25% weight).
+
+### State (Foundational Nature)
+Determined by the birth Phase. State defines domain affinity and subtle developmental bias.
+
+* **Solid:** Affined to Temperament, Purpose, Legacy.
+* **Liquid:** Affined to Socialization, Interaction, Morals.
+* **Gas:** Affined to Cognition, Perspective.
+* **Plasma:** Affined to Identity, Purpose.
+* **Aether:** Affined to Emotional, Morals, Perspective.
+
+### Modality (Developmental Pace)
+Determined by Selene's phase. Modality modifies the creature's overall resistance to personality drift.
+
+* **Catalyst:** -20% PR (Learns and changes quickly).
+* **Anchor:** +20% PR (Resistant to change; high consistency).
+* **Current:** PR fluctuates ±15% based on current environmental stability.
+
+### Drive (Memory Weighting)
+Determined by Karael's orbital position. Drive increases the influence of matched memory categories.
+
+* **Growth:** +25% weight to Family and Mentorship memories.
+* **Conflict:** +25% weight to Rivalry and Failure memories.
+* **Discovery:** +25% weight to Exploration and Research memories.
+* **Reflection:** +25% weight to Loss and Beauty memories.
+* **Renewal:** +25% weight to Healing and Migration memories.
 
 ---
 
-## Personality Development by Age
-As creatures age, new psychological domains "unlock" and mature. While a domain becomes active at a certain age, its **foundations** are laid by earlier domains.
-
-| Age Stage | Active Domains | Foundation For... |
-| :--- | :--- | :--- |
-| **Infant** | Temperament | Emotional Regulation |
-| **Toddler** | Socialization | Interaction & Morals |
-| **Child** | Cognition, Emotional | Purpose |
-| **Teenager** | Identity, Interaction | Perspective |
-| **Young Adult** | Purpose, Morals | Legacy |
-| **Adult** | Perspective | - |
-| **Elder** | Legacy | - |
-
----
-
-## Personality Domains
+## Personality domains (axes and intent)
+### Two-axis per domain
 Each domain contains two unique axes ranging from **-100 to 100**.
 
-### 1. Temperament (Infant)
-*Innate biological responses to stimuli.*
-#### Sensitivity
-`Dull (-100) ↔ Acute (+100)`
-#### Baseline Mood
-`Somber (-100) ↔ Cheerful (+100)`
+### Design principles for axes
+Each axis should do three jobs at once:
+- Affect action choice in a clear way.
+- Explain how a creature experiences the world.
+- Feed naturally into the next developmental domain.
 
-### 2. Socialization (Toddler)
-*Early attachment and group-entry behaviors. Bridges the gap to adult Morals.*
-#### Attachment Style
-`Avoidant (-100) ↔ Secure (+100)`
-#### Trust Baseline
-`Skeptical (-100) ↔ Trusting (+100)`
+A good axis usually sits on a tension between two useful extremes, like self vs. group, caution vs. impulse, or novelty vs. routine. That gives you a clean -100 to 100 range and makes behavior logic easier to write.
 
-*Note: High Trust Baseline and Secure Attachment form the "Proto-Morals" that govern early social cooperation before the full Morals domain unlocks.*
+Since Aetherbourne already centers on layered development and long-term personality formation, the axes should feel like **developmental building blocks** rather than isolated stats.
 
-### 3. Cognition (Child)
-#### Inquiry
-`Passive (-100) ↔ Inquisitive (+100)`
-#### Mental Focus
-`Fluid (-100) ↔ Concentrated (+100)`
+---
 
-### 4. Identity (Teenager)
-#### Conformity
-`Rebellious (-100) ↔ Compliant (+100)`
-#### Ego
-`Modest (-100) ↔ Vain (+100)`
+## Suggested axes by domain
+| Domain | Recommended axes | What they control |
+|---|---|---|
+| Temperament | Reactivity, Elasticity | How strongly a creature responds to stimulation; how quickly it returns to baseline after stress or change. |
+| Socialization | Affiliation, Assertiveness | Need for contact and bonding; tendency to initiate, lead, resist, or dominate social situations. |
+| Cognition | Curiosity, Structure | Drive to explore/learn; preference for planning, categorization, and predictable patterns. |
+| Emotional | Sensitivity, Regulation | Depth/intensity of emotional response; ability to modulate feelings and recover from them. |
+| Identity | Continuity, Differentiation | Desire for stable self-image and consistency; desire to stand apart, experiment, and individuate. |
+| Interaction | Cooperation, Contention | Default approach in direct social encounters: align and help, or challenge and compete. |
+| Purpose | Drive, Direction | Amount of ambition/energy toward goals; clarity and commitment to long-term aims. |
+| Morals | Empathy, Principle | Concern for others’ welfare; adherence to internal rules, duty, or fairness. |
+| Perspective | Breadth, Depth | Ability to consider systems, other viewpoints, and long time horizons; reflective complexity. |
+| Legacy | Generativity, Endurance | Desire to leave something behind; commitment to preserving values, lineage, or impact over time. |
 
-### 5. Emotional (Child+)
-#### Impulse Control
-`Volatile (-100) ↔ Restrained (+100)`
-#### Resilience
-`Fragile (-100) ↔ Robust (+100)`
+---
 
-### 6. Interaction (Teenager+)
-#### Social Energy
-`Solitary (-100) ↔ Gregarious (+100)`
-#### Influence Strategy
-`Submissive (-100) ↔ Dominant (+100)`
+## Why these work (domain rationale)
+### Temperament
+For infants, you want axes that are mostly about raw disposition.
+- **Reactivity** influences crying, startle response, comfort-seeking, and how strongly needs push behavior.
+- **Elasticity** captures whether the creature settles quickly or remains distressed; it later becomes useful for Emotional development.
 
-### 7. Purpose (Young Adult+)
-#### Ambition
-`Content (-100) ↔ Driven (+100)`
-#### Grit
-`Fickle (-100) ↔ Tenacious (+100)`
+These two also naturally become early inputs to the Emotional domain.
 
-### 8. Morals (Young Adult+)
-*Internalized ethical framework. Influenced by early Socialization.*
-#### Empathy
-`Callous (-100) ↔ Empathetic (+100)`
-#### Integrity
-`Opportunistic (-100) ↔ Principled (+100)`
+### Socialization
+Toddlers are about first social patterns.
+- **Affiliation** determines whether the creature seeks proximity, comfort, and inclusion.
+- **Assertiveness** determines whether it initiates contact, resists others, or takes social space.
 
-### 9. Perspective (Adult+)
-#### Adaptability
-`Rigid (-100) ↔ Flexible (+100)`
-#### Horizon
-`Parochial (-100) ↔ Universal (+100)`
+These can later influence Socialization-based effects on Interaction and Morals.
 
-### 10. Legacy (Elder)
-#### Preservation
-`Transient (-100) ↔ Ancestral (+100)`
-#### Mentorship
-`Self-Centered (-100) ↔ Altruistic (+100)`
+### Cognition
+Children need axes that shape learning behavior.
+- **Curiosity** drives exploration, novelty-seeking, and information gathering.
+- **Structure** governs planning, rule-following, and preference for order.
+
+Those two influence whether a creature learns through experimentation or through repetition and formal patterns.
+
+### Emotional
+If Temperament lays the groundwork, Emotional represents how lived experience is processed.
+- **Sensitivity** controls how deeply events are felt.
+- **Regulation** controls how much those feelings distort behavior over time.
+
+This makes emotional memories meaningful without making every creature equally volatile.
+
+### Identity
+For teens, the central tension is self-definition.
+- **Continuity** measures how strongly a creature preserves a coherent self-image.
+- **Differentiation** measures the need to separate from others and become distinct.
+
+This makes identity growth legible in behavior such as conformity, rebellion, experimentation, and self-labeling.
+
+### Interaction
+This domain focuses on social behavior in motion.
+- **Cooperation** aligns, assists, and compromises.
+- **Contention** challenges, tests, competes, or provokes.
+
+Because Socialization influences this domain, it feels like a more mature expression of earlier social tendencies.
+
+### Purpose
+Young adults translate ability into meaning.
+- **Drive** measures energy toward action and ambition.
+- **Direction** measures whether that energy is focused or scattered.
+
+Purpose can bias which long-term goals win out when goals are chosen from competing needs.
+
+### Morals
+Morals should be distinct from social skill.
+- **Empathy** measures emotional concern for others.
+- **Principle** measures internalized rules, duty, or fairness even when emotions do not align.
+
+This gives you creatures who can be caring without being rule-bound, or principled without being emotionally warm.
+
+### Perspective
+Adults become more reflective and system-aware.
+- **Breadth** holds multiple viewpoints, contexts, and tradeoffs at once.
+- **Depth** captures sustained reflection, abstraction, and long-horizon thinking.
+
+These influence elder behavior, mentorship, and interpretation of life events.
+
+### Legacy
+Elders are about what remains.
+- **Generativity** measures the desire to nurture successors, institutions, or traditions.
+- **Endurance** measures commitment to preserving meaning, memory, or impact over time.
+
+This domain affects caregiving, teaching, story-sharing, inheritance behavior, and how a creature prepares for decline.
+
+---
+
+## Better-than-average pairings
+Some pairings are especially strong because they create interesting behavior without overlapping too much:
+- Reactivity + Elasticity.
+- Affiliation + Assertiveness.
+- Curiosity + Structure.
+- Sensitivity + Regulation.
+- Continuity + Differentiation.
+- Cooperation + Contention.
+- Drive + Direction.
+- Empathy + Principle.
+- Breadth + Depth.
+- Generativity + Endurance.
+
+These pairs are good because each axis answers a different question. That makes them easier to compute from needs, memories, traits, and relationships.
+
+They also give you room to model mixed personalities instead of forcing a creature into one binary type.
+
+---
+
+## Practical implementation note (axis scope)
+A useful rule of thumb is:
+- If an axis can be described as a simple mood, it is probably too short-lived for your architecture.
+- If it can be described as a long-term tendency that changes slowly through repeated experience, it is probably the right kind of axis.
+
+For Aetherbourne, the best axes feel like “how this creature tends to become” rather than “how this creature feels right now.”
+
+This creates a compact core model, with enough nuance to make aging and inheritance feel meaningful.
+
+---
+
+## Axis specification (behavior effects and loops)
+
+### Temperament
+- **Reactivity:** How strongly the creature responds to stimuli, setbacks, hunger spikes, loud sounds, social rejection, and sudden change.
+- **Elasticity:** How quickly the creature returns to baseline after distress, shock, or disruption.
+
+Behavior effects:
+- High reactivity creatures startle easily, overreact to needs, and form stronger emotional memories from small events.
+- High elasticity creatures recover quickly, tolerate disruption, and are less likely to spiral after a bad event.
+
+Emergent loop:
+- High reactivity increases memory formation and event salience.
+- If paired with low elasticity, the creature becomes increasingly avoidant or volatile.
+- If paired with high elasticity, the creature becomes lively, adaptable, and socially expressive.
+
+### Socialization
+- **Affiliation:** Desire for closeness, belonging, companionship, and group inclusion.
+- **Assertiveness:** Willingness to initiate contact, state needs, push boundaries, or lead.
+
+Behavior effects:
+- High affiliation creatures seek groups, companionship, and frequent reassurance.
+- High assertiveness creatures speak first, claim space, negotiate, and influence others.
+
+Emergent loop:
+- Affiliation drives proximity, which increases social memory density.
+- Positive social memories reinforce trust and group dependence.
+- Low affiliation plus high assertiveness can create loners, explorers, leaders, or pushy personalities depending on emotional history.
+- High affiliation plus low assertiveness produces attachment-seeking followers or caregivers.
+
+### Cognition
+- **Curiosity:** Drive to explore, investigate, sample novelty, and learn through experience.
+- **Structure:** Preference for planning, routine, classification, and predictability.
+
+Behavior effects:
+- High curiosity creatures wander, inspect objects, test systems, and pursue unfamiliar goals.
+- High structure creatures prefer repeated routines, stable workflows, and predictable resource paths.
+
+Emergent loop:
+- Curiosity increases exposure to novel events, which creates more varied memory.
+- Structure increases efficiency and skill repetition.
+- High curiosity plus low structure yields improvisers, inventors, and wanderers.
+- High structure plus low curiosity yields specialists, caretakers, planners, and conservators.
+
+### Emotional
+- **Sensitivity:** Depth of emotional response to events and relationships.
+- **Regulation:** Ability to modulate emotion, delay reaction, and recover from emotional stress.
+
+Behavior effects:
+- High sensitivity means feelings matter more and memories form more easily.
+- High regulation means emotions are less likely to hijack decision-making.
+
+Emergent loop:
+- Sensitive creatures react strongly to praise, loss, danger, and affection.
+- If regulation is low, repeated emotional spikes can lock in fear, resentment, grief, or attachment patterns.
+- If regulation is high, emotional intensity becomes usable information instead of behavior disruption.
+- Regulation can grow through stable environments, trusted relationships, and repeated successful recovery.
+
+### Identity
+- **Continuity:** Need for an internally coherent self-image over time.
+- **Differentiation:** Need to be distinct, unique, or separate from others.
+
+Behavior effects:
+- High continuity creatures prefer consistency, values, familiar roles, and stable self-narratives.
+- High differentiation creatures seek individuality, experimentation, unusual roles, and resistance to being defined by others.
+
+Emergent loop:
+- Continuity strengthens habits, identity-linked memories, and commitment.
+- Differentiation increases experimentation and can produce role conflict, creativity, or rebellion.
+- High continuity plus low differentiation creates stable traditional personalities.
+- High differentiation plus low continuity creates restless, adaptive, identity-searching personalities.
+
+### Interaction
+- **Cooperation:** Tendency to align with others, share effort, and maintain harmony.
+- **Contention:** Tendency to challenge, compete, resist, or test social boundaries.
+
+Behavior effects:
+- High cooperation creatures assist, compromise, and stabilize groups.
+- High contention creatures provoke change, defend status, and test social strength.
+
+Emergent loop:
+- Cooperation increases reciprocal trust and network centrality.
+- Contention generates friction, which can lead to either conflict memories or respect-based bonds.
+- High contention plus high assertiveness creates rivals, defenders, and political operators.
+- High cooperation plus high affiliation creates nurturers, mediators, and community anchors.
+
+### Purpose
+- **Drive:** Energy and persistence toward goals.
+- **Direction:** Clarity of long-term aims and the ability to focus effort coherently.
+
+Behavior effects:
+- High drive creatures act frequently, pursue tasks aggressively, and recover quickly from setbacks.
+- High direction creatures choose fewer goals, but commit to them strongly and avoid aimless drift.
+
+Emergent loop:
+- Drive increases action frequency, which increases outcomes and feedback.
+- Direction reduces goal switching, allowing deep progress and identity with a life path.
+- High drive plus low direction creates restless opportunists.
+- Low drive plus high direction creates patient but underactive planners.
+
+### Morals
+- **Empathy:** Tendency to feel concern for others’ suffering and emotional states.
+- **Principle:** Tendency to follow internal rules, fairness standards, duties, or obligations.
+
+Behavior effects:
+- High empathy creatures are more affected by others’ pain and more likely to help.
+- High principle creatures maintain consistency even when emotions or rewards suggest otherwise.
+
+Emergent loop:
+- Empathy increases emotional echo from social events.
+- Principle creates stable commitments and predictable moral identity.
+- High empathy plus high principle produces protectors, caregivers, and just leaders.
+- High empathy plus low principle produces compassionate but inconsistent allies.
+- Low empathy plus high principle produces rigid judges, cold enforcers, or duty-bound bureaucrats.
+
+### Perspective
+- **Breadth:** Ability to hold multiple viewpoints, contexts, and tradeoffs in mind.
+- **Depth:** Ability to think long-term, reflect, and understand systems or consequences.
+
+Behavior effects:
+- High breadth creatures interpret social conflict more generously and consider broader context.
+- High depth creatures think in layers, anticipate downstream effects, and connect present events to long arcs.
+
+Emergent loop:
+- Breadth reduces snap judgments and improves social adaptation.
+- Depth improves foresight, mentorship, planning, and wisdom-based decision-making.
+- High breadth plus high depth creates advisors, historians, and strategic elders.
+- High depth plus low breadth creates intense but narrow philosophers or obsessives.
+
+### Legacy
+- **Generativity:** Desire to create successors, leave teachings, build institutions, or nourish future life.
+- **Endurance:** Commitment to preserving what matters across time, loss, and generational change.
+
+Behavior effects:
+- High generativity creatures invest in offspring, students, communities, and future structures.
+- High endurance creatures preserve memory, tradition, and hard-won meaning.
+
+Emergent loop:
+- Generativity turns accumulated wisdom into social continuation.
+- Endurance stabilizes lineage identity and cultural persistence.
+- High generativity plus high endurance produces founders, teachers, keepers of tradition, and community architects.
+- High endurance plus low generativity creates guardians of memory who preserve but do not expand.
+
+---
+
+## Age-by-age development
+
+### Infant: Temperament
+At this stage, personality is mostly about raw responsiveness. The creature does not yet have a stable self-concept or social strategy, but its nervous system already biases how it reacts to hunger, comfort, noise, and disruption.
+
+Primary behaviors:
+- Crying, clinging, startling, settling, sleep response, comfort response.
+- Early attachment patterns based on caregiver consistency.
+- Basic tolerance or intolerance for environmental instability.
+
+Key rule:
+- Repeated soothing increases Elasticity.
+- Frequent overstimulation increases Reactivity.
+- Safe, predictable care gently supports future Socialization and Emotional regulation.
+
+### Toddler: Socialization
+Toddlers begin to form the first social habits. They learn whether others are safe, useful, interesting, annoying, or rewarding.
+
+Primary behaviors:
+- Seeking proximity, sharing, resisting, imitating, hiding, approaching, protesting.
+- Preference for specific caretakers or companions.
+- Early status behaviors and boundary testing.
+
+Key rule:
+- Positive social repetition increases Affiliation.
+- Success in asserting needs increases Assertiveness.
+- Rejection or inconsistency can turn Affiliation into guardedness or desperation, depending on Temperament.
+
+### Child: Cognition and Emotional
+Children begin to build mental models of the world. They also become emotionally legible to themselves, meaning they start to recognize, remember, and interpret feelings.
+
+Primary behaviors:
+- Learning tasks, experimentation, routine formation, asking questions, copying, categorizing.
+- Emotional self-recognition, emotional memory formation, recovery from disappointment.
+
+Key rule:
+- Curiosity grows when exploration is rewarded.
+- Structure grows when routine is reliable and successful.
+- Sensitivity grows when events are emotionally intense and memorable.
+- Regulation grows through successful recovery, caregiver support, and repeated safe processing.
+
+### Teen: Identity and Interaction
+Adolescence is where inner self and social behavior begin to diverge or align intentionally. The creature starts asking, implicitly or explicitly, “Who am I?” and “How do I deal with others on my own terms?”
+
+Primary behaviors:
+- Role experimentation, preference shifts, rebellion, conformity, self-labeling, social testing.
+- Conflict style, alliance style, negotiation style, dominance style.
+
+Key rule:
+- Identity is shaped by the interaction between memory, social feedback, and competence.
+- Differentiation rises when the creature is repeatedly compared, constrained, or overshadowed.
+- Cooperation and Contention become more situational and strategic rather than purely instinctive.
+
+### Young Adult: Purpose and Morals
+This is the stage of commitment. The creature begins choosing what matters, what to build, what to defend, and what kind of life to invest in.
+
+Primary behaviors:
+- Career-like pursuit, role commitment, goal selection, sacrifice, loyalty, mentoring, moral judgment.
+- Development of long-term plans and ethical consistency.
+
+Key rule:
+- Cognition influences what goals seem possible.
+- Identity influences what goals feel authentic.
+- Socialization and emotional history influence who the creature feels responsible for.
+- Purpose becomes the bridge from capacity to destiny.
+
+### Adult: Perspective
+Adults can hold more of their life in context. They become better at weighing tradeoffs, understanding others’ motives, and seeing systems rather than isolated moments.
+
+Primary behaviors:
+- Strategic planning, mediation, teaching, compromise, hindsight, systems thinking, wise restraint.
+- Better use of memory for interpretation rather than just reaction.
+
+Key rule:
+- Identity gives Perspective a viewpoint.
+- Purpose gives Perspective an axis of meaning.
+- Morals give Perspective a standard for judgment.
+- This is where creatures become mentors, planners, skeptics, or sages.
+
+### Elder: Legacy
+Elders are concerned with continuity beyond the self. They may teach, preserve, bless, warn, create institutions, or shape descendants through memory and example.
+
+Primary behaviors:
+- Storytelling, succession planning, ritual keeping, mentorship, preservation, reconciliation, transmission of values.
+- Reflection on meaning, loss, and what should endure.
+
+Key rule:
+- Purpose determines what the creature wants to leave behind.
+- Perspective determines how broadly it understands that legacy.
+- Legacy is where personality becomes culture.
+
+---
+
+## Inheritance rules
+Use inheritance on three layers:
+
+### 1. Genetic inheritance
+Genes set starting ranges, not fixed outcomes.
+
+Example:
+- A creature might inherit high baseline Reactivity but moderate Elasticity.
+- Another may inherit low Curiosity but high Structure.
+- A third may have innate sensitivity to social rejection.
+
+Best practice:
+- Treat genes as bias fields, not hard values.
+- Let each axis have a genetic range, such as ±15 to ±30 from species or lineage.
+
+### 2. Aethersign inheritance
+Aethersigns should act like cosmic predispositions that bias the shape of development.
+
+Example effects:
+- One Aethersign may intensify Curiosity and Breadth.
+- Another may strengthen Endurance and Principle.
+- Another may make Reactivity and Differentiation more likely.
+
+Best practice:
+- Aethersigns should influence *direction* more than raw magnitude.
+- They can amplify certain developmental responses to the same life event.
+
+### 3. Experiential inheritance
+Memories, repeated emotions, and social patterns slowly reshape axes over time.
+
+Examples:
+- Repeated safety increases Elasticity and Regulation.
+- Repeated rejection increases Differentiation, Contention, or low Affiliation.
+- Repeated success through planning increases Structure and Direction.
+- Repeated caregiving increases Empathy and Generativity.
+
+Best practice:
+- Experience should move axes gradually, with stronger changes from repeated high-salience events.
+
+---
+
+## Cross-domain inheritance logic
+Each new domain should not replace the old one. Instead, earlier domains bias how the new one develops.
+
+Examples:
+- **Temperament influences Socialization** by shaping how safe or overwhelming social contact feels.
+- **Temperament influences Emotional** by shaping intensity and recovery.
+- **Socialization influences Identity** by shaping whether the creature defines itself through others or against others.
+- **Socialization influences Interaction** by shaping default social style.
+- **Cognition influences Purpose** by shaping what goals are imaginable and efficient.
+- **Socialization and Emotional influence Morals** by shaping compassion, loyalty, and guilt.
+- **Identity influences Perspective** by defining the vantage point from which the creature reflects.
+- **Purpose influences Legacy** by determining what the creature believes is worth preserving.
+
+---
+
+## Emergent behavior loops
+These are the most important part, because they make creatures feel alive instead of stat blocks.
+
+### Need loop
+Need arises, behavior responds, outcome occurs, memory forms, personality shifts, future need priorities change.
+
+Example:
+- Hungry creature becomes stressed.
+- High Reactivity increases urgency.
+- Successful food-seeking rewards Drive and Structure.
+- Repeated failure may increase Contention or reduce Elasticity.
+
+### Social loop
+Interaction creates social outcomes, which become memories, which alter social preference.
+
+Example:
+- A highly Affiliated creature seeks others.
+- If others respond positively, Affiliation strengthens and Cooperation grows.
+- If others reject it, the creature may become clingier, more avoidant, or more Contending depending on Temperament and Emotional regulation.
+
+### Competence loop
+Success or failure in tasks changes self-concept and future ambition.
+
+Example:
+- A curious child explores a mineral field.
+- Discovery rewards Curiosity and Structure if the environment is learnable.
+- Successful mastery later increases Direction and Continuity.
+- Failure without support may lead to withdrawal or Differentiation.
+
+### Trauma loop
+Repeated high-salience negative events can reshape the creature strongly.
+
+Example:
+- High Sensitivity + low Regulation means setbacks are remembered deeply.
+- If social betrayal repeats, Affiliation may collapse while Contention rises.
+- If the creature survives through self-reliance, Continuity and Principle may harden into a rigid identity.
+
+### Mentorship loop
+Older creatures can directly shape younger ones.
+
+Example:
+- Elder with high Generativity teaches child with high Curiosity.
+- Child’s Structure, Direction, and Empathy rise.
+- The child later becomes a reliable adult who teaches others, continuing the lineage.
+
+### Cultural loop
+Repeated traits can become common in families, groups, or settlements.
+
+Example:
+- A trade community rewards Structure, Principle, and Cooperation.
+- Those traits become more successful socially.
+- Children raised there inherit both genes and environmental reinforcement.
+- Over generations the settlement develops a recognizable personality.
+
+---
+
+## Practical simulation rules
+To keep this manageable in code, I’d recommend these implementation rules:
+- Each domain unlocks at a life stage.
+- Each domain adds 1 or 2 axes only.
+- Old axes remain active forever, but their influence weight may decline relative to newer domains.
+- New domains can inherit 20–40 percent of their baseline from prior domains.
+- Major events move axes by small amounts; repeated events matter more than single events.
+- High-salience memories should produce slow drift, not instant personality flips.
+- Personality should be updated on a time tick or after important events, not every frame.
 
 ---
 
@@ -2730,10 +3304,11 @@ Personality "drifts" based on the accumulation of memories, filtered through the
 
 ### Personality Resistance (PR)
 **Personality Resistance** represents the "inertia" of a creature's character.
-*   **Base Resistance:** Starts at 10.0 for Infants.
-*   **Age Scaling:** PR increases by +5.0 per Age Stage.
-*   **Modality Modifier:** Applied to the total PR (e.g., Anchor = ×1.2).
-*   **Domain Affinity:** If a trait belongs to a domain affined to the creature's **State**, PR for that trait is ×0.9.
+
+* **Base Resistance:** Starts at 10.0 for Infants.
+* **Age Scaling:** PR increases by +5.0 per Age Stage.
+* **Modality Modifier:** Applied to the total PR (e.g., Anchor = ×1.2).
+* **Domain Affinity:** If a trait belongs to a domain affined to the creature's **State**, PR for that trait is ×0.9.
 
 ### Personality Drift Formula
 ```text
@@ -2742,14 +3317,17 @@ PersonalityChange = (MemoryStrength × EmotionalWeight × AxisModifier × DriveW
 
 ---
 
-## Design Philosophy
-*   **Slow Emergence:** Personality is a trailing indicator of a life lived.
-*   **Layered Complexity:** Adult behavior is the result of infant temperament being filtered through years of socialization and cognition.
-*   **Stability with Age:** The older a creature gets, the more "set in its ways" it becomes.
+## Design philosophy
+- **Slow Emergence:** Personality is a trailing indicator of a life lived.
+- **Layered Complexity:** Adult behavior is the result of infant temperament being filtered through years of socialization and cognition.
+- **Stability with Age:** The older a creature gets, the more "set in its ways" it becomes.
+
+---
 
 ## Implementation / Notes
-*   **Storage:** Store Aethersign (State, Modality, Drive) permanently in the creature's data block.
-*   **Processing:** Run personality drift calculations during the "Sleep" or "Long Rest" state.
+* **Storage:** Store Aethersign (State, Modality, Drive) permanently in the creature's data block.
+* **Processing:** Run personality drift calculations during the "Sleep" or "Long Rest" state.
+
 
 
 ---
@@ -3163,57 +3741,393 @@ Urgency levels are categorized into states that trigger specific behavioral AI m
 # FILE: docs/02_creatures/emotions.md
 
 # Emotion System
-**Description:** Emotional state, processing, and influence systems for Aetherbourne
+**Description:** Defines how creatures internally appraise events, generate affective states, regulate emotion, and turn emotionally significant moments into memory in Aetherbourne.
 **Last Updated:** 2026-06-21
 ---
+# Overview
+The emotion system is the internal affective architecture for creatures in Aetherbourne. It interprets events, updates emotional state, influences decision pressure, and decides whether an experience is strong enough to affect memory.
 
-## Overview
-Emotions are the subjective bridge between objective events and lasting memories. They determine how a creature perceives and reacts to the world.
-
+Emotion is not a single value and not a replacement for behavior. It is a modular system made of smaller internal subsystems that together produce subjective response, emotional decay, regulation, and memory gating.
 ---
-
-## The Emotional Pipeline
-`Need → Goal → Action → Event → Interpretation → Emotion → Memory`
-
+# Design Philosophy
+* Emotion should be internally modular, not a single flat mood value.
+* Emotion should be based on appraisal of events and internal context.
+* The same event should produce different emotional results in different creatures.
+* Emotion should influence behavior without directly choosing actions.
+* Emotion should feed memory selectively, not automatically.
+* Emotion should decay, stabilize, or intensify depending on context.
+* The system should support both rapid reaction and longer emotional carryover.
 ---
+# Core Concepts
+## Emotion Modules
+The emotion system is composed of smaller internal modules. Each module can be understood, tuned, and tested independently.
+
+### Event Appraiser
+The event appraiser examines an event and determines its emotional significance.
+
+It should consider:
+- Event severity.
+- Personal relevance.
+- Social context.
+- Relationship context.
+- Threat level.
+- Reward value.
+- Loss value.
+- Novelty.
+- Goal alignment.
+
+Its output is an appraisal profile.
+
+### Relevance Evaluator
+The relevance evaluator determines how much the event matters to the creature right now.
+
+It should consider:
+- Active needs.
+- Active goals.
+- Recent memories.
+- Current commitments.
+- Personality bias.
+- Current emotional state.
+
+Its output is a relevance weight used by later modules.
+
+### Emotion Composer
+The emotion composer converts appraisal results into active emotional state.
+
+It should update values such as:
+- Valence.
+- Arousal.
+- Fear.
+- Joy.
+- Anger.
+- Shame.
+- Sadness.
+- Relief.
+- Curiosity.
+- Attachment.
+
+Its output is the creature’s current affective state.
+
+### Personality Amplifier
+The personality amplifier modifies emotion strength based on stable personality traits.
+
+It should consider:
+- Sensitivity.
+- Reactivity.
+- Regulation.
+- Elasticity.
+- Empathy.
+- Willpower.
+- Other relevant hidden tendencies.
+
+Its output is a multiplier or damping factor applied to emotional intensity.
+
+### Regulation Manager
+The regulation manager reduces or reshapes emotion based on the creature’s ability to manage itself.
+
+It should consider:
+- Willpower.
+- Current fatigue.
+- Current stress.
+- Prior emotional load.
+- Environment safety.
+- Supportive social context.
+
+Its output is the adjusted emotional state after regulation.
+
+### Decay and Recovery Handler
+The decay and recovery handler determines how emotional states fade or persist over time.
+
+It should consider:
+- Time since trigger.
+- Intensity of the emotion.
+- Whether the emotion is being refreshed.
+- Whether the creature is in a safe or unsafe context.
+- Whether supporting events are happening.
+
+Its output is reduced, sustained, or refreshed emotion.
+
+### Memory Gate
+The memory gate determines whether an emotional event should become a stored memory.
+
+It should consider:
+- Emotional intensity.
+- Emotional duration.
+- Event significance.
+- Repetition.
+- Personality sensitivity.
+- Relevance to identity, safety, or relationships.
+
+Its output is store, reinforce, ignore, or partially store.
+
+### Expression / Output Layer
+The output layer translates emotion into behavior-facing signals.
+
+It should produce:
+- Current mood modifiers.
+- Action bias hints.
+- Social expression cues.
+- Attention shifts.
+- Memory tags.
+
+Its output is a compact emotional signal usable by behavior and memory.
+
+## Emotional Pipeline
+Emotion should follow a modular processing path rather than a single update step.
+
+```text
+Event Appraiser
+→ Relevance Evaluator
+→ Emotion Composer
+→ Personality Amplifier
+→ Regulation Manager
+→ Decay and Recovery Handler
+→ Memory Gate
+→ Output Layer
+```
+
+This pipeline allows each emotional step to be independently tuned.
+
+## Inputs
+Emotion should consume a small but expressive set of inputs.
+
+### External Inputs
+- Event type.
+- Event severity.
+- Event source.
+- Target of the event.
+- Social context.
+- Environmental context.
+
+### Internal Inputs
+- Current needs.
+- Current goals.
+- Personality axes.
+- Memory traces.
+- Current emotional state.
+- Fatigue.
+- Stress.
+- Relationships.
+- Hidden stats.
+
+## Emotional State Model
+Emotion should be represented as a structured state rather than a single number.
+
+### Recommended Dimensions
+- **Valence**: Positive or negative tone.
+- **Arousal**: Activation or intensity level.
+- **Fear**: Threat response.
+- **Joy**: Positive reward response.
+- **Anger**: Opposition or frustration response.
+- **Shame**: Self-evaluative social pain.
+- **Sadness**: Loss response.
+- **Relief**: Threat reduction or burden release.
+- **Curiosity**: Novelty-seeking response.
+- **Attachment**: Bond-oriented response.
+
+The exact implementation can vary, but the emotional state should be rich enough to support behavior bias and memory gating.
+
+## Appraisal Logic
+Emotion should be based on interpreted meaning, not just raw event data.
+
+### Appraisal Factors
+- **Severity**: How strong the event is objectively.
+- **Relevance**: How much it matters to the creature.
+- **Congruence**: Whether it supports or blocks current goals.
+- **Agency**: Whether the creature caused the event or merely experienced it.
+- **Social Meaning**: Whether the event affects relationships or status.
+- **Novelty**: Whether the event is unexpected.
+- **Loss / Gain**: Whether the creature lost or gained something meaningful.
+
+### Example
+A creature losing food:
+- Low relevance may produce mild frustration.
+- High relevance may produce fear, anger, or panic.
+- A well-regulated creature may feel the same event with less emotional spike.
+- A highly sensitive creature may form a stronger lasting memory.
 
 ## Emotional Intensity
+Emotional intensity should determine how strongly an event changes the creature.
+
+### General Formula
 ```text
 EI = EventSeverity × PersonalRelevance × PersonalityAmplifier
 ```
-*   **EventSeverity:** Objective impact (0-100).
-*   **PersonalRelevance:** Impact on the creature's current state.
-*   **PersonalityAmplifier:** Modified by *Sensitivity* and *Emotional Reactivity*.
 
----
+Where:
+- **EventSeverity** is the objective impact.
+- **PersonalRelevance** is how much the event matters.
+- **PersonalityAmplifier** is affected by personality, hidden stats, and current state.
 
-## Emotional Taxonomy
-Emotions are categorized by their influence on behavioral AI.
+### Notes
+- Strong emotion should be harder to ignore.
+- Low-intensity emotion should fade quickly.
+- Intensity should help determine whether memory is formed.
+- Repeated moderate events can matter as much as one large event.
 
-### Primary Emotions (Immediate Action)
-*   **Fear:** Triggers `Flight` or `Hide` behaviors.
-*   **Anger:** Triggers `Aggression` or `Assert` behaviors.
-*   **Joy:** Triggers `Socialize` or `Celebrate` behaviors.
-*   **Sadness:** Triggers `Withdraw` or `Seek Comfort` behaviors.
+## Regulation
+Regulation is the internal control layer that prevents emotion from fully taking over.
 
-### Secondary Emotions (Long-term Social)
-*   **Pride / Shame:** Influences the *Ego* axis and social status.
-*   **Admiration / Contempt:** Influences *Relationship Points* and social energy.
-*   **Guilt / Gratitude:** Influences *Trust* and future *Integrity* decisions.
+### Regulation Effects
+- Reduce emotional spikes.
+- Delay immediate reaction.
+- Allow reappraisal.
+- Prevent panic loops.
+- Stabilize decision-making under stress.
 
----
+### Factors That Improve Regulation
+- High willpower.
+- Low fatigue.
+- Safe environment.
+- Supportive relationships.
+- Repeated successful emotional recovery.
 
-## Subjective Interpretation
-The same event produces different emotions based on the creature's perspective.
-*   **Victor:** Pride / Joy.
-*   **Loser:** Shame / Anger.
-*   **Witness:** Admiration / Fear (influenced by *Empathy* trait).
+## Decay and Recovery
+Emotion should not remain static.
 
----
+### Decay
+- Minor emotion fades quickly.
+- Strong emotion fades slowly.
+- Refreshed emotion persists longer.
+- Repeated triggers can prolong the state.
 
-## Design Philosophy
-*   **Subjectivity:** Events are facts; emotions are interpretations.
-*   **Volatility:** Emotions are short-lived but drive long-term character change via memories.
+### Recovery
+- Rest.
+- Safety.
+- Comfort.
+- Positive social support.
+- Successful goal completion.
+- Time without triggering events.
+
+## Memory Gate
+Emotion should not always become memory.
+
+### Storage Conditions
+A memory is more likely to form when:
+- Intensity is high.
+- Duration is long.
+- The event is personally relevant.
+- The event is socially meaningful.
+- The event is identity-shaping.
+- The event is repeated.
+
+### Output to Memory
+The gate should output:
+- Store as episodic memory.
+- Reinforce existing memory.
+- Store as semantic knowledge.
+- Store as relational memory.
+- Ignore as insignificant.
+
+## Output to Behavior
+Emotion should feed behavior as a bias layer.
+
+### Behavior Inputs from Emotion
+- Current emotional state.
+- Emotional intensity.
+- Emotional direction.
+- Emotional duration.
+- Emotional tags.
+
+### Common Behavior Effects
+- Fear biases toward retreat and caution.
+- Anger biases toward confrontation.
+- Joy biases toward exploration and repetition.
+- Shame biases toward withdrawal or repair.
+- Curiosity biases toward investigation.
+- Attachment biases toward proximity and protection.
+
+Emotion should make certain actions more attractive, but not make them inevitable.
+
+## Output to Memory
+Emotion should also help annotate stored experience.
+
+### Memory Tags
+- Fear.
+- Joy.
+- Anger.
+- Shame.
+- Grief.
+- Relief.
+- Admiration.
+- Trust.
+- Betrayal.
+- Attachment.
+
+These tags help future retrieval and emotional association.
+
+## Personality and Stat Interaction
+Emotion should be shaped by stable creature traits.
+
+### Personality Effects
+- Sensitivity increases emotional response.
+- Reactivity increases emotional speed and amplitude.
+- Regulation reduces volatility.
+- Elasticity improves recovery.
+- Empathy intensifies social suffering or concern.
+- Principle may amplify guilt or moral discomfort.
+- Continuity may intensify self-consistent emotional narratives.
+
+### Stat Effects
+- Willpower improves regulation.
+- Perception improves recognition of emotional events.
+- Stamina improves recovery from stress.
+- Focus supports emotional control during sustained activity.
+
+## Emergent Emotion Loops
+Emotion should create self-reinforcing patterns over time.
+
+### Stress Loop
+Repeated threat increases fear, which increases caution, which reduces exposure, which changes future emotional history.
+
+### Attachment Loop
+Repeated comfort increases attachment, which increases proximity seeking, which creates more attachment opportunities.
+
+### Anger Loop
+Repeated blocked goals increase frustration and anger, which increases confrontational responses, which can create more conflict.
+
+### Recovery Loop
+Successful regulation increases future resilience, which makes later emotional recovery easier.
+
+### Memory Loop
+Strong emotional events form memories, memories bias future appraisal, and future appraisal changes emotional response.
+
+## Examples
+### Example: Food Loss
+```text
+Event: Food is stolen.
+Appraisal: High severity, high relevance, negative goal congruence.
+Emotion: Fear + anger + frustration.
+Memory Gate: Store if intensity is high enough.
+Behavior Bias: Flee, defend, search, retaliate.
+```
+
+### Example: Social Praise
+```text
+Event: Another creature praises the subject.
+Appraisal: Moderate severity, high social relevance, positive gain.
+Emotion: Joy + attachment + relief.
+Memory Gate: Store if the creature values social approval.
+Behavior Bias: Approach, repeat, bond.
+```
+
+### Example: Injury
+```text
+Event: Creature is wounded.
+Appraisal: High severity, high relevance, negative loss.
+Emotion: Fear + pain-linked distress.
+Memory Gate: Likely store strongly.
+Behavior Bias: Retreat, recover, avoid similar danger.
+```
+
+## Implementation / Notes
+* Keep emotion internally modular and event-driven.
+* Use appraisal as the bridge between facts and feelings.
+* Separate emotional generation from emotional regulation.
+* Let memory be gated by emotional significance, not by event type alone.
+* Keep the emotional state rich enough for behavior but compact enough to debug.
+* Allow the same event to generate different emotions in different creatures.
+* Use emotion as a biasing and storage layer, not as a direct action selector.
 
 
 ---
@@ -3223,10 +4137,13 @@ The same event produces different emotions based on the creature's perspective.
 # Memory System
 **Description:** Memory formation, decay, and influence on personality for Aetherbourne
 **Last Updated:** 2026-06-21
+
 ---
 
 ## Overview
 Memories are the stored records of significant emotional experiences. They are the primary driver of **Personality Drift**.
+## Content Coming Soon
+This documentation is currently in development. Please check back for updates.
 
 ---
 
@@ -3280,620 +4197,369 @@ Memories provide "drift" values that accumulate over time.
 
 # Actions System
 
-**Description:** Reusable, modular creature actions that bridge **Needs → Goals → Action → Events → Outcomes**
+**Description:** Defines modular creature actions, their requirements, costs, effects, and tags for behavior and simulation.
+
 **Last Updated:** 2026-06-21
 
 ---
 
-## Overview
+# Overview
 
-Actions are the executable layer of the creature simulation.
+The actions system defines the verbs creatures can attempt in Aetherbourne. Actions are modular units of behavior that interact with stats, skills, personality, needs, emotions, memory, inventory, and the world state.
 
-They translate:
-- **Needs/urgency** (from `needs.md`) into **Goals** (planner output)
-- **Goals** into **Actions** (what the creature does)
-- **Actions** into **Events/Outcomes** (what the world records)
-- **Events** into **Emotions → Memories → Personality drift** (from the creature pipeline)
-
-Actions **do not modify personality directly**.
-
-Instead:
-
-```text
-Action
-↓ (preconditions)
-Execute
-↓ (outcomes)
-Event(s)
-↓
-Emotion
-↓
-Memory
-↓
-Personality drift
-```
-
-## Design Goals
-
-1. **Simple and clear**: an action template should be readable in seconds.
-2. **Versatile**: one action can support variants (tool/target/difficulty) without rewriting everything.
-3. **Consistent with events**: actions emit standardized event categories + scales.
-4. **Data-driven**: the same action definition should drive AI planning and simulation execution.
-
-## Core Concepts
-
-## ActionCategory
-Group actions into domains so the planner can reason globally.
-
-```csharp
-public enum ActionCategory
-{
-    Survival,      // food/water/health maintenance
-    Work,          // labor/farming/building
-    Exploration,   // scouting/learning/locating
-    Gathering,     // flora/minerals resources
-    Crafting,      // tool/item production
-    Combat,        // attack/defend/fight
-    Escape,        // flee/evade
-    Social,        // talk/share/mentor
-    Economic,      // trade/theft/assist exchanges
-    Rest,          // sleep/rest/heal-by-time
-    Culture,       // rituals/festivals/ceremonies
-    Magic          // spellcasting
-}
-```
-```csharp
-public enum AltActionCategory
-{
-  Movement,        // walk/run/jump/climb/carry/crouch/swim
-  Interaction,     // inspect/pick up/use/speak/trade/fight
-  Social,          // befriend/persuade/lie/intimidate/bond/appease/rally/reproduce/flee/steal/give/observe/conceal 
-  Trade,           // haggle/deliver/manage
-  Combat,          // attack/defend/dodge/equip or swap/feint/counter
-  Tactical,        // wait/prepare/distract/camo/ambush/track/strageize/scout
-  Utility,         // craft/heal/rest/signal
-  Construction,    // build/repair/survey/excavate/fortify/decorate
-  Resource,        // plant/harvest/tame/hunt/fish/mine/gather/trap/preserve
-  Crafting,        // forge/carve/weave/tinker/refine/assemble
-  Consumable,      // cook/bake/brew
-  Daily,           // clean/organize/care/teach
-  Magic,           // mix/cast spell/enchant/divine
-  Culture,         // preform/write/study/paint
-  Cognitive        // desire/remember/decide/plan/forget/learn
-}
-
-## Goal Link
-Each action declares which needs/goals it can satisfy.
-
-Actions should not “decide urgency” (that’s the needs arbitration). Instead, they declare compatibility:
-
-- **Consumes or restores**: Hunger/Thirst/Energy/Health/Belonging/Purpose/Fulfillment
-- **Advances**: Exploration discoveries; crafting progress; relationship progress
-
-## Standard Action Definition Template
-
-Every action definition should follow the same structure.
-
-## 1) Purpose
-- One short paragraph describing what the creature is trying to do.
-- Which needs/goals it is intended to satisfy.
-
-## 2) Requirements
-Two types:
-
-### MustExist (world facts)
-- Target availability/type
-- Terrain/biome/water/hazard thresholds
-- Line-of-sight or adjacency rules
-
-### MustHave (actor capabilities/resources)
-- Relevant skills thresholds
-- Tools required (or allowed)
-- Minimum relationships (for social/economic actions)
-- Minimum current health/energy to attempt
-
-## 3) Results
-Must specify:
-
-### Outcomes on Success
-- State changes (health/energy/hunger/etc.)
-- Inventory changes (+food, −tool durability)
-- Relationship changes (trust, respect)
-- Discovery/knowledge seeds
-- Hazard exposure or mitigation
-
-### Outcomes on Failure
-- What partial progress happens (if any)
-- Wasted time/costs
-- Injury/negative state changes (if applicable)
-- Optional fear/anger emotional drivers via event emission
-
-### Events emitted
-List event categories + recommended visibility and scale.
-
-## Action Lifecycle (Execution Model)
-
-Actions run through a common lifecycle so they plug into the event/emotion/memory pipeline.
-
-```text
-Action Start
-↓ Precondition checks
-↓ Plan parameters
-   (target, tool, route, timing)
-↓ Execute (duration + movement + consumes)
-↓ Resolve (success/failure)
-↓ Apply Outcomes (state/inventory/relationships)
-↓ Emit Event(s)
-↓ Finish / cooldown / next decision
-```
-
-## Action duration and tick model
-To keep docs simple, define actions in one of these execution styles:
-
-- **Instant**: single resolution (share a piece of food, drink from a nearby source)
-- **Timed**: duration-based (forage/mine/build/craft)
-- **Ongoing**: continues while condition remains (harvest until depleted, escort until destination)
-
-## Standard Outcome Tags
-
-To keep actions versatile without huge prose, outcomes should use a small vocabulary.
-
-## StateChange
-- **Health Δ**
-- **Energy Δ**
-- **Stamina Δ**
-- **Hunger Δ**
-- **Thirst Δ**
-- **Bladder discomfort / urgency Δ**
-
-## InventoryChange
-- **+Food / −Food**
-- **+Flora / +Minerals**
-- **−ToolDurability**
-- **+Parts / +Materials**
-
-## RelationshipChange
-- **Trust Δ** (relationship-specific)
-- **Respect Δ**
-
-## Knowledge / Discovery
-- **MemorySeed** strength/severity band (e.g. 20..60)
-- **LearnedFact** / **MapPin** / **EncounterTag**
-
-## Hazard Exposure
-- Infection/poison/radiation/curse exposure checks
-- Injury risks (falls, bites, heat, cold)
-
-## Standard Event Emission Rules
-
-Actions should emit event(s) rather than directly causing emotional change.
-
-## Recommended mapping
-- **Gather / Hunt / Mine / Build** → usually **Biological**, **Environmental**, or **Economic** events
-- **Attack / Defend** → **Conflict** events
-- **Share / Socialize / Mentor** → **Social** events
-- **Rest / Sleep / Heal** → **Personal** + **Biological** (injury recovery) events
-- **Explore / Discover** → **Discovery** events
-
-## Scale and severity
-Use these ranges consistently:
-- **Severity**: `0..100` (minor to catastrophic)
-- **Scale**:
-  - Individual / Family / Group / Settlement / Regional / Global
-
-If an action has failure that causes injury, severity should skew moderate:
-- typical failure injury: **15..55**
-
-## Action Variants (Versatility)
-
-Instead of redefining actions, use variants as parameters.
-
-Each action supports:
-- **ToolVariant** (barehand / hand-tool / specialized tool)
-- **TargetVariant** (deer/fish/herb/ore/ruin node)
-- **DifficultyVariant** (safe/normal/dangerous/cursed)
-
-The action template remains identical; only requirements/outcomes/event severity bands shift.
-
-## Core Action Set (Start Here)
-
-Below are initial actions designed to cover most gameplay loops.
-
-## 1) Gather (Flora/Minerals)
-
-### Purpose
-Collect nearby resource nodes (plants or geological materials) for food, crafting, alchemy, or construction.
-
-Supports:
-- Hunger/Thirst (if food/water flora)
-- Work and economic goals (materials)
-- Discovery (learning resource locations)
-
-### Requirements
-**MustExist**
-- Target resource node within interaction range
-- Target type is compatible with allowed gather modes (flora/minerals)
-
-**MustHave**
-- Dexterity + relevant tool use skill threshold
-- Appropriate tool (optional for “basic” gather; required for quality mining/cutting)
-
-### Results
-**Success outcomes**
-- `+InventoryChange`: harvested flora/minerals (quantity depends on tool + skill)
-- `−ToolDurability` (if tool used)
-- `MemorySeed`: mild discovery memory (severity band **10..35**)
-- Optional hazard exposure check (poisonous spines, contaminated deposit)
-
-**Failure outcomes**
-- `−Energy` / `−Stamina` (small)
-- `MemorySeed` optional (if failure is costly): **15..40**
-- Optional injury if target is hazardous: `Health −Δ`
-
-**Events emitted**
-- Category: **Economic** (trade value context) and/or **Environmental** (hazard exposure)
-- Scale: **Individual**
-- Severity: **0..60** (higher when injury/hazard)
-
-## 2) Forage (Seasonal Gathering)
-
-### Purpose
-Search and collect small edible or useful items from the environment without a fixed node.
-
-Supports:
-- Hunger
-- Thirst (if water sources exist)
-- Exploration
-
-### Requirements
-**MustExist**
-- Forage-able conditions in the current biome/season
-- Suitable terrain (not fully hazardous unless specialized)
-
-**MustHave**
-- Curiosity/Perception threshold for spotting targets
-- Low tool needs (hand gather) or optional simple tools
-
-### Results
-**Success outcomes**
-- `+Food/−Food` inventory depending on consumption plans
-- `Energy −Δ` (activity cost)
-- `MemorySeed`: “where to forage next time” (severity band **10..40**)
-
-**Failure outcomes**
-- `−Energy` and `Hunger may remain high`
-- Potential mild injury if forage in hostile hazard layers
-
-**Events emitted**
-- Category: **Discovery** (location/biome knowledge)
-- Category: **Biological** (predation/harassment if encountered)
-- Scale: **Individual**
-
-## 3) Drink (From Water Source)
-
-### Purpose
-Consume water to reduce thirst (and optionally improve recovery if safe and clean enough).
-
-### Requirements
-**MustExist**
-- WaterFeature present (stream/lake/spring/oasis/etc.)
-- Safety check: hazard layer or contamination may require “safe drink” variant
-
-**MustHave**
-- Enough energy to perform drinking action
-
-### Results
-**Success outcomes**
-- `Thirst Δ −` (amount depends on water quality)
-- `Energy` small recovery if clean water
-- Optional `MemorySeed`: safe source remembered (severity **5..25**)
-
-**Failure outcomes**
-- `Thirst remains high`
-- Possible `Health −Δ` if contaminated/miasmic
-
-**Events emitted**
-- Category: **Environmental** (contamination exposure) and/or **Personal**
-- Scale: **Individual**
-- Severity: **0..70** (higher if poisoning)
-
-## 4) Hunt (Predation/Chase/Capture)
-
-### Purpose
-Chase, track, and capture prey for food or resources.
-
-### Requirements
-**MustExist**
-- Prey detected within tracking radius
-- Pathing possible (terrain/hazard constraints)
-
-**MustHave**
-- Perception + stamina
-- Combat skill threshold (for active hunting)
-- Tool variant optional (trap/spear/club)
-
-### Results
-**Success outcomes**
-- `+InventoryChange`: meat/edibles (quantity depends on success margin)
-- `Hunger Δ −`
-- Possible injury from struggle (`Health −Δ`)
-- `MemorySeed`: “effective strategy” (severity **20..65**)
-
-**Failure outcomes**
-- `Energy −Δ`, `Stamina −Δ`
-- Optional `Fear/anger` event trigger via fight interruption
-
-**Events emitted**
-- Category: **Conflict** (if fight occurs)
-- Category: **Biological** (predation result)
-- Scale: **Individual**
-- Severity: **0..85**
-
-## 5) Mine (Geological Resource Extraction)
-
-### Purpose
-Extract minerals/ores from geological nodes.
-
-### Requirements
-**MustExist**
-- Ore node within interaction range
-- Terrain supports safe access (depth/hazard constraints)
-
-**MustHave**
-- Tool quality and relevant mining skill threshold
-
-### Results
-**Success outcomes**
-- `+InventoryChange`: minerals/ore fragments
-- `−ToolDurability`
-- `MemorySeed`: efficient vein memory (severity **10..40**)
-- Optional hazard exposure: radiation/curse/volatile rock
-
-**Failure outcomes**
-- `−Energy`, `Health −Δ` if rock failure
-- Possible cave-in trigger (if unstable tectonic activity)
-
-**Events emitted**
-- Category: **Environmental** (hazard/cave-in)
-- Category: **Economic** (resource production)
-- Scale: **Individual**
-- Severity: **0..90**
-
-## 6) Rest (Recover by Time)
-
-### Purpose
-Recover energy and reduce fatigue.
-
-### Requirements
-**MustExist**
-- Safe resting conditions (hazard layer check / threat proximity)
-
-**MustHave**
-- None beyond basic survival ability
-
-### Results
-**Success outcomes**
-- `Energy Δ +`
-- `Stamina Δ +`
-- `MemorySeed` minimal (severity **0..10**)
-
-**Failure outcomes**
-- Rest interrupted: `Energy gain reduced`
-- Optional exposure to nearby conflict events
-
-**Events emitted**
-- Category: **Personal**
-- Scale: **Individual**
-- Severity: usually low **0..25**
-
-## 7) Heal (Medicine / Care)
-
-### Purpose
-Apply medicine, bandages, or rest to improve health.
-
-### Requirements
-**MustExist**
-- Injured state present OR preventive care goal
-- Medicine resource available OR basic bandaging possible
-
-**MustHave**
-- Medicinal skill threshold (or tool variant)
-- Optional relationship requirement for caring (social vs professional)
-
-### Results
-**Success outcomes**
-- `Health Δ +` (amount depends on medicine potency)
-- Possible removal/mitigation of poison debuffs (if applicable)
-- `MemorySeed`: “I was helped” (severity **15..55**)
-
-**Failure outcomes**
-- Less effective healing
-- Possible infection worsening (if medicine quality poor or contamination)
-
-**Events emitted**
-- Category: **Biological** (recovery) and **Social** (if by another creature)
-- Scale: **Individual**
-
-## 8) Explore (Scout / Map / Discover)
-
-### Purpose
-Move through unknown or partially known territory to find resources, hazards, routes, and settlements.
-
-### Requirements
-**MustExist**
-- Unscouted tiles or interest points
-
-**MustHave**
-- Energy > minimum
-- Perception threshold for meaningful discoveries
-
-### Results
-**Success outcomes**
-- `MemorySeed`: discovery memories (severity **10..45**)
-- Possible `Action outcome`: mark route, unlock knowledge nodes
-
-**Failure outcomes**
-- Missed opportunities
-- If hazard encountered: `Health −Δ` or `Energy −Δ`
-
-**Events emitted**
-- Category: **Discovery**
-- Category: **Environmental** (if hazards encountered)
-- Scale: **Individual**
-- Severity: **0..80**
-
-## 9) Trade (Exchange Resources)
-
-### Purpose
-Exchange items/resources with another entity or settlement.
-
-### Requirements
-**MustExist**
-- Trade partner available
-- Market availability (if you model it)
-
-**MustHave**
-- Relationship trust threshold OR social influence skill
-- Items in inventory
-
-### Results
-**Success outcomes**
-- `InventoryChange`: trade swap
-- `RelationshipChange`: trust/respect Δ
-- `MemorySeed`: “deal went well” (severity **10..50**)
-
-**Failure outcomes**
-- Transaction aborted
-- Possible social conflict event if attempted deceit/stealing
-
-**Events emitted**
-- Category: **Economic** and **Social**
-- Scale: **Settlement** or **Individual** (depending on partner)
-- Severity: **0..70**
-
-## 10) Socialize (Share / Talk / Mentor)
-
-### Purpose
-Interact to improve belonging, trust, and cooperative bonds.
-
-### Requirements
-**MustExist**
-- Another creature (or group member) available
-- Social context permits interaction
-
-**MustHave**
-- Minimum energy
-- Personality/social skill influence threshold
-
-### Results
-**Success outcomes**
-- `RelationshipChange`: trust/respect Δ
-- `Belonging` maintenance indirectly via relationship system
-- `MemorySeed`: shared experience severity **10..55**
-
-**Failure outcomes**
-- Relationship change negative (miscommunication)
-- Possible conflict event in high threat context
-
-**Events emitted**
-- Category: **Social**
-- Scale: **Family/Group/Settlement** depending on participants
-- Severity: **0..75**
-
-## 11) Attack (Combat Resolution Wrapper)
-
-### Purpose
-Perform an aggressive action intended to injure, disable, or deter a target.
-
-### Requirements
-**MustExist**
-- Target within combat range
-- Combat conditions valid (line-of-sight / adjacency)
-
-**MustHave**
-- Combat skill threshold
-- Weapon/tool variant availability
-- Health/energy minimum
-
-### Results
-**Success outcomes**
-- `Health −Δ` on target
-- `Stamina −Δ` attacker
-- Optional status effects (if you model them later)
-- `MemorySeed` for both sides based on severity **20..90**
-
-**Failure outcomes**
-- Attacker injury risk
-- Possible return aggression event
-
-**Events emitted**
-- Category: **Conflict**
-- Scale: **Individual/Group**
-- Severity: **10..100**
-
-## 12) Flee (Escape / Evade)
-
-### Purpose
-Avoid danger by disengaging and moving toward safety.
-
-### Requirements
-**MustExist**
-- Threat source present
-- Escape route exists (pathing)
-
-**MustHave**
-- Energy > minimum
-- Fear/low threat tolerance interacts via emotion system (planner picks flee)
-
-### Results
-**Success outcomes**
-- `Energy −Δ` but reduces future injury risk
-- Optional `MemorySeed`: survival/trauma (severity **15..80**)
-
-**Failure outcomes**
-- Panic risk: `Health −Δ`
-- Potential conflict escalation events
-
-**Events emitted**
-- Category: **Conflict** and/or **Environmental**
-- Scale: **Individual**
-- Severity: **0..95**
-
-## Extending the Action Library
-
-To add actions without breaking clarity:
-1. Start with the **template** sections: Purpose → Requirements → Results.
-2. Use **variants** for tool/target/difficulty.
-3. Keep outcomes tagged and consistent.
-4. Emit events using the same severity/scale approach from `events.md`.
-
-## Consistency Checklist
-
-When writing a new action, confirm:
-- [ ] It does not directly modify personality
-- [ ] It declares clear preconditions
-- [ ] It defines success and failure outcomes
-- [ ] It emits one or more event(s)
-- [ ] Outcomes are expressible with outcome tags
-- [ ] It can be parameterized via variants
+Actions do not decide when they are chosen. They define what can be done, what must be true to do it, and what changes when it succeeds or fails. The behavior system evaluates actions and selects among them.
 
 ---
 
-## Design Philosophy
+# Design Philosophy
 
-The actions system is designed to stay modular, data-driven, and aligned with the event/emotion pipeline.
-
-## Core Concepts
-
-- Action definitions use Purpose, Requirements, and Results
-- Outcomes are expressed with standardized tags
-- Actions emit events rather than directly modifying personality
+* Actions are data-driven and reusable.
+* Actions should be small, composable, and context-aware.
+* High-level plans belong in behavior, not inside action definitions.
+* Actions should expose clear preconditions, costs, effects, and tags.
+* Specialized behavior families like social conflict, courtship, combat, and reproduction remain part of the action model through subtypes and tags rather than separate hardcoded systems.
+* Equipment actions are first-class state transitions that change loadout and capability.
 
 ---
 
-## Implementation / Notes
+# Core Concepts
 
-* Keep new actions consistent with existing templates and variant patterns.
+## Action Model
+
+Each action is a defined verb or state transition that can be evaluated by the behavior system.
+
+An action should describe:
+- What it does.
+- What it requires.
+- What it costs.
+- What it changes.
+- What it trains.
+- What it tends to make creatures feel or remember.
+
+### Standard Action Schema
+
+```text
+Action {
+  id
+  name
+  category
+  subtype
+  tags[]
+  description
+  parameters[]
+  preconditions[]
+  costs[]
+  duration
+  risk
+  effects[]
+  failure_outcomes[]
+  stat_scaling[]
+  skill_scaling[]
+  behavior_bias[]
+  emotion_hooks[]
+  memory_hooks[]
+  training_hooks[]
+}
+```
+
+## Categories
+
+Actions are grouped into broad categories to keep the system modular and readable.
+
+### Survival
+
+Actions that keep a creature alive.
+- Eat.
+- Drink.
+- Sleep.
+- Rest.
+- Seek shelter.
+- Recover.
+
+### Movement
+
+Actions that relocate a creature or change positional state.
+- Move.
+- Travel.
+- Navigate.
+- Flee.
+- Chase.
+- Patrol.
+
+### Exploration
+
+Actions that gather information about the world.
+- Inspect.
+- Investigate.
+- Observe.
+- Map.
+- Track.
+- Search.
+
+### Resource
+
+Actions that obtain, carry, or store materials.
+- Gather.
+- Mine.
+- Harvest.
+- Carry.
+- Store.
+- Deliver.
+
+### Crafting
+
+Actions that transform resources into tools, items, or structures.
+- Craft.
+- Build.
+- Repair.
+- Refine.
+- Assemble.
+- Improve.
+
+### Social
+
+Actions that manage interaction between creatures.
+- Greet.
+- Speak.
+- Share.
+- Help.
+- Comfort.
+- Negotiate.
+- Argue.
+- Threaten.
+- Bond.
+- Reject.
+
+### Conflict
+
+Social actions that produce opposition, pressure, or violence.
+- Challenge.
+- Intimidate.
+- Grapple.
+- Strike.
+- Defend.
+- Submit.
+- Retreat.
+- Surrender.
+
+### Courtship
+
+Social actions that support mate selection and reproductive bonding.
+- Flirt.
+- Court.
+- Impress.
+- Mate.
+- Accept.
+- Refuse.
+- Bond.
+
+### Equipment
+
+Actions that change the creature’s loadout or readiness state.
+- Equip.
+- Unequip.
+- Swap.
+- Sheath.
+- Draw.
+- Wear.
+- Remove.
+
+### Cognitive
+
+Actions that process information or strengthen learning.
+- Learn.
+- Remember.
+- Rehearse.
+- Plan.
+- Compare.
+- Solve.
+
+### Identity
+
+Actions that express or test self-concept.
+- Conform.
+- Resist.
+- Experiment.
+- Assert.
+- Perform.
+
+### Legacy
+
+Actions that preserve, transmit, or extend meaning across generations.
+- Teach.
+- Mentor.
+- Record.
+- Preserve.
+- Pass down.
+- Inherit.
+
+## Properties
+
+Every action should expose properties that other systems can read.
+
+### Preconditions
+
+Preconditions define what must be true before the action can begin.
+- Creature state.
+- World state.
+- Target state.
+- Item state.
+- Relationship state.
+- Skill threshold.
+- Stat threshold.
+
+### Costs
+
+Costs define what the action consumes.
+- Time.
+- Stamina.
+- Focus.
+- Resources.
+- Exposure.
+- Social risk.
+- Emotional cost.
+
+### Effects
+
+Effects define what changes if the action succeeds.
+- World state changes.
+- Creature state changes.
+- Relationship changes.
+- Item state changes.
+- Skill progress.
+- Memory formation.
+- Emotional response.
+
+### Failure Outcomes
+
+Failure outcomes define what happens if the action is interrupted, blocked, or unsuccessful.
+- No change.
+- Partial change.
+- Wasted time.
+- Increased stress.
+- Lost resources.
+- Relationship damage.
+- Injury.
+
+### Stat Scaling
+
+Actions can be modified by core stats and derived competency layers.
+- Strength.
+- Stamina.
+- Dexterity.
+- Perception.
+- Willpower.
+- Derived stats where appropriate.
+
+### Skill Scaling
+
+Actions can be modified by relevant skills.
+- Higher skill improves success chance.
+- Higher skill improves speed.
+- Higher skill improves quality.
+- Repeated use can train the skill.
+
+### Behavior Bias
+
+Actions can be more or less attractive depending on personality, emotion, and memory.
+- Personality traits can raise or lower action weight.
+- Current emotions can amplify or suppress action choice.
+- Relevant memories can encourage or discourage the action.
+
+### Emotion Hooks
+
+Actions can produce emotions when they succeed, fail, or are observed.
+- Joy.
+- Relief.
+- Pride.
+- Fear.
+- Shame.
+- Anger.
+- Attachment.
+- Curiosity.
+
+### Memory Hooks
+
+Important actions can form or reinforce memories.
+- Episodic memory.
+- Semantic memory.
+- Procedural memory.
+- Relational memory.
+
+### Training Hooks
+
+Actions can increase skills or hidden tendencies through repetition.
+- Successful action use trains relevant skills.
+- Repeated action patterns can reinforce hidden stats.
+- Repeated emotional outcomes can influence personality drift indirectly.
+
+## Action Selection Interface
+
+The action system does not choose actions directly. It provides a catalog of possible verbs and their data so behavior can score them.
+
+Typical behavior inputs include:
+- Current needs.
+- Current emotions.
+- Relevant memories.
+- Personality axes.
+- Stats.
+- Skills.
+- World state.
+- Nearby entities.
+- Available items.
+
+## Examples
+
+### Example: Eat
+
+```text
+Action: Eat
+Category: Survival
+Preconditions: Food available, creature can consume it.
+Costs: Time, stamina.
+Effects: Reduces hunger, may create satisfaction or relief.
+```
+
+### Example: Equip Item
+
+```text
+Action: Equip
+Category: Equipment
+Preconditions: Item present, slot available, item usable.
+Costs: Time, attention.
+Effects: Item becomes active loadout, stats may change.
+```
+
+### Example: Court
+
+```text
+Action: Court
+Category: Courtship
+Preconditions: Target is receptive or approachable.
+Costs: Time, social risk.
+Effects: Relationship may deepen, attraction may change, memories may form.
+```
+
+### Example: Fight
+
+```text
+Action: Strike
+Category: Conflict
+Preconditions: Target reachable, creature willing to engage.
+Costs: Stamina, risk, exposure.
+Effects: Damage, fear, retaliation, memory formation.
+```
+
+---
+
+# Implementation / Notes
+
+* Keep actions as reusable definitions rather than hardcoded behavior trees.
+* Prefer tags over special-case logic whenever possible.
+* Group related actions into subtypes instead of adding one-off systems.
+* Let behavior score actions using stats, skills, needs, personality, and memory.
+* Keep equipment, courtship, and conflict modular inside the action taxonomy.
+* Use consistent naming for action ids and categories across the project.
 
 ---
 
