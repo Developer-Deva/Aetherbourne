@@ -1,6 +1,6 @@
 # Aetherbourne
 
-Aetherbourne is a 2D top-down pixel-art life simulation built around systemic design, procedural generation, and emergent storytelling. Rather than relying on scripted narratives, the world operates through interconnected systems that allow unique stories to emerge naturally from the actions, experiences, and relationships of its inhabitants.
+Aetherbourne is a modular 2D top-down pixel-art life simulation built around systemic design, procedural generation, and emergent storytelling. Rather than relying on scripted narratives, the world operates through interconnected systems that allow unique stories to emerge naturally from the actions, experiences, and relationships of its inhabitants.
 
 Every creature is an individual. They are born with inherited genetic traits that determine their physical characteristics, natural capabilities, strengths, and weaknesses. Beyond genetics, creatures possess needs, emotions, memories, and evolving personalities that develop throughout their lives. Who a creature becomes is shaped not only by what it inherits, but by what it experiences.
 

@@ -1,105 +1,4 @@
-# Creature Behavior System
-**Description:** Behavioral patterns, decision-making frameworks, and emergent creature behaviors in Aetherbourne
-**Last Updated:** 2026-06-21
----
-## Overview
-The behavior system describes how creatures make decisions, execute plans, and interact with their environment.
-Creature behavior emerges from the interaction of needs, goals, memories, personality traits, and environmental factors.
-## Content Coming Soon
-This documentation is currently in development. Please check back for updates.
----
-## Design Philosophy
-High-level goals and motivations behind the behavior design.
-## Core Concepts
-- Decision pipelines
-- Goal arbitration
-- Action selection and execution
----
-## Implementation / Notes
-* Implementation notes, data formats, and planner integration details go here.
-# Memory System
-**Description:** Memory formation, decay, and influence on personality for Aetherbourne
-**Last Updated:** 2026-06-21
----
-## Overview
-Memories are the stored records of significant emotional experiences. They are the primary driver of **Personality Drift**.
-## Content Coming Soon
-This documentation is currently in development. Please check back for updates.
----
-## Memory Formation
-A memory is formed when the **Emotional Intensity** of an event exceeds the creature's storage threshold.
-```text
-MemoryStrength = EmotionalIntensity × DriveWeight
-```
-* **DriveWeight:** If the event category matches the creature's **Aethersign Drive**, the memory is 25% stronger.
----
-## Memory Taxonomy
-* **Episodic:** Records of specific events (e.g., "The time I found the cave").
-* **Semantic:** Generalized knowledge derived from events (e.g., "Caves are dangerous").
-* **Procedural:** Skills and habits learned through repetition (e.g., "How to forge iron").
----
-## Memory Decay & Persistence
-All memories decay over time, but at different rates.
-```text
-CurrentStrength = InitialStrength × e^(-DecayRate × Time)
-```
-* **Minor Events:** High DecayRate (fades in days).
-* **Traumatic/Significant Events:** Low DecayRate (may last a lifetime).
----
-## Memory Retrieval & Association
-Memories are not static; they are retrieved when the creature encounters similar stimuli.
-* **Association:** Encountering a "Snake" may trigger a memory of a "Snake Bite," spiking current *Fear* levels.
-* **Recall:** High *Cognition* traits increase the accuracy and speed of memory retrieval.
----
-## Influence on Personality
-Memories provide "drift" values that accumulate over time.
-`DriftContribution = CurrentStrength × AxisModifier`
----
-## Design Philosophy
-* **Selective Retention:** The simulation only keeps what matters.
-* **Dynamic History:** As memories decay, their influence on future decisions weakens, but their effect on the *past* personality drift is permanent.
-# Emotion System
-**Description:** Emotional state, processing, and influence systems for Aetherbourne
-**Last Updated:** 2026-06-21
----
-## Overview
-Emotions are the subjective bridge between objective events and lasting memories. They determine how a creature perceives and reacts to the world.
-## Content Coming Soon
-This documentation is currently in development. Please check back for updates.
----
-## The Emotional Pipeline
-`Need → Goal → Action → Event → Interpretation → Emotion → Memory`
----
-## Emotional Intensity
-```text
-EI = EventSeverity × PersonalRelevance × PersonalityAmplifier
-```
-* **EventSeverity:** Objective impact (0-100).
-* **PersonalRelevance:** Impact on the creature's current state.
-* **PersonalityAmplifier:** Modified by *Sensitivity* and *Emotional Reactivity*.
----
-## Emotional Taxonomy
-Emotions are categorized by their influence on behavioral AI.
----
-## Subjective Interpretation
-The same event produces different emotions based on the creature's perspective.
-### Example
-* **Victor:** Pride / Joy.
-* **Loser:** Shame / Anger.
-* **Witness:** Admiration / Fear (influenced by *Empathy* trait).
----
-## Emotion → Memory Transition
-Not every emotion becomes a memory. Only those that exceed a certain threshold are stored.
-```text
-MemoryStrength = EI × DurationFactor
-```
-If `MemoryStrength > MemoryThreshold`, a new memory is created.
----
-## Design Philosophy
-* **Subjectivity:** Events are facts; emotions are interpretations.
-* **Volatility:** Emotions are short-lived but drive long-term character change via memories.
-
-This is a strong foundation, and your docs already line up well with a behavior pipeline where needs create goals, goals select actions, actions produce events, and emotions/memories feed back into future decisions. I’d recommend formalizing it as a utility-based arbiter with emotional appraisal and memory-driven drift layered on top of your personality axes [1][2][3].
+The docs already line up well with a behavior pipeline where needs create goals, goals select actions, actions produce events, and emotions/memories feed back into future decisions. I’d recommend formalizing it as a utility-based arbiter with emotional appraisal and memory-driven drift layered on top of your personality axes.
 
 ## Behavior pipeline
 
@@ -114,7 +13,7 @@ Use this sequence:
 7. Emotional intensity may create or strengthen memory.
 8. Memory contributes drift to personality axes over time.
 
-This matches both your current docs and established emotion/appraisal models, where events are evaluated against needs, goals, and values, then converted into action tendencies before behavior execution [2][3]. It also fits behavior arbitration research that treats action selection as a utility or priority combination problem rather than a single hard-coded choice [1][4][5].
+This matches both your current docs and established emotion/appraisal models, where events are evaluated against needs, goals, and values, then converted into action tendencies before behavior execution. It also fits behavior arbitration research that treats action selection as a utility or priority combination problem rather than a single hard-coded choice.
 
 ## Decision model
 
@@ -128,7 +27,7 @@ I’d give each creature a short candidate set each tick rather than a huge sear
 - Environmental feasibility.
 - Aethersign bias.
 
-Then choose the action with the highest final utility, with some controlled randomness so creatures remain organic rather than perfectly optimized. Utility fusion or priority arbitration both work here; utility is better if you want subtle personality differences, while priority is better if you want clearer “override” behaviors under stress [4][6].
+Then choose the action with the highest final utility, with some controlled randomness so creatures remain organic rather than perfectly optimized. Utility fusion or priority arbitration both work here; utility is better if you want subtle personality differences, while priority is better if you want clearer “override” behaviors under stress.
 
 ## Personality effects on behavior
 
@@ -162,19 +61,19 @@ Here is a practical mapping from your axes to behavior selection:
 The most important part is making the loops compound over time.
 
 ### Need loop
-A need rises, the creature acts, the action succeeds or fails, the result becomes emotional, and the emotional result reinforces future need priorities. Repeated hunger near a food source can make a creature more structured, more opportunistic, or more territorial depending on personality and outcomes [2][3].
+A need rises, the creature acts, the action succeeds or fails, the result becomes emotional, and the emotional result reinforces future need priorities. Repeated hunger near a food source can make a creature more structured, more opportunistic, or more territorial depending on personality and outcomes.
 
 ### Social loop
 Affiliation, assertiveness, cooperation, and contention shape how often a creature interacts, which determines how many social memories it gets. Positive interactions increase trust and cohesion; negative interactions increase guardedness, rivalry, or differentiation. This makes social style self-reinforcing over time.
 
 ### Emotional loop
-Emotion intensity depends on event severity, relevance, and personality amplification, which your docs already define. High-intensity emotions are more likely to become memories, and those memories then shift personality drift, which changes future emotional amplification. That creates a stable but slowly changing emotional identity [7][8][3].
+Emotion intensity depends on event severity, relevance, and personality amplification, which your docs already define. High-intensity emotions are more likely to become memories, and those memories then shift personality drift, which changes future emotional amplification. That creates a stable but slowly changing emotional identity.
 
 ### Competence loop
 Success at a task increases the likelihood of reusing the same strategy, which strengthens procedural memory and boosts structure or direction. Failure can either increase curiosity and adaptation or harden avoidance, depending on sensitivity, regulation, and prior memory context.
 
 ### Trauma loop
-Strong negative memories do not just reduce comfort; they change interpretation. A snake bite may later trigger fear on sight of snakes, which then biases avoidance, which reduces exposure, which prevents corrective learning. That is exactly the kind of selective retention and dynamic history your memory system is aiming for [8][3].
+Strong negative memories do not just reduce comfort; they change interpretation. A snake bite may later trigger fear on sight of snakes, which then biases avoidance, which reduces exposure, which prevents corrective learning. That is exactly the kind of selective retention and dynamic history your memory system is aiming for.
 
 ## Memory to personality drift
 
@@ -228,7 +127,331 @@ That keeps your system readable and extensible while still allowing complex emer
 
 ## Recommended design choice
 
-If you want the system to feel alive, I’d avoid hard personality “modes” and instead let the same axes interact multiplicatively with memory and emotion. That way a creature is not “a coward” or “a hero”; it is a creature whose current choices are the result of a lifetime of pressures, habits, and lived experience. That is much closer to the emergent storytelling goal of Aetherbourne [9][10].
+Avoid hard personality “modes” and instead let the same axes interact multiplicatively with memory and emotion. That way a creature is not “a coward” or “a hero”; it is a creature whose current choices are the result of a lifetime of pressures, habits, and lived experience. That is much closer to the emergent storytelling goal of Aetherbourne.
 
-Would you like me to turn this into a concrete **JSON schema and formula set** next?
+In a moment I'm going to have you define the action schema, behavior schema, emotion schema, and memory schema. but first I want to let you know skills are undefined completely too and lets talk about stats! they don't need changed I think theyre perfect but that's just my opinion! so here's stats:
+# Stats System
+**Description:** Core stats, derived stats, and hidden stats that drive behavior and skill growth for creatures in Aetherbourne
+**Last Updated:** 2026-06-21
+---
+## Overview
+Stats are layers of abstraction that help drive behavior, skill growth, personality development, and emergent outcomes.
+These are not traditional RPG stats where they directly modify combat calculations. Instead, they are **layers of abstraction** that help drive behavior, skill growth, personality development, and emergent outcomes.
+The hierarchy itself is interesting:
+```
+Core Stats (Inherited + Trainable)
+├─ Strength
+├─ Stamina
+├─ Dexterity
+├─ Perception
+└─ Willpower
+Advanced Stats (Derived)
+├─ Endurance
+├─ Prowess
+├─ Finesse
+├─ Conviction
+└─ Vitality
+Hidden Stats (Second-order Derived)
+├─ Focus
+├─ Insight
+├─ Creativity
+├─ Fortitude
+└─ Momentum
+```
+## Core Stats
+These should be the only stats that actually exist on the creature.
+### Strength
+Represents force production.
+Affects:
+* Carrying capacity
+* Melee damage
+* Mining
+* Woodcutting
+* Construction
+* Grappling
+* Throwing
+### Stamina
+Represents physical endurance.
+Affects:
+* Energy consumption
+* Fatigue resistance
+* Travel distance
+* Work duration
+* Recovery speed
+### Dexterity
+Represents coordination and precision.
+Affects:
+* Crafting quality
+* Accuracy
+* Dodging
+* Tool use
+* Harvesting efficiency
+### Perception
+Represents awareness.
+Affects:
+* Detection radius
+* Resource spotting
+* Threat recognition
+* Tracking
+* Memory acquisition
+### Willpower
+Represents mental persistence.
+Affects:
+* Goal commitment
+* Fear resistance
+* Pain tolerance
+* Emotional stability
+* Long-term planning
+## Advanced Stats
+Don't store them.
+Compute dynamically:
+```cpp
+Endurance = (Strength + Stamina) / 2
+Prowess   = (Strength + Dexterity) / 2
+Finesse   = (Dexterity + Perception) / 2
+Conviction= (Willpower + Perception) / 2
+Vitality  = (Stamina + Willpower) / 2
+```
+These become useful because they represent broad competencies.
+## Endurance
+How long a creature can physically perform.
+Used by:
+* Hunting
+* Long travel
+* Combat duration
+* Labor
+## Prowess
+Physical effectiveness.
+Used by:
+* Fighting
+* Athletics
+* Physical skill learning
+## Finesse
+Precision and awareness combined.
+Used by:
+* Crafting
+* Gathering
+* Tracking
+* Tool mastery
+## Conviction
+Mental clarity and awareness.
+Used by:
+* Decision making
+* Leadership
+* Social influence
+* Maintaining goals
+## Vitality
+Overall resilience.
+Used by:
+* Recovery
+* Disease resistance
+* Survival
+## Hidden Stats
+These are where things become really interesting.
+These shouldn't be visible to players.
+Instead they should influence emergent behavior.
+## Focus
+```cpp
+Focus = (Endurance + Finesse) / 2
+```
+Represents sustained attention.
+Affects:
+* Learning speed
+* Task completion rate
+* Skill gain
+Creatures with high Focus:
+* Finish what they start
+* Learn faster
+* Switch tasks less often
+## Insight
+```cpp
+Insight = (Prowess + Conviction) / 2
+```
+Represents understanding.
+Affects:
+* Decision quality
+* Pattern recognition
+* Tactical choices
+High Insight creatures:
+* Make smarter choices
+* Predict danger better
+* Select better actions
+## Creativity
+```cpp
+Creativity = (Finesse + Vitality) / 2
+```
+Represents adaptability.
+Affects:
+* Discovering solutions
+* Inventing behaviors
+* Exploration
+High Creativity creatures:
+* Try unusual actions
+* Explore more
+* Develop unique strategies
+## Fortitude
+```cpp
+Fortitude = (Endurance + Conviction) / 2
+```
+Represents perseverance.
+Affects:
+* Surviving hardship
+* Emotional resilience
+* Persistence
+High Fortitude creatures:
+* Don't quit easily
+* Survive disasters
+* Continue goals despite setbacks
+## Momentum
+```cpp
+Momentum = (Vitality + Prowess) / 2
+```
+Represents action tendency.
+Affects:
+* Initiative
+* Activity level
+* Goal pursuit
+High Momentum creatures:
+* Act quickly
+* Explore aggressively
+* Accomplish more during their lifetime
+## The interesting part
+**Personality emerges partly from these hidden stats.**
+Not through genetics directly.
+Instead:
+```cpp
+Personality =
+(
+Genetics
++
+Memories
++
+Experiences
++
+Hidden Stats
+)
+```
+Example:
+Two creatures can have identical personalities at birth.
+One grows into:
+* High Focus
+* High Fortitude
+because it trained constantly.
+The other develops:
+* High Creativity
+* High Momentum
+because it spent its life exploring.
+Now they begin making different decisions and slowly diverge into different personalities despite sharing similar genetics.
+This aligns with the philosophy:
+> Genetics determine inherited capabilities.
+> Personality emerges from experience.
+The hidden stats become the bridge between raw capabilities and the emergent personalities that develop over a creature's lifetime.
+---
+## Design Philosophy
+Stats should clearly distinguish base attributes, derived competencies, and hidden emergent factors.
+## Core Concepts
+- Core stats as primary creature attributes
+- Advanced stats as computed values
+- Hidden stats as emergent behavior influencers
+---
+## Implementation / Notes
+* Keep core stats explicit and derive others on demand for clarity in simulation code.
+
+This stats model is strong, and I agree with your instinct to keep the core stats as the only true stored stats on the creature. The derived and hidden layers work well as modular bridges between raw capability, behavior choice, skill growth, and emergent personality drift [1][2][3].
+
+## What’s working
+
+Your hierarchy is clean:
+
+- Core stats are explicit and trainable.
+- Advanced stats are computed competencies.
+- Hidden stats are emergent behavioral shapers.
+
+That structure is modular, readable, and easy to extend later without bloating the creature save data. It also fits the same layered-systems philosophy you’ve been using everywhere else: small primitives, then derived abstractions, then emergent behavior [1][2].
+
+## Why this matters for skills
+
+Since you said skills are undefined, stats become the natural bridge between action and skill growth. A skill system can stay fully modular if it only asks:
+
+- What stat profile supports this skill?
+- Which actions train it?
+- Which hidden stats accelerate it?
+- Which personality traits make it more likely to be used?
+
+That lets skills emerge from repeated action patterns rather than from a giant hardcoded skill tree.
+
+## Best role for each stat layer
+
+### Core stats
+These should affect:
+- Action success.
+- Action speed.
+- Training gain.
+- Feasibility.
+- Fatigue and risk.
+
+### Advanced stats
+These should act as high-level competency summaries:
+- Endurance for sustained work.
+- Prowess for physical effectiveness.
+- Finesse for precision and tool use.
+- Conviction for commitment and decision quality.
+- Vitality for resilience.
+
+### Hidden stats
+These are especially good as **behavioral tendencies**:
+- Focus for task persistence.
+- Insight for choice quality.
+- Creativity for adaptation and novel solutions.
+- Fortitude for recovery under stress.
+- Momentum for initiative and activity.
+
+That makes hidden stats perfect for influencing behavior and skill growth without being directly visible to the player.
+
+## The important connection to personality
+
+Your note that personality emerges partly from hidden stats is exactly right. This gives you a clean separation:
+
+- **Stats** describe how capable or tendency-driven a creature is.
+- **Personality** describes how that creature habitually interprets and chooses.
+- **Memory and experience** change both over time.
+
+So a creature with high Focus and Fortitude may naturally become more disciplined, while one with high Creativity and Momentum may drift toward experimentation and exploration. That is a very elegant bridge between competence and personality, and it helps explain why two creatures with similar starting traits can diverge strongly over a lifetime [4][5][6].
+
+## How skills should fit
+
+I’d suggest defining skills as **learned action domains**, not as separate stat-like numbers.
+
+Examples:
+- Foraging.
+- Cooking.
+- Carpentry.
+- Mining.
+- Tracking.
+- Social negotiation.
+- Teaching.
+- Crafting.
+- Combat styles.
+
+Each skill can have:
+- Relevant core stats.
+- Relevant advanced stats.
+- Relevant hidden stats.
+- Trained actions that improve it.
+- Personality traits that bias its use.
+- Memory patterns that reinforce it.
+
+That keeps skills modular and prevents them from becoming a second stat system.
+
+## A good rule for skill growth
+
+Use this general principle:
+
+- Actions increase skill proficiency.
+- Skill proficiency improves action success and efficiency.
+- Repeated success increases hidden stats that support that behavior.
+- Hidden stats bias future action selection.
+- Personality slowly shifts to match repeated life patterns.
+
+That creates a self-reinforcing loop without making growth feel predetermined.
 
