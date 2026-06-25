@@ -11,7 +11,7 @@ The relationships system defines how creatures form social bonds, maintain relat
 
 ## Content Coming Soon
 
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 

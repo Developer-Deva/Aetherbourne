@@ -7,7 +7,7 @@
 ## Overview
 Memories are the stored records of significant emotional experiences. They are the primary driver of **Personality Drift**.
 ## Content Coming Soon
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 

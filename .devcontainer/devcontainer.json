@@ -15,7 +15,8 @@
   "portsAttributes": {
     "6080": {
       "label": "Aetherbourne",
-      "onAutoForward": "notify",
+      "onAutoForward": "openBrowser",
+      "protocol": "https",
       "visibility": "public"
     }
   },

@@ -11,7 +11,7 @@ The communities system defines how creatures form settlements, organize societie
 
 ## Content Coming Soon
 
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 

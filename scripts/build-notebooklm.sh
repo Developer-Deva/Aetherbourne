@@ -20,29 +20,29 @@ FILES=(
 "docs/02_creatures/needs.md"
 "docs/02_creatures/emotions.md"
 "docs/02_creatures/memories.md"
-#"docs/02_creatures/relationships.md"
+"docs/02_creatures/relationships.md"
 
 # Decision Systems
-#"docs/02_creatures/skills.md"
+"docs/02_creatures/skills.md"
 "docs/02_creatures/actions.md"
-#"docs/02_creatures/behavior.md"
+"docs/02_creatures/behavior.md"
 
 # Simulation
 "docs/03_simulation/time.md"
-#"docs/03_simulation/events.md"
+"docs/03_simulation/events.md"
 
 # Society
-#"docs/04_society/communities.md"
-#"docs/04_society/culture.md"
+"docs/04_society/communities.md"
+"docs/04_society/culture.md"
 
 # Content
-#"docs/05_content/items.md"
-#"docs/05_content/consumables.md"
-#"docs/05_content/tools.md"
-#"docs/05_content/weapons.md"
-#"docs/05_content/equipment.md"
-#"docs/05_content/stations.md"
-#"docs/05_content/crafting.md"
+"docs/05_content/items.md"
+"docs/05_content/consumables.md"
+"docs/05_content/tools.md"
+"docs/05_content/weapons.md"
+"docs/05_content/equipment.md"
+"docs/05_content/stations.md"
+"docs/05_content/crafting.md"
 
 )
 
@@ -89,7 +89,13 @@ echo "" >> "$OUTPUT"
 echo "# FILE: $file" >> "$OUTPUT"
 echo "" >> "$OUTPUT"
 
-cat "$file" >> "$OUTPUT"
+# Exclude incomplete docs marker
+if grep -F "This documentation is currently incomplete and still in development." "$file" > /dev/null 2>&1; then
+  # Use printf to avoid any bash parsing issues
+  printf 'Skipping incomplete doc: %s\n' "$file" >> /dev/stderr
+else
+  cat "$file" >> "$OUTPUT"
+fi
 
 echo "" >> "$OUTPUT"
 ```

@@ -11,7 +11,7 @@ The weapons system defines all weapons used in combat, their damage types, and c
 
 ## Content Coming Soon
 
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 

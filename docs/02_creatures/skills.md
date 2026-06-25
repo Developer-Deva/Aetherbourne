@@ -11,7 +11,7 @@ The skills system defines how creatures learn, develop, and master various abili
 
 ## Content Coming Soon
 
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 

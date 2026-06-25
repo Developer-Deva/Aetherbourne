@@ -11,7 +11,7 @@ The tools system defines all tools used for harvesting resources, crafting items
 
 ## Content Coming Soon
 
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 

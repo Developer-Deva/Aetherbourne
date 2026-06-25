@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+if git diff --cached --name-only | grep -E '^(docs/|README\.md$)' > /dev/null; then
+    echo "Documentation changes detected. Rebuilding NotebookLM knowledge base..."
+
+    ./build-notebooklm.sh
+
+    git add Aetherbourne-Knowledge-Base.md
+
+    echo "Knowledge base updated and staged."
+fi
+
+exit 0

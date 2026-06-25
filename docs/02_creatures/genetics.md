@@ -11,7 +11,7 @@ The genetics system defines how traits are inherited, how mutations arise, and h
 
 ## Content Coming Soon
 
-This documentation is currently in development. Please check back for updates.
+This documentation is currently incomplete and still in development.  Please check back for updates.
 
 ---
 
