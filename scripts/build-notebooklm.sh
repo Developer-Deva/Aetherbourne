@@ -88,16 +88,6 @@ echo "---" >> "$OUTPUT"
 echo "" >> "$OUTPUT"
 echo "# FILE: $file" >> "$OUTPUT"
 echo "" >> "$OUTPUT"
-
-# Exclude incomplete docs marker
-if grep -F "This documentation is currently incomplete and still in development." "$file" > /dev/null 2>&1; then
-  # Use printf to avoid any bash parsing issues
-  printf 'Skipping incomplete doc: %s\n' "$file" >> /dev/stderr
-else
-  cat "$file" >> "$OUTPUT"
-fi
-
-echo "" >> "$OUTPUT"
 ```
 
 done
