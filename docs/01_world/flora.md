@@ -1,307 +1,277 @@
 # Flora and Botanical Systems
-
-**Description:** Comprehensive documentation of flora, plants, vegetation, and botanical resources in Aetherbourne
-**Last Updated:** 2026-06-21
-
----
-
+**Description:** Comprehensive documentation of flora, plants, vegetation, and botanical resources in Aetherbourne.
+**Last Updated:** 2026-06-27
 ## Overview
-
-This system manages all plant species, vegetation, herbs, crops, and botanical materials that form the foundation of alchemy, medicine, sustenance, and magical systems in the game world. Flora integrates with the global macro drivers (Latitude, Altitude, Humidity, DepthLayer, Magical Anomalies, Contamination) to procedurally generate contextual plants tailored to environmental conditions across 15 distinct biomes. Custom 2D rendering properties enable pixel-perfect sprite composition using a modular morphology matrix.
-
+This system manages all plant species, vegetation, herbs, crops, and botanical materials that form the foundation of alchemy, medicine, sustenance, and magical systems in the game world. Flora integrates with the global macro drivers to procedurally generate contextual plants tailored to environmental conditions across 15 distinct biomes. Custom 2D rendering properties enable pixel-perfect sprite composition using a modular morphology matrix.
 ## Macro Global Drivers (Planetary Context)
-
 All flora generation references these normalized (0.0 to 1.0) environmental parameters:
-
-- **Latitude** (0.0 = Equator/Hot → 1.0 = Poles/Cold): Drives thermal and biome selection
-- **Altitude** (0.0 = Sea Level → 1.0 = Mountain Peaks): Dictates atmospheric pressure and growth constraints
-- **Humidity** (0.0 = Arid → 1.0 = Saturated): Determines water dependency and plant form
-- **Distance From Water** (0.0 = Shoreline → 1.0 = Landlocked): Drives aquatic vs. xerophytic traits
-- **Depth Layer** (0 = Surface, 1 = Subterranean, 2 = Mantle): Determines light level and biome type
-- **System Flags** (Boolean): `IsMagicalAnomaly`, `IsContaminated` trigger special mutations
-
-## Flora Properties and Categories
-
-The botanical classification system uses 35 distinct properties organized into 4 core morphology tracks plus 5 secondary botanical life tracks plus 4 functional categorization tracks. These categories enable procedural generation of contextually appropriate flora with sprite-compositing guidance for custom 2D engines, functional resource mapping, and role-based ecosystem integration.
-
-## 1. Rarity
-
-* Common
-* Uncommon
-* Rare
-* Epic
-* Legendary
-* Mythic
-
-## 2. Value
-
-* Worthless
-* Junk
-* Cheap
-* Standard
-* Precious
-* Priceless
-* Relic
-* Legendary
-
-## 3. Growth Rate
-
-* Stagnant (Doesn't grow under normal conditions)
-* Slow (Grows over months or seasons)
-* Moderate (Standard growth cycle)
-* Fast (Rapid growth, weeks to maturity)
-* Explosive (Spreads uncontrollably, invasive)
-
-## 4. Yield Abundance
-
-* Sparse (1-2 harvestable items per plant)
-* Modest (3-5 items per plant)
-* Generous (6-10 items per plant)
-* Abundant (11-20 items per plant)
-* Massive (20+ items per plant)
-
-## 5. Bloom Season
-
-* Spring
-* Summer
-* Autumn
-* Winter
-* Eternal (Always in bloom/harvestable)
-* Nocturnal (Only at night)
-* Cyclical (Repeats every 3-5 days)
-
-## 6. Toxicity Level
-
-* Benign (Safe to consume/handle)
-* Irritating (Minor skin/respiratory irritation)
-* Mildly Toxic (Causes sickness if ingested)
-* Highly Toxic (Deadly if ingested, requires protection)
-* Corrosive (Burns skin on contact)
-* Inert (Immune to poison effects)
-
-## 7. Medicinal Potency
-
-* Inert (No medicinal value)
-* Mild (Minor healing or buff effects)
-* Potent (Significant healing or buff duration)
-* Powerful (Major healing or powerful buffs)
-* Legendary (Extraordinary effects)
-* Antitoxin (Cures poisons and diseases)
-
-## 8. Elemental Affinity
-
-* Neutral
-* Thermal (Fire, heat)
-* Cryo (Ice, cold)
-* Electrical (Lightning, energy)
-* Nature (Life, growth)
-* Void (Darkness, decay)
-
-## 9. Mana Saturation
-
-* Depleted (Absorbs mana)
-* Neutral (Inert to magic)
-* Latent (Minimal magical energy)
-* Infused (Contains magical energy)
-* Saturated (Overflowing with magic)
-
-## 10. Visibility
-
-* Obscure (Camouflaged, hard to spot)
-* Camouflaged (Blends with surroundings)
-* Normal (Easily visible)
-* Distinctive (Stands out visually)
-* Luminous (Glows or radiates light)
-
-## 11. Hardiness
-
-* Fragile (Dies with slightest damage)
-* Delicate (Easily damaged)
-* Sturdy (Resists normal wear)
-* Hardy (Survives harsh conditions)
-* Indestructible (Nearly impossible to destroy)
-
-## 12. Regeneration
-
-* None (No self-healing)
-* Slow (Regenerates over days)
-* Moderate (Regenerates over hours)
-* Fast (Regenerates over minutes)
-* Instant (Regenerates continuously)
-
-## 13. Spread Rate
-
-* Stationary (Doesn't spread)
-* Rooted (Spreads through roots over seasons)
-* Seeding (Spreads via seeds, slow)
-* Viral (Spreads rapidly via spores)
-* Parasitic (Overtakes other plants)
-
-## 14. Light Requirements
-
-* Nocturnal (Thrives in darkness)
-* Shade (Prefers low light)
-* Partial (Tolerates sun and shade)
-* Sunlight (Requires direct sunlight)
-* Intense (Requires extreme sunlight)
-
-## 15. Water Dependency
-
-* Xerophytic (Thrives in drought)
-* Low (Minimal water needed)
-* Moderate (Standard water needs)
-* High (Requires frequent watering)
-* Aquatic (Lives in water)
-
-## 16. Soil Preference
-
-* Acidic (Thrives in acidic soil)
-* Neutral (Tolerates all soil types)
-* Alkaline (Requires basic/alkaline soil)
-* Volcanic (Prefers mineral-rich lava soil)
-* Magical (Requires mana-infused soil)
-
-## 17. Pollination Type
-
-* Self-Pollinating (No partner needed)
-* Wind-Pollinated (Spreads via air currents)
-* Insect-Pollinated (Requires insects)
-* Magical (Requires arcane energy)
-* Sterile (Cannot reproduce naturally)
-
-## 18. Root System
-
-* Shallow (Roots near surface)
-* Fibrous (Spreading surface roots)
-* Taproot (Deep single root)
-* Massive (Deep, extensive root system)
-* Aerial (Roots in air/water)
-
-## 19. Lifespan Classification
-
-* Ephemeral (Days to weeks)
-* Annual (Completes cycle in one year)
-* Biennial (Two-year life cycle)
-* Perennial (Decades-long lifespan)
-* Ancient (Centuries or millennia old)
-
-## 20. Aesthetic Value
-
-* Ugly (Repulsive appearance)
-* Plain (Unremarkable)
-* Normal (Standard appearance)
-* Beautiful (Visually appealing)
-* Stunning (Exceptionally gorgeous)
-
-## 21. Fragrance Intensity
-
-* Odorless (No scent)
-* Subtle (Faint, pleasant scent)
-* Aromatic (Noticeable, enjoyable fragrance)
-* Potent (Strong, overwhelming fragrance)
-* Fetid (Repulsive, sulfuric smell)
-
-## 22. Color Vibrancy
-
-* Drab (Muted, dull colors)
-* Muted (Subdued coloration)
-* Normal (Standard plant colors)
-* Vibrant (Bright, vivid colors)
-* Prismatic (Shimmers with multiple colors)
-
-## 23. Symbiotic Relationships
-
-* Solitary (Grows alone)
-* Compatible (Can grow near similar plants)
-* Synergistic (Enhances nearby plants)
-* Parasitic (Damages nearby plants)
-* Mycorrhizal (Partners with fungi networks)
-
-## 24. Growth Form (Silhouette/Habit)
-
-The foundational plant silhouette dictating root, stalk, and leaf graphics composition for sprite assembly.
-
-* Thalloid (Ground blankets, lichens, sheet mosses; flat ground coverage)
-* Rosette (Circular ground clusters radiating from soil center; compact disc patterns)
-* Caulescent (Vertical stems/columns; upright singular or multi-stalk focus)
-* Clambering (Terrain-wrapping vines; climbing/trailing growth patterns)
-* Arborescent (Tree trunks; full canopy overhead coverage)
-
-## 25. Organ Destination (Anatomy Focus)
-
-Dictates which plant part is harvested and drives yield type.
-
-* Subterranean (Underground storage: potatoes, carrots, root crops; yields tubers/bulbs)
-* Culm-Stalk (Stalk wall mass: bamboo, cane, reeds; yields structural stalks)
-* Foliar (Leafy focus: cooking herbs, alchemical leaves; yields leaves/foliage)
-* Inflorescent (Blooms/seed heads: flowers, wheat ears, grain; yields individual flowers/seeds)
-* Fructiferous (Branch fruits/berries: apples, berries, seed pods; yields fruits/nuts)
-
-## 26. Stem Structure (Material Integrity)
-
-Determines plant durability, harvestability, and crafting requirements.
-
-* Herbaceous (Soft, easily snapped; requires minimal effort to harvest)
-* Fleshy-Succulent (Water-retaining, zero wood; cactus/mushroom stems)
-* Hollow-Cane (Segmented, rigid hollow shells; yields cylindrical sections)
-* Suffruticose (Semi-woody base; persistent but partially herbaceous)
-* Ligneous (Solid timber core wood; requires axes/tools to harvest)
-
-## 27. Canopy Architecture (Foliage Density)
-
-Dictates visual silhouette and collision radius for 2D pixel rendering.
-
-* Naked (Bare, minimal foliage; zero visual obstruction)
-* Tufted (Pom-pom pixel clusters at tips; compact aerial mass)
-* Spreading (Wide scattered leaf circumference; dispersed canopy coverage)
-* Dense-Canopy (Opaque, shadow-casting foliage; full visual blocking)
-* Plume (Feather-like vertical reeds/ferns; feathered aerial display)
-
-## 28. Surface Armor (Outer Layer Protection)
-
-Dictates plant durability and harvesting safety requirements.
-
-* Fleshy (Soft vulnerable exterior; easy to damage)
-* Fibrous (Textured stringy exterior; moderate protection)
-* Barked (Protective wooden skin; requires cutting tools)
-* Thorny (Barbed spines; causes damage to bare hands)
-* Chitinous (Hard insect-like shell; nearly impervious)
-
-## 29. Foliage Type (Leaf Morphology)
-
-Dictates visual leaf sprites and interaction patterns.
-
-* Leafless (No visible foliage layer; bare stems/trunks)
-* Bladed (Thin sword-like leaves; grass/grain morphology)
-* Broadleaf (Large flat leaves; herbaceous coverage)
-* Needled (Thin conifer needles; frostbitten appearance)
-* Spored (Fungal spore-releasing structures; mycelial patterns)
-
-## 30. Growth Cycle (Seasonal Activity)
-
-Dictates when the plant actively produces harvestable material.
-
-* Ephemeral (Burst blooms; days to weeks active cycle)
-* Seasonal (Active during specific seasons only)
-* Perennial (Active year-round; continuous growth)
-* Decaying (Dead/rotting; produces spoilage materials)
-
-## 31. Reproduction Style (Spread Mechanism)
-
-Dictates how the plant propagates and spreads naturally.
-
-* Rooting (Spreads through root runners and offshoots)
-* Seeding (Reproduces via seeds; slow natural spread)
-* Spreading (Wind pollen particles; aerial dispersal)
-* Sporing (Fungal spore release; rapid dissemination)
-* Parasitic (Overtakes other plants; competitive growth)
-
-## 32. Growth Habit
-
-Defines the primary growth pattern and habitat preference of the plant.
-
-* Herbaceous (Non-woody plants with soft stems, often seasonal)
-* Woody (Persistent stems or trunks that survive through seasons)
+ * **Latitude** (0.0 = Equator/Hot → 1.0 = Poles/Cold): Drives thermal and biome selection.
+ * **Altitude** (0.0 = Sea Level → 1.0 = Mountain Peaks): Dictates atmospheric pressure and growth constraints.
+ * **Humidity** (0.0 = Arid → 1.0 = Saturated): Determines water dependency and plant form.
+ * **Distance From Water** (0.0 = Shoreline → 1.0 = Landlocked): Drives aquatic vs. xerophytic traits.
+ * **Depth Layer** (0 = Surface, 1 = Subterranean, 2 = Mantle): Determines light level and biome type.
+ * **System Flags** (Boolean): IsMagicalAnomaly and IsContaminated trigger special mystical or toxic mutations.
+## Flora Properties and Categories (The 35 Taxonomy Axes)
+The botanical classification system uses 35 distinct properties organized into core morphological, biological, and functional tracks to drive procedural generation and 2D sprite-compositing engine hooks.
+### Core Biological Tracks
+ 1. **Rarity:** Common, Uncommon, Rare, Epic, Legendary, Mythic
+ 2. **Value:** Worthless, Junk, Cheap, Standard, Precious, Priceless, Relic, Legendary
+ 3. **Growth Rate:** Stagnant, Slow, Moderate, Fast, Explosive (Invasive)
+ 4. **Yield Abundance:** Sparse (1-2), Modest (3-5), Generous (6-10), Abundant (11-20), Massive (20+)
+ 5. **Bloom Season:** Spring, Summer, Autumn, Winter, Eternal, Nocturnal, Cyclical
+ 6. **Toxicity Level:** Benign, Irritating, Mildly Toxic, Highly Toxic, Corrosive, Inert
+ 7. **Medicinal Potency:** Inert, Mild, Potent, Powerful, Legendary, Antitoxin
+ 8. **Elemental Affinity:** Neutral, Thermal, Cryo, Electrical, Nature, Void
+ 9. **Mana Saturation:** Depleted, Neutral, Latent, Infused, Saturated
+ 10. **Visibility:** Obscure, Camouflaged, Normal, Distinctive, Luminous
+ 11. **Hardiness:** Fragile, Delicate, Sturdy, Hardy, Indestructible
+ 12. **Regeneration:** None, Slow, Moderate, Fast, Instant
+ 13. **Spread Rate:** Stationary, Rooted, Seeding, Viral, Parasitic
+ 14. **Light Requirements:** Nocturnal, Shade, Partial, Sunlight, Intense
+ 15. **Water Dependency:** Xerophytic, Low, Moderate, High, Aquatic
+ 16. **Soil Preference:** Acidic, Neutral, Alkaline, Volcanic, Magical
+ 17. **Pollination Type:** Self-Pollinating, Wind-Pollinated, Insect-Pollinated, Magical, Sterile
+ 18. **Root System:** Shallow, Fibrous, Taproot, Massive, Aerial
+ 19. **Lifespan Classification:** Ephemeral, Annual, Biennial, Perennial, Ancient
+ 20. **Aesthetic Value:** Ugly, Plain, Normal, Beautiful, Stunning
+ 21. **Fragrance Intensity:** Odorless, Subtle, Aromatic, Potent, Fetid
+ 22. **Color Vibrancy:** Drab, Muted, Normal, Vibrant, Prismatic
+ 23. **Symbiotic Relationships:** Solitary, Compatible, Synergistic, Parasitic, Mycorrhizal
+### 2. Core Morphology Matrix Tracks
+ 24. **Growth Form (Silhouette/Habit):** Foundational silhouette dictating root, stalk, and leaf graphics composition (Thalloid, Rosette, Caulescent, Clambering, Arborescent).
+ 25. **Organ Destination (Anatomy Focus):** Dictates which plant part is targeted for harvesting (Subterranean, Culm-Stalk, Foliar, Inflorescent, Fructiferous).
+ 26. **Stem Structure (Material Integrity):** Determines physical durability and tool harvesting constraints (Herbaceous, Fleshy-Succulent, Hollow-Cane, Suffruticose, Ligneous).
+ 27. **Canopy Architecture (Foliage Density):** Dictates rendering layout, transparency, and collision radius bounds (Naked, Tufted, Spreading, Dense-Canopy, Plume).
+### 3. Secondary Botanical Life Tracks
+ 28. **Surface Armor (Outer Layer Protection):** Controls harvesting hazard feedback logic (Fleshy, Fibrous, Barked, Thorny, Chitinous).
+ 29. **Foliage Type (Leaf Morphology):** Selects active leaf particle/sprite layer maps (Leafless, Bladed, Broadleaf, Needled, Spored).
+ 30. **Growth Cycle (Seasonal Activity):** Defines window of harvest availability (Ephemeral, Seasonal, Perennial, Decaying).
+ 31. **Reproduction Style (Spread Mechanism):** Determines environmental expansion logic (Rooting, Seeding, Spreading, Sporing, Parasitic).
+### 4. Functional Categorization Tracks
+ 32. **Growth Habit:** Defines structural ecology preferences (Herbaceous, Woody, Climbing, Creeping, Aquatic, Epiphytic, Subterranean, Fungal).
+ 33. **Structural Type:** Defines physical framing mechanics (Single-Stem, Multi-Stem, Rosette, Vining, Canopy, Bulbous, Mat-Forming, Spore Cluster).
+ 34. **Harvest Output:** Specifies the physical item resource yielded upon extraction (Leaves, Flowers, Fruit, Seeds, Bark, Wood, Resin, Sap, Roots/Tubers, Spores, Nectar, Fiber).
+ 35. **Resource Role:** Sets primary functional crafting/gameplay utility (Culinary, Medicinal, Alchemical, Construction, Textile, Fuel, Trade, Ritual, Environmental, Utility).
+## Data Dictionary (Stat Bonuses & Mechanical Systems Matrix)
+| Category / Modifier Word | Stat Bonus / Mechanical Effect |
+|---|---|
+| **1. Rarity** | Base modifier multiplier for all rolled secondary stats. |
+| **2. Value** | Price multiplier for merchants and trade value. |
+| **3. Slow** | +15% Potion brewing time for precision control / -5% ingredient cost. |
+| **3. Explosive** | Uncontrolled spread yields massive free resources but can overrun plots. |
+| **4. Sparse** | +10% Purity in crafting / Less waste material produced but lower yields. |
+| **4. Massive** | +30% Total yield / Ideal for anchoring consistent supply lines. |
+| **5. Eternal** | Always harvestable / Never enters seasonal dormancy states. |
+| **5. Nocturnal** | +25% Potency at night / Harvesting under moonlight adds buff duration. |
+| **6. Benign** | +10% Health recovery / Entirely safe for untrained herbalists to process. |
+| **6. Corrosive** | +20% Armor degradation / Inflicts chemical burns without protective gloves. |
+| **7. Antitoxin** | Instantly purges 1 active poison status effect upon consumption. |
+| **7. Inert** | Immune to status effects / Base matrix cannot be enhanced via alchemy. |
+| **8. Thermal** | +15% Fire Damage / Weapons ignite targets; potions grant frost immunity. |
+| **8. Cryo** | +15% Frost Damage / Attacks apply slow triggers; potions chill attackers. |
+| **8. Nature** | +20% Healing effectiveness / Gradually restores mana over time. |
+| **8. Void** | +15% Shadow Damage / Inflicts decay effects on target life matrices. |
+| **9. Saturated** | +25% Spell potency / Amplifies raw output of active magical casts. |
+| **9. Depleted** | -20% Mana cost for defensive spells / Used to construct anti-magic fields. |
+| **10. Luminous** | Radiates local structural light vectors / Extends dynamic vision maps. |
+| **10. Obscure** | +15% Stealth rating / Shrinks hostiles' aggro tracking radius. |
+| **11. Indestructible** | Infinite harvesting parameters / Plant entity node never expires. |
+| **11. Fragile** | Drastically reduced structural durability / Failure yields 50% waste scrap. |
+| **12. Instant** | Continuous cell regeneration / Restores 5 HP per tick automatically. |
+| **12. None** | Single-use extraction parameters / Node completely clears upon harvest. |
+| **13. Viral** | Spreads rapidly via environmental vectors / Highly aggressive invasive behavior. |
+| **13. Stationary** | +5% Base harvest yield / Reliable parameter tracking for structural farming. |
+| **14. Intense** | Requires specialized high-tier light arrays / +30% Yield in optimal setups. |
+| **15. Aquatic** | Must be cultivated directly inside liquid blocks / Unlocks deep water routes. |
+| **15. Xerophytic** | Native to hyper-arid conditions / Completely bypasses moisture requirements. |
+| **16. Magical** | Requires pure mana-infused soil matrices / Grants +50% baseline stat scale. |
+| **16. Volcanic** | Thrives inside magma parameters / Automatically extracts geothermal enhancements. |
+| **17. Sterile** | Bypasses natural cross-pollination spreads / Highly valuable seed constraints. |
+| **17. Self-Pollinating** | Requires zero active management / Autonomously populates empty sub-plots. |
+| **18. Aerial** | Bypasses soil vectors entirely / Grows suspended in open air or cloud layers. |
+| **18. Massive** | Deep-rooted architecture anchors the node / Immune to wind storm dislodge events. |
+| **19. Ancient** | Gains permanent stat scales and exponential value based on runtime age. |
+| **19. Ephemeral** | High-velocity daily lifecycles / Yields rotate out inside short windows. |
+| **20. Stunning** | +15% Global sell valuation / Merchants pay premium rates for luxury appearance. |
+| **20. Ugly** | -15% Trade value penalty / Chemically identical but rejected by luxury buyers. |
+| **21. Potent** | Scent footprint provides a passive +5% attribute buff to nearby players. |
+| **21. Fetid** | Emits a repulsive stench trace / Low-level hostile creatures avoid the tile. |
+| **22. Prismatic** | +20% Magical catalyst effectiveness / Potions glow and attract wilderness events. |
+| **22. Drab** | Subdued visual profile / Harder to detect by passing entities or thieves. |
+| **23. Mycorrhizal** | Hooks into subterranean networks / +50% Yield to all contiguous crops. |
+| **23. Parasitic** | Siphons life / Deals 30% structural damage to all adjacent plant matrices. |
+| **24. Thalloid** | Rendered flat to terrain / Bypasses collision checks; zero layout height. |
+| **24. Rosette** | Radial sprite layering / Compact circular collision footprint. |
+| **24. Caulescent** | Upright vertical column rendering / Columnar collision profiling. |
+| **24. Clambering** | Dynamic vine overlay asset layers / Spreads across vertical structures. |
+| **24. Arborescent** | Overhead tree silhouette composition / Casts wide shadow vectors. |
+| **25. Subterranean** | Yields tubers/bulbs / Requires excavation; invisible from the standard surface. |
+| **25. Culm-Stalk** | Yields cane structures / High integrity rigid stalk segments. |
+| **25. Foliar** | Yields soft leafy products / High recovery rates; lightning-fast harvest loops. |
+| **25. Inflorescent** | Yields flower/seed heads / Subject to volatile seasonal bloom triggers. |
+| **25. Fructiferous** | Yields fruits/berries / Branch-anchored harvest loops. |
+| **26. Herbaceous** | Low-density structural integrity / Snaps easily; harvestable by hand. |
+| **26. Fleshy-Succulent** | Hyper-dense water retention matrices / High frost resilience; vulnerable to fire. |
+| **26. Hollow-Cane** | Segmented tube structures / Yields high-strength structural cylinders. |
+| **26. Suffruticose** | Semi-woody core base / Balanced seasonal resilience attributes. |
+| **26. Ligneous** | Heavy timber core wood / Hard tool check required (Axes/Saws). |
+| **27. Fleshy / Soft** | High-vulnerability tissue layers / Easy extraction footprint. |
+| **27. Fibrous** | High tensile string networks / Standard harvesting difficulty thresholds. |
+| **27. Barked** | Rigid protective structural wrap / Requires sharp tools to slice cleanly. |
+| **27. Thorny** | Armed barbed defenses / inflicts flat bleeding damage to unprotected hands. |
+| **27. Chitinous** | Exoskeletal defense shielding / Requires reinforced tools to puncture. |
+| **28. Leafless** | Stripped bare sprite layers / Zero foliage geometry drawn. |
+| **28. Bladed** | Grass/Grain ribbon morphology / Displays flowing wind animation states. |
+| **28. Broadleaf** | Expansive flat foliage planes / Renders dense leaf shadows. |
+| **28. Needled** | Tight cluster needles / Native aesthetic handling for freezing biomes. |
+| **28. Spored** | Mushroom cap arrays / Triggers continuous spore release particle hooks. |
+| **29. Ephemeral Cycle** | Triggers flash growth bursts / Tight micro-windows of harvest opportunity. |
+| **29. Seasonal Cycle** | Growth loops bind tightly to specific active biome weather states. |
+| **29. Perennial Cycle** | Year-round active status parameters / Continual production capability. |
+| **29. Decaying Cycle** | Dead rotting status track / Yields specialized compost or lethal toxins. |
+| **31. Thorny (Weapon)** | Applied to arms / Inflicts +15% Armor Piercing and bleed on contact. |
+| **31. Medicinal (App)** | Applied to health matrices / Boosts baseline recovery speed by 20%. |
+| **31. Toxic (Weapon)** | Applied to payloads / Inflicts deep poison status logic over time. |
+| **31. Magickal (App)** | Applied to focus matrices / Amplifies spell duration profiles by 25%. |
+## Procedural Generation Naming System
+The engine gathers rolled statistics across all 35 tracking categories, parses out the two highest statistical anomalies scoring above a 0.75 threshold, maps them to grammatical word definitions, and outputs a structured title following this string blueprint:
+**Naming Pattern:** [Rarity] + [Value] + [Biome/Season Prefix] + [Property Adjective] + [Base Species] + [Of the Suffix]
+### C# Naming Engine Implementation
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class FloraNameGenerator
+{
+    private static readonly Dictionary<string, string> RarityTitles = new()
+    {
+        { "Common", "Humble" }, { "Uncommon", "Blessed" }, { "Rare", "Exotic" },
+        { "Epic", "Arcane" }, { "Legendary", "Eternal" }, { "Mythic", "Primordial" }
+    };
+
+    private static readonly Dictionary<string, string> ValueTitles = new()
+    {
+        { "Worthless", "Wilted" }, { "Junk", "Withered" }, { "Cheap", "Common" },
+        { "Standard", "" }, { "Precious", "Noble" }, { "Priceless", "Regal" },
+        { "Relic", "Venerated" }, { "Legendary", "Mythos" }
+    };
+
+    private static readonly Dictionary<string, (string adj, string noun)> PropertyWords = new()
+    {
+        { "Benign", ("Wholesome", "Healing") },
+        { "Corrosive", ("Acidic", "Erosion") },
+        { "Antitoxin", ("Purifying", "Antidotes") },
+        { "Inert", ("Inert", "Void") },
+        { "Thermal", ("Searing", "Flame") },
+        { "Cryo", ("Glacial", "Frost") },
+        { "Electrical", ("Galvanic", "Lightning") },
+        { "Nature", ("Verdant", "Renewal") },
+        { "Void", ("Umbral", "Darkness") },
+        { "Saturated", ("Arcane", "Sorcery") },
+        { "Depleted", ("Inert", "Nullification") },
+        { "Luminous", ("Radiant", "Light") },
+        { "Obscure", ("Hidden", "Shadows") },
+        { "Indestructible", ("Eternal", "Permanence") },
+        { "Fragile", ("Delicate", "Frailty") },
+        { "Instant", ("Swift", "Regeneration") },
+        { "None", ("Static", "Stagnation") },
+        { "Viral", ("Invasive", "Contagion") },
+        { "Stationary", ("Rooted", "Grounding") },
+        { "Nocturnal", ("Moonlit", "Night") },
+        { "Intense", ("Brilliant", "Radiance") },
+        { "Aquatic", ("Fluid", "Waters") },
+        { "Xerophytic", ("Desert", "Drought") },
+        { "Magical", ("Arcane", "Enchantment") },
+        { "Volcanic", ("Magma", "Geothermal") },
+        { "Sterile", ("Barren", "Silence") },
+        { "Self-Pollinating", ("Autonomous", "Propagation") },
+        { "Aerial", ("Skyborne", "Ether") },
+        { "Massive", ("Colossal", "Abundance") },
+        { "Ancient", ("Primeval", "Ages") },
+        { "Ephemeral", ("Transient", "Brevity") },
+        { "Stunning", ("Radiant", "Beauty") },
+        { "Ugly", ("Twisted", "Blight") },
+        { "Potent", ("Aromatic", "Perfume") },
+        { "Fetid", ("Noxious", "Stench") },
+        { "Prismatic", ("Iridescent", "Spectrum") },
+        { "Drab", ("Muted", "Obscurity") },
+        { "Mycorrhizal", ("Connected", "Symbiosis") },
+        { "Parasitic", ("Consuming", "Predation") },
+        { "Slow", ("Sluggish", "Time") },
+        { "Explosive", ("Rampant", "Chaos") },
+        { "Sparse", ("Meager", "Scarcity") },
+        { "Abundant", ("Generous", "Bounty") },
+        { "Vibrant", ("Vivid", "Vitality") },
+
+        // Morphology Matrix Trait Links
+        { "Thalloid", ("Thalloidal", "Groundcover") },
+        { "Rosette", ("Radial", "Rosettes") },
+        { "Caulescent", ("Stalked", "Verticality") },
+        { "Clambering", ("Vining", "Ascension") },
+        { "Arborescent", ("Arboreal", "Canopy") },
+        { "Subterranean", ("Tuberous", "Underworld") },
+        { "Culm-Stalk", ("Stalky", "Canes") },
+        { "Foliar", ("Leafy", "Foliage") },
+        { "Inflorescent", ("Floral", "Blooms") },
+        { "Fructiferous", ("Fruited", "Abundance") },
+        { "Herbaceous", ("Succulent", "Softness") },
+        { "Fleshy-Succulent", ("Plump", "Juiciness") },
+        { "Hollow-Cane", ("Tubular", "Segmentation") },
+        { "Suffruticose", ("Semi-Woody", "Persistence") },
+        { "Ligneous", ("Woody", "Timber") },
+        { "Naked", ("Bare", "Exposure") },
+        { "Tufted", ("Pom-Pom", "Clustering") },
+        { "Spreading", ("Dispersed", "Coverage") },
+        { "Dense-Canopy", ("Opaque", "Shadow") },
+        { "Plume", ("Feathered", "Plumage") },
+
+        // Secondary & Functional Trait Links
+        { "Fleshy", ("Vulnerable", "Softness") },
+        { "Fibrous", ("Stringy", "Texture") },
+        { "Barked", ("Protected", "Bark") },
+        { "Thorny", ("Spined", "Danger") },
+        { "Chitinous", ("Armored", "Chitin") },
+        { "Leafless", ("Bare", "Starkness") },
+        { "Bladed", ("Slender", "Blades") },
+        { "Broadleaf", ("Wide-Leafed", "Expanse") },
+        { "Needled", ("Coniferous", "Needles") },
+        { "Spored", ("Fungal", "Spores") },
+        { "Seasonal", ("Cyclical", "Seasons") },
+        { "Perennial", ("Eternal", "Continuity") },
+        { "Decaying", ("Rotting", "Decomposition") },
+        { "Rooting", ("Spreading", "Runners") },
+        { "Seeding", ("Generative", "Seeds") },
+        { "Spreading-Trait", ("Dispersive", "Dissemination") },
+        { "Sporing", ("Mycelial", "Spore-Cast") },
+        { "Herbaceous-Habit", ("Seasonal", "Herbage") },
+        { "Woody-Habit", ("Durable", "Longevity") },
+        { "Climbing-Habit", ("Ascending", "Heights") },
+        { "Creeping-Habit", ("Sprawling", "Ground") },
+        { "Epiphytic-Habit", ("Aerial", "Branches") },
+        { "Fungal-Habit", ("Mycelial", "Fungi") },
+        { "Single-Stem", ("Singular", "Stalks") },
+        { "Multi-Stem", ("Branched", "Profusion") },
+        { "Vining-Struct", ("Flexible", "Twining") },
+        { "Canopy-Struct", ("Expansive", "Overhead") },
+        { "Bulbous-Struct", ("Tuberous", "Storage") },
+        { "Mat-Forming", ("Carpeted", "Density") },
+        { "Spore-Cluster", ("Fungal-Body", "Fruiting") },
+        { "Leaves-Output", ("Leafy", "Foliage") },
+        { "Flowers-Output", ("Floral", "Petals") },
+        { "Fruit-Output", ("Fructose", "Berries") },
+        { "Seeds-Output", ("Seeded", "Kernels") },
+        { "Bark-Output", ("Barked", "Layers") },
+        { "Wood-Output", ("Timber", "Lumber") },
+        { "Resin-Output", ("Resinous", "Exudate") },
+        { "Sap-Output", ("Liquid", "Flow") },
+        { "Roots-Output", ("Tuberous", "Tubers") },
+        { "Nectar-Output", ("Sweet", "Nectar") },
+        { "Fiber-Output", ("Stringy", "Fibers") },
+        { "Culinary-Role", ("Edible", "Sustenance") },
+        { "Medicinal-Role", ("Healing", "Wellness") },
+        { "Alchemical-Role", ("Arcane", "Reagents") },
+        { "Construction-Role",s)
 * Climbing (Uses structures or other plants to ascend)
 * Creeping (Spreads across the ground or substrate)
 * Aquatic (Lives in or on water bodies)
