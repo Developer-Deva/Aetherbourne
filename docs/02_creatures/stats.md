@@ -44,11 +44,15 @@ The Stat Lattice represents **Nature**—the genetic ceiling of a creature. It d
 
 ### A. Advanced Stat Logic
 
-$\text{Advanced}=\frac{A+B}{2}+S$
+$$
+\text{Advanced}=\frac{A+B}{2}+S
+$$
 
 ### B. Emergent Stat Logic
 
-$\text{Emergent}=\frac{A+B+C}{3}+S$
+$$
+\text{Emergent}=\frac{A+B+C}{3}+S
+$$
 
  * **S (Synergy Bonus):** +0 (Standard), +1 (Strong), +2 (Rare/Exceptional).
 
@@ -97,10 +101,12 @@ This is how Stats interact with the rest of the simulation. When an agent attemp
 
 ### Capability Formula
 
-$\text{Capability}=(\text{Stat}×w_1)+(\text{Skill}×w_2)+\text{Environmental Modifier}$
+$$
+\text{Capability}=(\text{Stat}×w_{1})+(\text{Skill}×w_{2})+\text{Environmental Modifier}
+$$
 
- * **Stat ($w_1$):** The constant raw material (e.g., *Prowess* for an attack).
- * **Skill ($w_23):** The multiplier representing training (e.g., *Archery Skill* for a hunt).
+ * **Stat ($w_{1}$):** The constant raw material (e.g., *Prowess* for an attack).
+ * **Skill ($w_{2}3):** The multiplier representing training (e.g., *Archery Skill* for a hunt).
  * **EnvironmentModifier:** External factors (e.g., weather, terrain).
 **Why this prevents bloat:**
  * **Growth:** An agent can increase their *Capability* through Skill growth (Nurture) without altering their genetic *Stat* (Nature).
