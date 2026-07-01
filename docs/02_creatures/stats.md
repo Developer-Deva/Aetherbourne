@@ -106,7 +106,7 @@ $$
 $$
 
  * **Stat ($w_{1}$):** The constant raw material (e.g., *Prowess* for an attack).
- * **Skill ($w_{2}3):** The multiplier representing training (e.g., *Archery Skill* for a hunt).
+ * **Skill ($w_{2}$):** The multiplier representing training (e.g., *Archery Skill* for a hunt).
  * **EnvironmentModifier:** External factors (e.g., weather, terrain).
 **Why this prevents bloat:**
  * **Growth:** An agent can increase their *Capability* through Skill growth (Nurture) without altering their genetic *Stat* (Nature).
