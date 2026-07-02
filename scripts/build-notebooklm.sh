@@ -5,6 +5,7 @@ OUTPUT="Aetherbourne-Knowledge-Base.md"
 FILES=(
 "README.md"
 "docs/README.md"
+
 # World
 "docs/01_world/world.md"
 "docs/01_world/flora.md"
@@ -53,10 +54,8 @@ FILES=(
 "docs/note4.md"
 )
 
-# Create file header
-
-cat > "$OUTPUT" << EOF
-
+# Create header
+cat > "$OUTPUT" <<EOF
 # Aetherbourne Knowledge Base
 
 > Auto-generated from project documentation.
@@ -68,34 +67,32 @@ cat > "$OUTPUT" << EOF
 
 EOF
 
-# Generate table of contents
-
-for file in "${FILES[@]}"
-do
-if [ -f "$file" ]; then
-echo "- $file" >> "$OUTPUT"
-fi
+# Table of Contents
+for file in "${FILES[@]}"; do
+    if [ -f "$file" ]; then
+        echo "- $file" >> "$OUTPUT"
+    fi
 done
 
 echo "" >> "$OUTPUT"
 echo "---" >> "$OUTPUT"
 
 # Append documents
+for file in "${FILES[@]}"; do
+    if [ ! -f "$file" ]; then
+        echo "Warning: $file not found, skipping."
+        continue
+    fi
 
-for file in "${FILES[@]}"
-do
-if [ ! -f "$file" ]; then
-echo "Warning: $file not found, skipping."
-continue
-fi
-
-```
-echo "" >> "$OUTPUT"
-echo "---" >> "$OUTPUT"
-echo "" >> "$OUTPUT"
-echo "# FILE: $file" >> "$OUTPUT"
-echo "" >> "$OUTPUT"
-```
+    {
+        echo
+        echo "---"
+        echo
+        echo "# FILE: $file"
+        echo
+        cat "$file"
+        echo
+    } >> "$OUTPUT"
 
 done
 
