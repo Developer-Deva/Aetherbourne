@@ -4,6 +4,7 @@ OUTPUT="Aetherbourne-Knowledge-Base.md"
 
 FILES=(
 "README.md"
+"docs/README.md"
 # World
 "docs/01_world/world.md"
 "docs/01_world/flora.md"
@@ -14,6 +15,7 @@ FILES=(
 "docs/02_creatures/genetics.md"
 "docs/01_world/cosmology.md"
 "docs/02_creatures/personality.md"
+"docs/note3.md"
 
 # Creature State Systems
 "docs/02_creatures/stats.md"
@@ -30,6 +32,7 @@ FILES=(
 # Simulation
 "docs/03_simulation/time.md"
 "docs/03_simulation/events.md"
+"docs/bridge_contract.md"
 
 # Society
 "docs/04_society/communities.md"
@@ -43,7 +46,11 @@ FILES=(
 "docs/05_content/equipment.md"
 "docs/05_content/stations.md"
 "docs/05_content/crafting.md"
+"docs/05_content/liquids.md"
+"docs/05_content/gases.md"
 
+# Other
+"docs/note4.md"
 )
 
 # Create file header
