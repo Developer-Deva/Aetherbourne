@@ -32,7 +32,7 @@ FILES=(
 # Simulation
 "docs/03_simulation/time.md"
 "docs/03_simulation/events.md"
-"docs/bridge_contract.md"
+"docs/bridge_contracts.md"
 
 # Society
 "docs/04_society/communities.md"
