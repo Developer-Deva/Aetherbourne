@@ -1,62 +1,83 @@
 #!/bin/bash
+set -euo pipefail
 
 OUTPUT="Aetherbourne-Knowledge-Base.md"
 
+# Files to include manually (in this order)
 FILES=(
-"README.md"
-"docs/README.md"
-# World
-"docs/01_world/world.md"
-"docs/01_world/flora.md"
-"docs/01_world/minerals.md"
+    "README.md"
+    "docs/README.md"
 
-# Creature Foundations
-"docs/02_creatures/creatures.md"
-"docs/02_creatures/genetics.md"
-"docs/01_world/cosmology.md"
-"docs/02_creatures/personality.md"
-"docs/note3.md"
+    # World
+    "docs/01_world/world.md"
+    "docs/01_world/flora.md"
+    "docs/01_world/minerals.md"
+    "docs/01_world/cosmology.md"
 
-# Creature State Systems
-"docs/02_creatures/stats.md"
-"docs/02_creatures/needs.md"
-"docs/02_creatures/emotions.md"
-"docs/02_creatures/memories.md"
-"docs/02_creatures/relationships.md"
+    # Creature Foundations
+    "docs/02_creatures/creatures.md"
+    "docs/02_creatures/genetics.md"
+    "docs/02_creatures/personality.md"
+    "docs/note3.md"
 
-# Decision Systems
-"docs/02_creatures/skills.md"
-"docs/02_creatures/actions.md"
-"docs/02_creatures/behavior.md"
+    # Creature State
+    "docs/02_creatures/stats.md"
+    "docs/02_creatures/needs.md"
+    "docs/02_creatures/emotions.md"
+    "docs/02_creatures/memories.md"
+    "docs/02_creatures/relationships.md"
 
-# Simulation
-"docs/03_simulation/time.md"
-"docs/03_simulation/events.md"
-"docs/bridge_contracts.md"
+    # Decision Systems
+    "docs/02_creatures/skills.md"
+    "docs/02_creatures/actions.md"
+    "docs/02_creatures/behavior.md"
 
-# Society
-"docs/04_society/communities.md"
-"docs/04_society/culture.md"
+    # Simulation
+    "docs/03_simulation/time.md"
+    "docs/03_simulation/events.md"
+    "docs/bridge_contracts.md"
 
-# Content
-"docs/05_content/items.md"
-"docs/05_content/consumables.md"
-"docs/05_content/tools.md"
-"docs/05_content/weapons.md"
-"docs/05_content/equipment.md"
-"docs/05_content/stations.md"
-"docs/05_content/crafting.md"
-"docs/05_content/liquids.md"
-"docs/05_content/gases.md"
+    # Society
+    "docs/04_society/communities.md"
+    "docs/04_society/culture.md"
 
-# Other
-"docs/note4.md"
+    # Content
+    "docs/05_content/items.md"
+    "docs/05_content/consumables.md"
+    "docs/05_content/tools.md"
+    "docs/05_content/weapons.md"
+    "docs/05_content/equipment.md"
+    "docs/05_content/stations.md"
+    "docs/05_content/crafting.md"
+    "docs/05_content/liquids.md"
+    "docs/05_content/gases.md"
+
+    # Other
+    "docs/note4.md"
 )
 
-# Create file header
+# Build the complete file list
+ALL_FILES=("${FILES[@]}")
 
-cat > "$OUTPUT" << EOF
+for dir in "${DIRECTORIES[@]}"; do
+    while IFS= read -r file; do
+        ALL_FILES+=("$file")
+    done < <(find "$dir" -maxdepth 1 -type f -name "*.md" | sort)
+done
 
+# Remove duplicate entries while preserving order
+declare -A seen
+UNIQUE_FILES=()
+
+for file in "${ALL_FILES[@]}"; do
+    if [[ -f "$file" && -z "${seen[$file]+x}" ]]; then
+        UNIQUE_FILES+=("$file")
+        seen["$file"]=1
+    fi
+done
+
+# Create the header
+cat > "$OUTPUT" <<EOF
 # Aetherbourne Knowledge Base
 
 > Auto-generated from project documentation.
@@ -68,35 +89,35 @@ cat > "$OUTPUT" << EOF
 
 EOF
 
-# Generate table of contents
+# Generate the Table of Contents
+for file in "${UNIQUE_FILES[@]}"; do
+    anchor=$(echo "$file" \
+        | tr '[:upper:]' '[:lower:]' \
+        | sed 's/[^a-z0-9]/-/g')
 
-for file in "${FILES[@]}"
-do
-if [ -f "$file" ]; then
-echo "- $file" >> "$OUTPUT"
-fi
+    echo "- [$file](#$anchor)" >> "$OUTPUT"
 done
 
 echo "" >> "$OUTPUT"
 echo "---" >> "$OUTPUT"
 
-# Append documents
+# Append each document
+for file in "${UNIQUE_FILES[@]}"; do
+    anchor=$(echo "$file" \
+        | tr '[:upper:]' '[:lower:]' \
+        | sed 's/[^a-z0-9]/-/g')
 
-for file in "${FILES[@]}"
-do
-if [ ! -f "$file" ]; then
-echo "Warning: $file not found, skipping."
-continue
-fi
-
-```
-echo "" >> "$OUTPUT"
-echo "---" >> "$OUTPUT"
-echo "" >> "$OUTPUT"
-echo "# FILE: $file" >> "$OUTPUT"
-echo "" >> "$OUTPUT"
-```
-
+    {
+        echo
+        echo "---"
+        echo
+        echo "<a id=\"$anchor\"></a>"
+        echo
+        echo "# FILE: $file"
+        echo
+        cat "$file"
+        echo
+    } >> "$OUTPUT"
 done
 
 echo "Generated $OUTPUT"
