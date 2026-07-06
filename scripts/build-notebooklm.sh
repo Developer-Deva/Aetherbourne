@@ -12,6 +12,8 @@ FILES=(
     "docs/01_world/world.md"
     "docs/01_world/flora.md"
     "docs/01_world/minerals.md"
+    "docs/05_content/liquids.md"
+    "docs/05_content/gases.md"
     "docs/01_world/cosmology.md"
 
     # Creature Foundations
@@ -46,11 +48,12 @@ FILES=(
     "docs/05_content/consumables.md"
     "docs/05_content/tools.md"
     "docs/05_content/weapons.md"
-    "docs/05_content/equipment.md"
+    "docs/05_content/equipment.md
+    "docs/05_contnent/furniture.md"
     "docs/05_content/stations.md"
+    "docs/05_content/buildings.md"
     "docs/05_content/crafting.md"
-    "docs/05_content/liquids.md"
-    "docs/05_content/gases.md"
+
 
     # Other
     "docs/note4.md"
