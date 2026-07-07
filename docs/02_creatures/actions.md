@@ -1,390 +1,727 @@
-# Actions System
+# Actions
 
-**Description:** Defines modular creature actions, their requirements, costs, effects, and tags for behavior and simulation.
+**Description:**  
+Defines the primitive action system used by creatures to interact with themselves, other creatures, objects, and the environment.
 
-**Last Updated:** 2026-06-21
+**Purpose:**  
+Primitive actions are the smallest meaningful units of interaction within Aetherbourne.
 
----
+Creatures do not directly perform goals. They perform behaviors, and behaviors are constructed from primitive actions.
 
-## Overview
+Actions describe **what happens**.
 
-The actions system defines the verbs creatures can attempt in Aetherbourne. Actions are modular units of behavior that interact with stats, skills, personality, needs, emotions, memory, inventory, and the world state.
+Behaviors describe **why it happens**.
 
-Actions do not decide when they are chosen. They define what can be done, what must be true to do it, and what changes when it succeeds or fails. The behavior system evaluates actions and selects among them.
-
----
-
-## Design Philosophy
-
-* Actions are data-driven and reusable.
-* Actions should be small, composable, and context-aware.
-* High-level plans belong in behavior, not inside action definitions.
-* Actions should expose clear preconditions, costs, effects, and tags.
-* Specialized behavior families like social conflict, courtship, combat, and reproduction remain part of the action model through subtypes and tags rather than separate hardcoded systems.
-* Equipment actions are first-class state transitions that change loadout and capability.
+Events describe **what changes as a result**.
 
 ---
 
-## Core Concepts
+## Action Philosophy
 
-### Action Model
+Aetherbourne separates intent from execution.
 
-Each action is a defined verb or state transition that can be evaluated by the behavior system.
+A creature does not perform:
 
-An action should describe:
+- Gather
+- Hunt
+- Trade
+- Teach
+- Court
+- Build
+- Steal
 
-* What it does.
-* What it requires.
-* What it costs.
-* What it changes.
-* What it trains.
-* What it tends to make creatures feel or remember.
+These are behaviors.
 
-### Standard Action Schema
+Instead, behaviors are composed from primitive actions.
 
-```text
-Action {
-  id
-  name
-  category
-  subtype
-  tags[]
-  description
-  parameters[]
-  preconditions[]
-  costs[]
-  duration
-  risk
-  effects[]
-  failure_outcomes[]
-  stat_scaling[]
-  skill_scaling[]
-  behavior_bias[]
-  emotion_hooks[]
-  memory_hooks[]
-  training_hooks[]
+Example:
+
+    Need:
+    Hunger
+
+    Goal:
+    Acquire Food
+
+    Behavior:
+    Gather Berries
+
+    Primitive Actions:
+    Move
+    Look
+    Transfer
+    Consume
+
+    Results:
+    Food acquired
+    Hunger reduced
+
+    Events:
+    Memory Created
+    Relationship Changed
+
+---
+
+## Action Hierarchy
+
+    Need
+    ↓
+    Goal
+    ↓
+    Behavior
+    ↓
+    Primitive Action
+    ↓
+    Effect
+    ↓
+    Event / Memory / State Change
+
+---
+
+## Primitive Action Definition
+
+Every primitive action follows a shared schema.
+
+### Action Schema
+
+```rust
+pub struct ActionDefinition {
+    pub id: ActionId,
+    pub name: String,
+    pub category: ActionCategory,
+    pub description: String,
+
+    pub targets: Vec<TargetType>,
+
+    pub requirements: Vec<Requirement>,
+    pub costs: Vec<ActionCost>,
+    pub effects: Vec<Effect>,
+
+    pub tags: Vec<ActionTag>,
+}
+````
+
+Equivalent C## structure:
+
+```csharp
+public class ActionDefinition
+{
+    public ActionId Id { get; set; }
+    public string Name { get; set; }
+    public ActionCategory Category { get; set; }
+    public string Description { get; set; }
+
+    public List<TargetType> Targets { get; set; }
+
+    public List<Requirement> Requirements { get; set; }
+    public List<ActionCost> Costs { get; set; }
+    public List<Effect> Effects { get; set; }
+
+    public List<ActionTag> Tags { get; set; }
 }
 ```
 
-## Categories
+---
 
-Actions are grouped into broad categories to keep the system modular and readable.
+## Action Instance
 
-### Survival
+An Action Definition describes what an action is.
 
-Actions that keep a creature alive.
+An Action Instance represents a creature currently performing an action.
 
-* Eat
-* Drink
-* Sleep
-* Rest
-* Hide
-* Recover (physiological healing tick)
+Example:
 
-### Movement
+"A creature is transferring an apple to another creature."
 
-Actions that relocate a creature or change positional state.
+Rust:
 
-* Move
-* Travel
-* Navigate
-* Flee
-* Chase
-* Patrol
-* Sneak
+```rust
+pub struct ActionInstance {
+    pub action: ActionId,
+    pub actor: EntityId,
+    pub target: Option<EntityId>,
 
-### Exploration
-
-Actions that gather information about the world.
-
-* Inspect.
-* Investigate.
-* Observe.
-* Map.
-* Track.
-* Search.
-
-### Resource
-
-Actions that obtain, carry, or store materials.
-
-* Gather.
-* Mine.
-* Harvest.
-* Carry.
-* Store.
-* Deliver.
-
-### Crafting
-
-Actions that transform resources into tools, items, or structures.
-
-* Craft.
-* Build.
-* Repair.
-* Refine.
-* Assemble.
-* Improve.
-
-### Social
-
-Actions that manage interaction between creatures.
-
-* Greet.
-* Speak.
-* Share.
-* Help.
-* Comfort.
-* Negotiate.
-* Argue.
-* Threaten.
-* Bond.
-* Reject.
-
-### Conflict
-
-Social actions that produce opposition, pressure, or violence.
-
-* Challenge.
-* Intimidate.
-* Grapple.
-* Strike.
-* Defend.
-* Submit.
-* Retreat.
-* Surrender.
-
-### Courtship
-
-Social actions that support mate selection and reproductive bonding.
-
-* Flirt.
-* Court.
-* Impress.
-* Mate.
-* Accept.
-* Refuse.
-* Bond.
-
-### Equipment
-
-Actions that change the creature’s loadout or readiness state.
-
-* Equip.
-* Unequip.
-* Swap.
-* Sheath.
-* Draw.
-* Wear.
-* Remove.
-
-### Cognitive
-
-Actions that process information or strengthen learning.
-
-* Learn.
-* Remember.
-* Rehearse.
-* Plan.
-* Compare.
-* Solve.
-
-### Identity
-
-Actions that express or test self-concept.
-
-* Conform.
-* Resist.
-* Experiment.
-* Assert.
-* Perform.
-
-### Legacy
-
-Actions that preserve, transmit, or extend meaning across generations.
-
-* Teach.
-* Mentor.
-* Record.
-* Preserve.
-* Pass down.
-* Inherit.
-
-## Properties
-
-Every action should expose properties that other systems can read.
-
-### Preconditions
-
-Preconditions define what must be true before the action can begin.
-
-* Creature state.
-* World state.
-* Target state.
-* Item state.
-* Relationship state.
-* Skill threshold.
-* Stat threshold.
-
-### Costs
-
-Costs define what the action consumes.
-
-* Time.
-* Stamina.
-* Focus.
-* Resources.
-* Exposure.
-* Social risk.
-* Emotional cost.
-
-### Effects
-
-Effects define what changes if the action succeeds.
-
-* World state changes.
-* Creature state changes.
-* Relationship changes.
-* Item state changes.
-* Skill progress.
-* Memory formation.
-* Emotional response.
-
-### Failure Outcomes
-
-Failure outcomes define what happens if the action is interrupted, blocked, or unsuccessful.
-
-* No change.
-* Partial change.
-* Wasted time.
-* Increased stress.
-* Lost resources.
-* Relationship damage.
-* Injury.
-
-### Stat Scaling
-
-Actions can be modified by core stats and derived competency layers.
-
-* Strength.
-* Stamina.
-* Dexterity.
-* Perception.
-* Willpower.
-* Derived stats where appropriate.
-
-### Skill Scaling
-
-Actions can be modified by relevant skills.
-
-* Higher skill improves success chance.
-* Higher skill improves speed.
-* Higher skill improves quality.
-* Repeated use can train the skill.
-
-### Behavior Bias
-
-Actions can be more or less attractive depending on personality, emotion, and memory.
-
-* Personality traits can raise or lower action weight.
-* Current emotions can amplify or suppress action choice.
-* Relevant memories can encourage or discourage the action.
-
-### Emotion Hooks
-
-Actions can produce emotions when they succeed, fail, or are observed.
-
-* Joy.
-* Relief.
-* Pride.
-* Fear.
-* Shame.
-* Anger.
-* Attachment.
-* Curiosity.
-
-### Memory Hooks
-
-Important actions can form or reinforce memories.
-
-* Episodic memory.
-* Semantic memory.
-* Procedural memory.
-* Relational memory.
-
-### Training Hooks
-
-Actions can increase skills or hidden tendencies through repetition.
-
-* Successful action use trains relevant skills.
-* Repeated action patterns can reinforce hidden stats.
-* Repeated emotional outcomes can influence personality drift indirectly.
-
-## Action Selection Interface
-
-The action system does not choose actions directly. It provides a catalog of possible verbs and their data so behavior can score them.
-
-Typical behavior inputs include:
-
-* Current needs.
-* Current emotions.
-* Relevant memories.
-* Personality axes.
-* Stats.
-* Skills.
-* World state.
-* Nearby entities.
-* Available items.
-
-## Examples
-
-### Example: Eat
-
-```text
-Action: Eat
-Category: Survival
-Preconditions: Food available, creature can consume it.
-Costs: Time, stamina.
-Effects: Reduces hunger, may create satisfaction or relief.
-```
-
-### Example: Equip Item
-
-```text
-Action: Equip
-Category: Equipment
-Preconditions: Item present, slot available, item usable.
-Costs: Time, attention.
-Effects: Item becomes active loadout, stats may change.
-```
-
-### Example: Court
-
-```text
-Action: Court
-Category: Courtship
-Preconditions: Target is receptive or approachable.
-Costs: Time, social risk.
-Effects: Relationship may deepen, attraction may change, memories may form.
-```
-
-### Example: Fight
-
-```text
-Action: Strike
-Category: Conflict
-Preconditions: Target reachable, creature willing to engage.
-Costs: Stamina, risk, exposure.
-Effects: Damage, fear, retaliation, memory formation.
+    pub progress: f32,
+    pub state: ActionState,
+}
 ```
 
 ---
 
-# Implementation / Notes
+## Action Categories
 
-* Keep actions as reusable definitions rather than hardcoded behavior trees.
-* Prefer tags over special-case logic whenever possible.
-* Group related actions into subtypes instead of adding one-off systems.
-* Let behavior score actions using stats, skills, needs, personality, and memory.
-* Keep equipment, courtship, and conflict modular inside the action taxonomy.
-* Use consistent naming for action ids and categories across the project.
+---
+
+## Movement / Body
+
+**Description:**
+Actions that change a creature's position, posture, or physical state.
+
+### Move
+
+Changes a creature's location.
+
+---
+
+### Turn
+
+Changes facing direction.
+
+---
+
+### Stop
+
+Ends movement.
+
+---
+
+### Sit
+
+Changes the creature into a seated posture.
+
+---
+
+### Stand
+
+Returns the creature to an upright posture.
+
+---
+
+### Lie Down
+
+Changes the creature into a prone or resting posture.
+
+---
+
+### Jump
+
+Changes vertical position through forceful movement.
+
+---
+
+### Climb
+
+Allows movement across climbable surfaces.
+
+---
+
+### Crawl
+
+Allows movement while maintaining a low posture.
+
+---
+
+### Swim
+
+Allows movement through liquids.
+
+---
+
+### Fly
+
+Allows movement through air for capable creatures.
+
+---
+
+## Temporal
+
+**Description:**
+Actions that intentionally allow time to pass or maintain a condition.
+
+### Wait
+
+Allows time to pass without another major action.
+
+Examples:
+
+- Waiting for prey
+- Waiting for another creature
+- Waiting for a process to complete
+- Guarding
+
+---
+
+### Rest
+
+Allows recovery.
+
+Examples:
+
+- Restore stamina
+- Reduce fatigue
+- Reduce stress
+
+---
+
+## Perception
+
+**Description:**
+Actions that gather information from the environment.
+
+### Look
+
+Gathers visual information.
+
+---
+
+### Listen
+
+Gathers auditory information.
+
+---
+
+### Smell
+
+Gathers chemical information.
+
+---
+
+### Taste
+
+Gathers information through consumption or contact.
+
+---
+
+### Feel
+
+Gathers information through physical contact.
+
+---
+
+## Manipulation
+
+**Description:**
+Actions that alter possession, position, or force relationships with objects.
+
+### Transfer
+
+Moves an object or entity between locations or owners.
+
+Examples:
+
+    Ground → Creature
+    Pick up
+
+    Creature → Ground
+    Place
+
+    Creature → Container
+    Store
+
+    Container → Creature
+    Retrieve
+
+    Creature → Creature
+    Give / Trade / Feed
+
+Transfer replaces:
+
+- Pick Up
+- Place
+- Drop
+- Give
+- Receive
+- Store
+- Deliver
+
+---
+
+### Hold
+
+Maintains control over an object or entity.
+
+Examples:
+
+- Holding a tool
+- Holding an infant
+- Holding a rope
+
+---
+
+### Release
+
+Stops maintaining control.
+
+Examples:
+
+- Let go
+- Drop
+- Release restraint
+
+---
+
+### Throw
+
+Transfers an object using force and direction.
+
+---
+
+### Push
+
+Applies force away from the actor.
+
+Examples:
+
+- Move object
+- Close mechanism
+- Push creature
+
+---
+
+### Pull
+
+Applies force toward the actor.
+
+Examples:
+
+- Move object
+- Open mechanism
+- Draw object closer
+
+---
+
+## World Interaction
+
+**Description:**
+Actions that directly affect objects, materials, and environmental systems.
+
+---
+
+### Touch
+
+Creates physical contact.
+
+---
+
+### Use
+
+Uses an object, tool, or environmental feature.
+
+Examples:
+
+    Use(Shovel, Ground)
+    → Dig
+
+    Use(Pickaxe, Rock)
+    → Mine
+
+    Use(Knife, Plant)
+    → Cut / Harvest
+
+    Use(Hammer, Object)
+    → Repair
+
+The result depends on:
+
+- Tool properties
+- Material properties
+- Object state
+
+---
+
+### Consume
+
+Consumes a resource.
+
+Examples:
+
+- Eating food
+- Drinking water
+- Taking medicine
+
+---
+
+### Strike
+
+Applies force to a target.
+
+Examples:
+
+- Hit creature
+- Shape material
+- Damage object
+
+Repeated strikes may create events:
+
+    Strike(Object)
+     ↓
+    Durability Reduced
+     ↓
+    Object Breaks
+
+---
+
+### Repair
+
+Restores an object's condition.
+
+---
+
+### Clean
+
+Removes unwanted substances or conditions.
+
+---
+
+### Activate
+
+Changes something into an active state.
+
+Examples:
+
+- Ignite fire
+- Start machine
+- Trigger mechanism
+
+---
+
+### Deactivate
+
+Changes something into an inactive state.
+
+Examples:
+
+- Put out fire
+- Stop machine
+- Disable mechanism
+
+---
+
+## Equipment
+
+**Description:**
+Actions that modify a creature's equipped state.
+
+---
+
+### Equip
+
+Moves an item into an active equipment state.
+
+Includes:
+
+- Wear
+- Draw weapon
+- Ready tool
+
+---
+
+### Unequip
+
+Removes an item from an active equipment state.
+
+Includes:
+
+- Remove
+- Sheath
+- Put away
+
+---
+
+### Swap
+
+Changes one equipped item for another.
+
+---
+
+## Communication
+
+**Description:**
+Actions that intentionally exchange information.
+
+---
+
+### Speak
+
+Communicates through language or vocalization.
+
+---
+
+### Gesture
+
+Communicates through visual movement or signals.
+
+---
+
+### Call
+
+Creates communication intended to attract attention.
+
+---
+
+## Defense
+
+**Description:**
+Actions that reduce, avoid, or redirect harmful interactions.
+
+---
+
+### Block
+
+Absorbs or prevents incoming force.
+
+---
+
+### Parry
+
+Redirects incoming force.
+
+---
+
+## Biological
+
+**Description:**
+Actions directly related to reproduction.
+
+---
+
+### Mate
+
+Initiates reproduction between compatible creatures.
+
+---
+
+## Cognitive Systems
+
+Cognitive processes are not primitive actions.
+
+They are internal systems that influence decision-making.
+
+Examples:
+
+- Learning
+- Memory
+- Recall
+- Planning
+- Reasoning
+- Problem Solving
+
+---
+
+## Behaviors
+
+Behaviors are higher-level combinations of primitive actions.
+
+Examples:
+
+### Gather
+
+    Move
+    Look
+    Transfer
+
+---
+
+### Mine
+
+    Move
+    Use(Pickaxe, Resource)
+    Transfer
+
+---
+
+### Deliver
+
+    Transfer
+    Move
+    Transfer
+
+---
+
+### Hunt
+
+    Look
+    Track
+    Move
+    Strike
+    Consume
+
+---
+
+### Teach
+
+    Speak
+    Gesture
+    Observe
+
+---
+
+### Court
+
+    Move
+    Speak
+    Gesture
+    Touch
+    Transfer
+
+---
+
+## Events
+
+Events are state changes caused by actions and behaviors.
+
+Examples:
+
+- Conception
+- Pregnancy Begins
+- Birth
+- Egg Laid
+- Hatch
+- Skill Learned
+- Memory Created
+- Relationship Changed
+- Item Inherited
+
+---
+
+## Action Categories Enum
+
+Rust:
+
+```rust
+pub enum ActionCategory {
+    Movement,
+    Temporal,
+    Perception,
+    Manipulation,
+    WorldInteraction,
+    Equipment,
+    Communication,
+    Defense,
+    Biological,
+}
+```
+
+C#:
+
+```csharp
+public enum ActionCategory
+{
+    Movement,
+    Temporal,
+    Perception,
+    Manipulation,
+    WorldInteraction,
+    Equipment,
+    Communication,
+    Defense,
+    Biological
+}
+```
+
+---
+
+## Design Rules
+
+A primitive action should answer:
+
+> "What physical or mechanical change occurs?"
+
+A behavior should answer:
+
+> "Why is the creature doing this?"
+
+An event should answer:
+
+> "What happened because of it?"
+
+If a concept describes a goal, intention, or social meaning, it should not be a primitive action.

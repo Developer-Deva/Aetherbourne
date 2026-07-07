@@ -18,7 +18,7 @@ FILES=(
     "docs/flora/06_simulation_engine.md"
     "docs/flora/07_harvesting_and_processing.md"
     "docs/flora/08_economics_and_trade.md"
-    "docs/flora/09_preformance.md"
+    "docs/flora/09_performance.md"
     "docs/flora/10_future_work.md"
     "docs/01_world/minerals.md"
     "docs/05_content/liquids.md"
@@ -58,8 +58,8 @@ FILES=(
     "docs/05_content/consumables.md"
     "docs/05_content/tools.md"
     "docs/05_content/weapons.md"
-    "docs/05_content/equipment.md
-    "docs/05_contnent/furniture.md"
+    "docs/05_content/equipment.md"
+    "docs/05_content/furniture.md"
     "docs/05_content/stations.md"
     "docs/05_content/buildings.md"
     "docs/05_content/crafting.md"
@@ -108,7 +108,7 @@ for file in "${UNIQUE_FILES[@]}"; do
         | tr '[:upper:]' '[:lower:]' \
         | sed 's/[^a-z0-9]/-/g')
 
-    echo "- [$file](#$anchor)" >> "$OUTPUT"
+    echo "- [$file]($anchor)" >> "$OUTPUT"
 done
 
 echo "" >> "$OUTPUT"
