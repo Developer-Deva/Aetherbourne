@@ -29,7 +29,7 @@ A good rule is:
 
 ## Domain structure (what unlocks when)
 | Age stage | Active domain | Primary purpose | Influenced by |
-|---|---|---|---|
+| :---: | :---: | :---: | :---: |
 | Infant | Temperament | Baseline reactivity and recovery | Genetics, Aethersigns |
 | Toddler | Socialization | Attachment and early social style | Temperament |
 | Child | Cognition | Learning style and mental habits | Temperament, Socialization |
@@ -95,7 +95,7 @@ Since Aetherbourne already centers on layered development and long-term personal
 
 ## Suggested axes by domain
 | Domain | Recommended axes | What they control |
-|---|---|---|
+| :---: | :---: | :---: |
 | Temperament | Reactivity, Elasticity | How strongly a creature responds to stimulation; how quickly it returns to baseline after stress or change. |
 | Socialization | Affiliation, Assertiveness | Need for contact and bonding; tendency to initiate, lead, resist, or dominate social situations. |
 | Cognition | Curiosity, Structure | Drive to explore/learn; preference for planning, categorization, and predictable patterns. |

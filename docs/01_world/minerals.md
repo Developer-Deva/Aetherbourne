@@ -250,7 +250,7 @@ Integer value determining draw order (higher renders on top):
 This table maps out specific gameplay stat bonuses for the extreme and unique points across all 23 categories.
 
 | Category / Modifier Word | Stat Bonus / Mechanical Effect |
-|---|---|
+| :---: | :---: |
 | 1. Rarity | Base modifier multiplier for all rolled secondary stats. |
 | 2. Value | Price multiplier for merchants and trade value. |
 | 3. Insulative | +20% Lightning / Energy Resistance |

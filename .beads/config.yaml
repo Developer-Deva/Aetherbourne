@@ -2,3 +2,5 @@ prefix: hq
 issue-prefix: hq
 dolt.idle-timeout: "0"
 export.auto: "false"
+
+routing.mode: "explicit"

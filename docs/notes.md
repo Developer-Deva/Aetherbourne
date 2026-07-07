@@ -34,7 +34,7 @@ Then choose the action with the highest final utility, with some controlled rand
 Here is a practical mapping from your axes to behavior selection:
 
 | Axis | High end tends to do | Low end tends to do |
-|---|---|---|
+| :---: | :---: | :---: |
 | Reactivity | React quickly to threats, needs, surprises. | Stay calm, miss or delay response. |
 | Elasticity | Recover quickly from stress. | Stay stuck in distress or agitation. |
 | Affiliation | Seek company, support, shared work. | Prefer solitude or low-contact routines. |

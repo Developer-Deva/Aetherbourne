@@ -22,6 +22,22 @@ All flora generation references these normalized (0.0 to 1.0) environmental para
 
 The botanical classification system uses 35 distinct properties organized into 4 core morphology tracks plus 5 secondary botanical life tracks plus 4 functional categorization tracks. These categories enable procedural generation of contextually appropriate flora with sprite-compositing guidance for custom 2D engines, functional resource mapping, and role-based ecosystem integration.
 
+## Design Philosophy
+
+High-level principles for botanical system design, procedural generation, and ecosystem consistency.
+
+## Core Concepts
+
+* Biome-driven plant generation
+* Flora properties and categories
+* Harvest and growth lifecycle
+
+---
+
+## Implementation / Notes
+
+* Notes on data structure, flora generation rules, and rendering guidance.
+
 ### Core Biological Tracks
 
  1. **Rarity:** Common, Uncommon, Rare, Epic, Legendary, Mythic
@@ -35,16 +51,16 @@ The botanical classification system uses 35 distinct properties organized into 4
  9. **Spread Rate:** Stationary, Rooted, Seeding, Viral, Parasitic
  10. **Light Requirements:** Nocturnal, Shade, Partial, Sunlight, Intense
  11. **Water Dependency:** Xerophytic, Low, Moderate, High, Aquatic
- 18. **Soil Preference:** Acidic, Neutral, Alkaline, Volcanic, Magical
- 19. **Pollination Type:** Self-Pollinating, Wind-Pollinated, Insect-Pollinated, Magical, Sterile
- 20. **Root System:** Shallow, Fibrous, Taproot, Massive, Aerial
- 21. **Lifespan Classification:** Ephemeral, Annual, Biennial, Perennial, Ancient
- 22. **Fragrance Intensity:** Odorless, Subtle, Aromatic, Potent, Fetid
- 23. **Symbiotic Relationships:** Solitary, Compatible, Synergistic, Parasitic, Mycorrhizal
- 24. **Growth Rate:** Stagnant, Slow, Moderate, Fast, Explosive (Invasive)
- 25. **Yield Abundance:** Sparse (1-2), Modest (3-5), Generous (6-10), Abundant (11-20), Massive (20+)
- 26. **Bloom Season:** Spring, Summer, Autumn, Winter, Eternal, Nocturnal, Cyclical
- 27. **Medicinal Potency:** Inert, Mild, Potent, Powerful, Legendary, Antitoxin
+ 12. **Soil Preference:** Acidic, Neutral, Alkaline, Volcanic, Magical
+ 13. **Pollination Type:** Self-Pollinating, Wind-Pollinated, Insect-Pollinated, Magical, Sterile
+ 14. **Root System:** Shallow, Fibrous, Taproot, Massive, Aerial
+ 15. **Lifespan Classification:** Ephemeral, Annual, Biennial, Perennial, Ancient
+ 16. **Fragrance Intensity:** Odorless, Subtle, Aromatic, Potent, Fetid
+ 17. **Symbiotic Relationships:** Solitary, Compatible, Synergistic, Parasitic, Mycorrhizal
+ 18. **Growth Rate:** Stagnant, Slow, Moderate, Fast, Explosive (Invasive)
+ 19. **Yield Abundance:** Sparse (1-2), Modest (3-5), Generous (6-10), Abundant (11-20), Massive (20+)
+ 20. **Bloom Season:** Spring, Summer, Autumn, Winter, Eternal, Nocturnal, Cyclical
+ 21. **Medicinal Potency:** Inert, Mild, Potent, Powerful, Legendary, Antitoxin
 
 ### 2. Core Morphology Matrix Tracks
 
@@ -67,10 +83,44 @@ The botanical classification system uses 35 distinct properties organized into 4
  3. **Harvest Output:** Specifies the physical item resource yielded upon extraction (Leaves, Flowers, Fruit, Seeds, Bark, Wood, Resin, Sap, Roots/Tubers, Spores, Nectar, Fiber).
  4. **Resource Role:** Sets primary functional crafting/gameplay utility (Culinary, Medicinal, Alchemical, Construction, Textile, Fuel, Trade, Ritual, Environmental, Utility).
 
+### 5. Harvest Output
+
+Specifies the primary harvestable part or product of the plant.
+
+* Leaves (Harvested foliage for teas, salves, and seasoning)
+* Flowers (Petals and blooms for potions, perfumes, and rituals)
+* Fruit (Edible or alchemical fruiting bodies)
+* Seeds (Reproductive kernels used for planting, oil, or spice)
+* Bark (Protective outer layers harvested for dyes, medicine, or woodcraft)
+* Wood (Timber and branches for construction, tools, or firewood)
+* Resin (Sticky exudate used for adhesives, incense, and enchantments)
+* Sap (Liquid extracts for potions, sweets, or alchemical reagents)
+* Roots/Tubers (Underground storage organs used for food, poultices, or powders)
+* Spores (Reproductive dust used for fungi cultivation and mystical effects)
+* Nectar (Sweet fluid used in brews, offerings, or magical attractors)
+* Fiber (Strong strands used for rope, cloth, and basketry)
+
+### 6. Resource Role
+
+Dictates the primary functional purpose and utility category of the plant.
+
+* Culinary (Used primarily as food, drink, or cooking ingredients)
+* Medicinal (Used for healing, cures, and restorative brews)
+* Alchemical (Used as potion, enchantment, or spellcraft components)
+* Construction (Used for building, crafting, or structural materials)
+* Textile (Used for fabric, rope, weaving, and soft goods)
+* Fuel (Used for fire, steam, or energy production)
+* Trade (High-value goods intended for merchants and barter)
+* Ritual (Used for ceremonies, offerings, and magical rites)
+* Environmental (Used to shape ecosystems, terrain, or weather)
+* Utility (Used for traps, tools, dyes, preservatives, or household goods)
+
 ## Data Dictionary (Stat Bonuses & Mechanical Systems Matrix)
 
+This table maps out specific gameplay stat bonuses for the extreme and unique points across all flora trait categories.
+
 | Category / Modifier Word | Stat Bonus / Mechanical Effect |
-|---|---|
+| :---: | :--- |
 | **1. Rarity** | Base modifier multiplier for all rolled secondary stats. |
 | **3. Slow** | +15% Potion brewing time for precision control / -5% ingredient cost. |
 | **3. Explosive** | Uncontrolled spread yields massive free resources but can overrun plots. |
@@ -84,7 +134,6 @@ The botanical classification system uses 35 distinct properties organized into 4
 | **7. Inert** | Immune to status effects / Base matrix cannot be enhanced via alchemy. |
 | **8. Thermal** | +15% Fire Damage / Weapons ignite targets; potions grant frost immunity. |
 | **8. Cryo** | +15% Frost Damage / Attacks apply slow triggers; potions chill attackers. |
-| **8. Nature** | +20% Healing effectiveness / Gradually restores mana over time. |
 | **8. Void** | +15% Shadow Damage / Inflicts decay effects on target life matrices. |
 | **9. Saturated** | +25% Spell potency / Amplifies raw output of active magical casts. |
 | **9. Depleted** | -20% Mana cost for defensive spells / Used to construct anti-magic fields. |
@@ -96,6 +145,7 @@ The botanical classification system uses 35 distinct properties organized into 4
 | **12. None** | Single-use extraction parameters / Node completely clears upon harvest. |
 | **13. Viral** | Spreads rapidly via environmental vectors / Highly aggressive invasive behavior. |
 | **13. Stationary** | +5% Base harvest yield / Reliable parameter tracking for structural farming. |
+| **14. Nocturnal** | +25% effectiveness at night / Potency shift with day/night cycle |
 | **14. Intense** | Requires specialized high-tier light arrays / +30% Yield in optimal setups. |
 | **15. Aquatic** | Must be cultivated directly inside liquid blocks / Unlocks deep water routes. |
 | **15. Xerophytic** | Native to hyper-arid conditions / Completely bypasses moisture requirements. |
@@ -144,223 +194,55 @@ The botanical classification system uses 35 distinct properties organized into 4
 | **29. Seasonal Cycle** | Growth loops bind tightly to specific active biome weather states. |
 | **29. Perennial Cycle** | Year-round active status parameters / Continual production capability. |
 | **29. Decaying Cycle** | Dead rotting status track / Yields specialized compost or lethal toxins. |
+| **30. Rooting** | Root-based spread / +50% yield from nearby plants |
+| **30. Seeding** | Seed dispersal / Slow natural spread, establishes new plants |
+| **30. Spreading** | Wind pollination / +25% potency when flowers are active |
+| **30. Sporing** | Fungal spores / Rapid dissemination in wet biomes |
+| **30. Parasitic** | Overtakes neighbors / -30% health for nearby plants |
 | **31. Thorny (Weapon)** | Applied to arms / Inflicts +15% Armor Piercing and bleed on contact. |
 | **31. Medicinal (App)** | Applied to health matrices / Boosts baseline recovery speed by 20%. |
 | **31. Toxic (Weapon)** | Applied to payloads / Inflicts deep poison status logic over time. |
 | **31. Magickal (App)** | Applied to focus matrices / Amplifies spell duration profiles by 25%. |
+| **32. Herbaceous** | Fast seasonal regrowth / Ideal for herbalism and low-maintenance cultivation |
+| **32. Woody** | Durable, long-lived growth / Supports timber, fruits, and structural use |
+| **32. Climbing** | Grows upward on support / Useful for vertical gardens and canopy access |
+| **32. Creeping** | Spreads low to the ground / Excellent for groundcover and trap plants |
+| **32. Aquatic** | Harvestable in water / Unlocks pond, swamp, and shoreline resources |
+| **32. Epiphytic** | Grows on other plants / Ideal for canopy and aerial cultivation |
+| **32. Subterranean** | Stores reserves underground / Harvested for roots, tubers, or fungi bodies |
+| **32. Fungal** | Spore-based growth / Used for exotic reagents and decay ecosystems |
+| **33. Single-Stem** | Focused central growth / Supports trunks, stalks, and tall harvests |
+| **33. Multi-Stem** | Multiple shoots / Good for berries, shrubs, and bushy harvests |
+| **33. Rosette** | Low, radial leaf arrangement / Efficient ground-level resource collection |
+| **33. Vining** | Flexible trailing form / Produces fruit, fiber, and climbing cover |
+| **33. Canopy** | Spread branches overhead / Provides shade, fruit, and timber |
+| **33. Bulbous** | Underground storage organs / Useful for food and powerful root medicines |
+| **33. Mat-Forming** | Dense surface coverage / Great for moss, ground herbs, and insulation |
+| **33. Spore Cluster** | Fungal fruiting bodies / Harvested for spores, potions, and ritual components |
+| **34. Leaves** | Primary ingredient for teas, salves, and herbal infusions |
+| **34. Flowers** | Petals and blossoms used for perfume, rituals, and potion catalysts |
+| **34. Fruit** | Edible harvest with culinary and alchemical uses |
+| **34. Seeds** | Reproductive units used for planting, oils, spices, and powders |
+| **34. Bark** | Durable material for dyes, medicine, and craftwork |
+| **34. Wood** | Structural material for construction, tools, and fuel |
+| **34. Resin** | Sticky exudate used for incense, adhesives, and enchantments |
+| **34. Sap** | Liquid extract used in brews, sweets, and alchemical reagents |
+| **34. Roots/Tubers** | Groundfood and extracts used for nourishment and medicine |
+| **34. Spores** | Reproduction and mystical reagents used for fungi systems |
+| **34. Nectar** | Sweet fluid used in brews, offerings, and attraction effects |
+| **34. Fiber** | Strong strands used for rope, cloth, and basketry |
+| **35. Culinary** | Boosts food quality / Increases hunger restoration and morale |
+| **35. Medicinal** | Boosts healing potency / Enables cures, tonics, and status recovery |
+| **35. Alchemical** | Boosts potion strength / Serves as rare reagent for spells and enchantments |
+| **35. Construction** | Boosts building durability / Used in structures, scaffolding, and tools |
+| **35. Textile** | Boosts cloth quality / Used for clothing, rope, and soft goods |
+| **35. Fuel** | Reduces burn time / Provides energy for fires, steam, and rituals |
+| **35. Trade** | Boosts market price / Valuable for merchants, guilds, and black markets |
+| **35. Ritual** | Boosts ritual potency / Used in ceremonies, wards, and offerings |
+| **35. Environmental** | Supports ecosystem effects / Affects terrain, weather, or biomes |
+| **35. Utility** | Useful for tools, dyes, traps, and everyday crafting |
 
 ---
-
-## Design Philosophy
-
-High-level principles for botanical system design, procedural generation, and ecosystem consistency.
-
-## Core Concepts
-
-* Biome-driven plant generation
-* Flora properties and categories
-* Harvest and growth lifecycle
-
----
-
-## Implementation / Notes
-
-* Notes on data structure, flora generation rules, and rendering guidance.
-
-## 34. Harvest Output
-
-Specifies the primary harvestable part or product of the plant.
-
-* Leaves (Harvested foliage for teas, salves, and seasoning)
-* Flowers (Petals and blooms for potions, perfumes, and rituals)
-* Fruit (Edible or alchemical fruiting bodies)
-* Seeds (Reproductive kernels used for planting, oil, or spice)
-* Bark (Protective outer layers harvested for dyes, medicine, or woodcraft)
-* Wood (Timber and branches for construction, tools, or firewood)
-* Resin (Sticky exudate used for adhesives, incense, and enchantments)
-* Sap (Liquid extracts for potions, sweets, or alchemical reagents)
-* Roots/Tubers (Underground storage organs used for food, poultices, or powders)
-* Spores (Reproductive dust used for fungi cultivation and mystical effects)
-* Nectar (Sweet fluid used in brews, offerings, or magical attractors)
-* Fiber (Strong strands used for rope, cloth, and basketry)
-
-## 35. Resource Role
-
-Dictates the primary functional purpose and utility category of the plant.
-
-* Culinary (Used primarily as food, drink, or cooking ingredients)
-* Medicinal (Used for healing, cures, and restorative brews)
-* Alchemical (Used as potion, enchantment, or spellcraft components)
-* Construction (Used for building, crafting, or structural materials)
-* Textile (Used for fabric, rope, weaving, and soft goods)
-* Fuel (Used for fire, steam, or energy production)
-* Trade (High-value goods intended for merchants and barter)
-* Ritual (Used for ceremonies, offerings, and magical rites)
-* Environmental (Used to shape ecosystems, terrain, or weather)
-* Utility (Used for traps, tools, dyes, preservatives, or household goods)
-
-## Data Dictionary
-
-This table maps out specific gameplay stat bonuses for the extreme and unique points across all flora trait categories.
-
-| Category / Modifier Word | Stat Bonus / Mechanical Effect |
-|---|---|
-| 1. Rarity | Base modifier multiplier for all rolled secondary stats. |
-|---|---|
-| 2. Value | Price multiplier for merchants and trade value. |
-|---|---|
-| 3. Slow | +15% potion brewing time for more control / -5% ingredient cost |
-| 3. Explosive | Uncontrolled spread provides free resources but may destroy garden |
-|---|---|
-| 4. Sparse | +10% purity in crafting / Less waste but fewer items |
-| 4. Massive | +30% total yield / Can sustain more consistent supply chains |
-|---|---|
-| 5. Eternal | Always harvestable / Never depletes, infinite resource |
-| 5. Nocturnal | +25% potency at night / Harvesting at night grants bonus duration |
-|---|---|
-| 6. Benign | +10% health recovery / Safe for untrained herbalists |
-| 6. Corrosive | +20% armor degradation / Must wear protection when harvesting |
-|---|---|
-| 7. Antitoxin | Instantly cures 1 poison effect / Purges debuffs on consumption |
-| 7. Inert | Immune to status effects / Cannot be enhanced by alchemy |
-|---|---|
-| 8. Thermal | +15% fire damage / Attacks inflict burning, potions add warmth |
-| 8. Cryo | +15% frost damage / Attacks slow movement, potions chill enemies |
-| 8. Nature | +20% healing effectiveness / Restores mana over time |
-|---|---|
-| 9. Saturated | +25% spell potency / Magical effects are amplified by 25% |
-| 9. Depleted | -20% mana cost for spells / Can be used to nullify magic |
-|---|---|
-| 10. Luminous | Extends vision radius / Provides light source when placed |
-| 10. Obscure | +15% stealth rating / Decreases enemy detection range |
-|---|---|
-| 11. Indestructible | Infinite harvests / Plant never dies or depletes |
-| 11. Fragile | Reduced durability / Breaking yields 50% resources |
-|---|---|
-| 12. Instant | Continuous regeneration / Heals 5 HP per tick automatically |
-| 12. None | Single-use only / Must be replanted after each harvest |
-|---|---|
-| 13. Viral | Spreads uncontrollably / Free resources but invasive |
-| 13. Stationary | +5% yield bonus / Can be reliably farmed in one location |
-|---|---|
-| 14. Nocturnal | +25% effectiveness at night / Potency shifts with day/night cycle |
-| 14. Intense | Requires specialized greenhouse / +30% yield with proper setup |
-|---|---|
-| 15. Aquatic | Can be farmed in water / Opens underwater harvesting routes |
-| 15. Xerophytic | Thrives in deserts / No watering needed |
-|---|---|
-| 16. Magical | Requires mana infusion to grow / +50% stat bonuses if grown magically |
-| 16. Volcanic | Thrives near lava/heat sources / Automatically enhanced by environment |
-|---|---|
-| 17. Sterile | Cannot spread naturally / Rare and valuable, requires seeds |
-| 17. Self-Pollinating | Requires no tending / Autonomously produces offspring |
-|---|---|
-| 18. Aerial | Can be grown in air/clouds / Unlocks sky gardens |
-| 18. Massive | Deep roots anchor the plant / Cannot be blown away by wind |
-|---|---|
-| 19. Ancient | Centuries-long lifespan / Grows stronger with age, exponential value |
-| 19. Ephemeral | Rapid cycle / Harvests daily but with minimal yield |
-|---|---|
-| 20. Stunning | +15% sell price / NPCs prefer purchasing beautiful plants |
-| 20. Ugly | -15% sell price / Harder to trade, but alchemically identical |
-|---|---|
-| 21. Potent | Aroma grants +5% buff when nearby / Scent provides passive benefits |
-| 21. Fetid | Repels weak enemies / Creatures avoid this plant automatically |
-|---|---|
-| 22. Prismatic | +20% magical effectiveness / Potions glow and attract attention |
-| 22. Drab | -10% aesthetic value but easier to hide / Can be planted unnoticed |
-|---|---|
-| 23. Mycorrhizal | +50% yield from nearby plants / Creates network effects in gardens |
-| 23. Parasitic | -30% health for nearby plants / Can be used as competitive tool |
-|---|---|
-| 24. Thalloid | Ground-level rendering / Zero collision radius, flat tile placement |
-| 24. Rosette | Radial sprite composition / Compact collision box, disk-shaped |
-|---|---|
-| 24. Caulescent | Vertical stalk rendering / Standard collision radius, upright silhouette |
-| 24. Clambering | Vining overlay sprite / Wraps terrain, expands collision bounds |
-| 24. Arborescent | Full canopy tree sprite / Large collision radius, shadow-casting |
-|---|---|
-| 25. Subterranean | Yields tubers/bulbs / Harvested by digging; hidden underground |
-| 25. Culm-Stalk | Yields structural stalks / Harvested by cutting; cylindrical segments |
-| 25. Foliar | Yields leaves/foliage / Harvested by hand-picking; regrows quickly |
-| 25. Inflorescent | Yields flowers/seeds / Harvested by threshing; seasonal availability |
-| 25. Fructiferous | Yields fruits/nuts / Harvested by hand-picking; branch-based yields |
-|---|---|
-| 26. Herbaceous | Fast regrowth cycle / Ideal for herbalism and low-maintenance |
-| 26. Fleshy-Succulent | High water content / Resists frost; vulnerable to drying |
-| 26. Hollow-Cane | Minimal material cost / Harvests as complete segments |
-| 26. Suffruticose | Balanced durability / Persists through seasons |
-| 26. Ligneous | High material value / Requires specialized harvesting tools |
-|---|---|
-| 27. Fleshy | Easy to harvest / Vulnerable to damage |
-| 27. Fibrous | Moderate protection / Standard harvesting difficulty |
-| 27. Barked | Protected exterior / Requires cutting implements |
-| 27. Thorny | Hazardous to harvest / Causes damage; requires protective gear |
-| 27. Chitinous | Nearly impervious / Requires specialized tools; rare harvests |
-|---|---|
-| 28. Leafless | Bare sprite rendering / No foliage visual layer |
-| 28. Bladed | Grass-like sprites / Thin blade morphology |
-| 28. Broadleaf | Dense leaf coverage / Large flat leaflet sprites |
-| 28. Needled | Conifer needle sprites / Frostbitten appearance |
-| 28. Spored | Fungal fruiting bodies / Spore-releasing animation |
-|---|---|
-| 29. Ephemeral | Burst blooms / Days to weeks active window |
-| 29. Seasonal | Season-locked growth / Active in specific biome seasons only |
-| 29. Perennial | Year-round availability / Continuous harvestable state |
-| 29. Decaying | Spoilage materials / Dead/rotting yields toxins/compost |
-|---|---|
-| 30. Rooting | Root-based spread / +50% yield from nearby plants |
-| 30. Seeding | Seed dispersal / Slow natural spread, establishes new plants |
-| 30. Spreading | Wind pollination / +25% potency when flowers are active |
-| 30. Sporing | Fungal spores / Rapid dissemination in wet biomes |
-| 30. Parasitic | Overtakes neighbors / -30% health for nearby plants |
-|---|---|
-| 31. Thorny | +15% armor piercing damage / Causes bleed on contact |
-| 31. Medicinal | +20% healing effectiveness / Restores mana over time |
-| 31. Toxic | +15% poison damage / Inflicts sickness on consumption |
-| 31. Magickal | +25% spell potency / Amplifies magical effects by 25% |
-|---|---|
-| 32. Herbaceous | Fast seasonal regrowth / Ideal for herbalism and low-maintenance cultivation |
-| 32. Woody | Durable, long-lived growth / Supports timber, fruits, and structural use |
-| 32. Climbing | Grows upward on support / Useful for vertical gardens and canopy access |
-| 32. Creeping | Spreads low to the ground / Excellent for groundcover and trap plants |
-| 32. Aquatic | Harvestable in water / Unlocks pond, swamp, and shoreline resources |
-| 32. Epiphytic | Grows on other plants / Ideal for canopy and aerial cultivation |
-| 32. Subterranean | Stores reserves underground / Harvested for roots, tubers, or fungi bodies |
-| 32. Fungal | Spore-based growth / Used for exotic reagents and decay ecosystems |
-|---|---|
-| 33. Single-Stem | Focused central growth / Supports trunks, stalks, and tall harvests |
-| 33. Multi-Stem | Multiple shoots / Good for berries, shrubs, and bushy harvests |
-| 33. Rosette | Low, radial leaf arrangement / Efficient ground-level resource collection |
-| 33. Vining | Flexible trailing form / Produces fruit, fiber, and climbing cover |
-| 33. Canopy | Spread branches overhead / Provides shade, fruit, and timber |
-| 33. Bulbous | Underground storage organs / Useful for food and powerful root medicines |
-| 33. Mat-Forming | Dense surface coverage / Great for moss, ground herbs, and insulation |
-| 33. Spore Cluster | Fungal fruiting bodies / Harvested for spores, potions, and ritual components |
-|---|---|
-| 34. Leaves | Primary ingredient for teas, salves, and herbal infusions |
-| 34. Flowers | Petals and blossoms used for perfume, rituals, and potion catalysts |
-| 34. Fruit | Edible harvest with culinary and alchemical uses |
-| 34. Seeds | Reproductive units used for planting, oils, spices, and powders |
-| 34. Bark | Durable material for dyes, medicine, and craftwork |
-| 34. Wood | Structural material for construction, tools, and fuel |
-| 34. Resin | Sticky exudate used for incense, adhesives, and enchantments |
-| 34. Sap | Liquid extract used in brews, sweets, and alchemical reagents |
-| 34. Roots/Tubers | Groundfood and extracts used for nourishment and medicine |
-| 34. Spores | Reproduction and mystical reagents used for fungi systems |
-| 34. Nectar | Sweet fluid used in brews, offerings, and attraction effects |
-| 34. Fiber | Strong strands used for rope, cloth, and basketry |
-|---|---|
-| 35. Culinary | Boosts food quality / Increases hunger restoration and morale |
-| 35. Medicinal | Boosts healing potency / Enables cures, tonics, and status recovery |
-| 35. Alchemical | Boosts potion strength / Serves as rare reagent for spells and enchantments |
-| 35. Construction | Boosts building durability / Used in structures, scaffolding, and tools |
-| 35. Textile | Boosts cloth quality / Used for clothing, rope, and soft goods |
-| 35. Fuel | Reduces burn time / Provides energy for fires, steam, and rituals |
-| 35. Trade | Boosts market price / Valuable for merchants, guilds, and black markets |
-| 35. Ritual | Boosts ritual potency / Used in ceremonies, wards, and offerings |
-| 35. Environmental | Supports ecosystem effects / Affects terrain, weather, or biomes |
-| 35. Utility | Useful for tools, dyes, traps, and everyday crafting |
 
 ## Procedural Generation Naming System
 
@@ -709,7 +591,7 @@ var result = FloraNameGenerator.GenerateProceduralName("Luminagaric", new()
 
 Plant development is an ongoing cycle driven by resource matching. Instead of running expensive timers for every single plant, growth cycles are calculated using a deterministic delta tick scaled by matching environmental attributes.
 
-### Overview
+### Overview of Growth Engine
 
 The Botanical System structures flora as dynamic, living entities rather than decorative, static objects. Plants grow, propagate, mutate, and decay by continuously evaluating the macro factors provided by the local PlanetaryContext. This module utilizes a modular phenotypic sprite-compositing engine, mapping physical properties to procedural 2D layers to render accurate developmental stages and customized variants.
 
@@ -717,16 +599,16 @@ The Botanical System structures flora as dynamic, living entities rather than de
 
 $$G\_{\\text{Delta}} = G\_{\\text{Base}} \\times H\_{\\text{Soil}} \\times W\_{\\text{Availability}} \\times L\_{\\text{Match}}$$ Where:
 
-* **$G\_{\\text{Base}}**$ **:** The static growth baseline defined by the species taxonomy (GrowthRate).
-* **$H\_{\\text{Soil}}**$ **:** Soil match efficiency computed by matching the plant's SoilPreference with the local tile Fertility.
-* **$W\_{\\text{Availability}}**$ **:** Local hydrology saturation level, scaled by the species' specific WaterDependency profile.
-* **$L\_{\\text{Match}}**$ **:** Lighting modifier matrix. Maps the chunk's current LightLevel against the plant's LightRequirements (e.g., severe growth penalties are applied if a Sunlight reliant plant is blocked by deep subterranean shadows).
+* **$G\_{\\text{Base}}$:** The static growth baseline defined by the species taxonomy (GrowthRate).
+* **$H\_{\\text{Soil}}$:** Soil match efficiency computed by matching the plant's SoilPreference with the local tile Fertility.
+* **$W\_{\\text{Availability}}$:** Local hydrology saturation level, scaled by the species' specific WaterDependency profile.
+* **$L\_{\\text{Match}}$:** Lighting modifier matrix. Maps the chunk's current LightLevel against the plant's LightRequirements (e.g., severe growth penalties are applied if a Sunlight reliant plant is blocked by deep subterranean shadows).
 
 ### Arcane and Toxic Mutation Loop
 
-If a chunk features IsMagicalAnomaly = true or IsContaminated = true, the generation pass rolls a mutation check during the plant's lifecycle step: $$\\text{Mutation}\_{\\text{Chance}} = \\text{BaseRate} \\times (1.0 + \\text{ManaSaturation})$$ A successful roll forces a permanent drift in the plant's phenotypic attributes, shifting its standard values toward high-tier ElementalAffinity expressions or lethal ToxicityLevel tracking.
+If a chunk features IsMagicalAnomaly = true or IsContaminated = true, the generation pass rolls a mutation check during the plant's lifecycle step: $$\text{Mutation}\_{\text{Chance}} = \text{BaseRate} \times (1.0 + \text{ManaSaturation})$$ A successful roll forces a permanent drift in the plant's phenotypic attributes, shifting its standard values toward high-tier ElementalAffinity expressions or lethal ToxicityLevel tracking.
 
-* * *
+---
 
 ## Core Data Architecture
 
@@ -788,14 +670,14 @@ To manage the 35 distinct attributes cleanly without bloating memory arrays, flo
     }
 ```
 
-* * *
+---
 
 ## Gameplay Mechanics Matrix (Data Dictionary)
 
 The extreme poles of these botanical traits introduce significant mechanical adjustments to crafting, environmental hazard creation, and entity interaction logic.
 
 | Trait Category & Variant | Immediate Stat Multipliers & Mechanical System Behaviors |
-| ------ | ------ |
+| :---: | --- |
 | **Growth: Explosive** | Uncontrolled spread patterns. Seeds autonomously invade adjacent tiles, crowding out and killing neighboring flora types. |
 | **Cycle: Nocturnal** | Provides a $+25%$ bonus to potion potency calculations if harvested between 20:00 and 04:00. |
 | **Venom: Corrosive** | Applies a continuous $-20%$ armor degradation penalty across exposed clothing. Harvesting requires protective gloves. |
@@ -808,9 +690,9 @@ The extreme poles of these botanical traits introduce significant mechanical adj
 | **Silhouette: Arborescent** | Triggers full tree canopy rendering matrices. Shadows block light paths below, and paths require an axe tool to pass. |
 | **Anatomy: Subterranean** | Yields hidden root items. Harvesting requires executing a Dig action loop, leaving behind displaced ground tiles. |
 
-* * *
+---
 
-#### Consuming Systems Integration
+### Consuming Systems Integration
 
                      [PlanetaryContext Drivers]
                                  ↓
@@ -820,7 +702,7 @@ The extreme poles of these botanical traits introduce significant mechanical adj
         ↓                        ↓                        ↓
     [Action Layer]       [Alchemy & Crafting]     [AI Perception]
     - Dig/Cut checks     - Potency & Element      - Stealth hiding
-    - Tool prerequisites - Status additions        - Luminous sight lines
+    - Tool prerequisites - Status additions       - Luminous sight lines
     
     
 

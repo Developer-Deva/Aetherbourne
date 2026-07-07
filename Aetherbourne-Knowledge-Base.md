@@ -287,7 +287,7 @@ Each biome then drives rendering, tile generation, physics modifiers, flora, fau
 The acoustic profile of a biome directly modifies creature behavior and AI detection logic.
 
 | Profile | Sound Propagation | AI / Stealth Impact |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | **Deadened** | -50% Range | +20% Stealth; Harder to communicate. |
 | **Standard** | 100% Range | Baseline perception and communication. |
 | **Echoing** | +50% Range | -20% Stealth; +20% Sonic Damage. |
@@ -403,7 +403,7 @@ The botanical classification system uses 35 distinct properties organized into 4
 ## Data Dictionary (Stat Bonuses & Mechanical Systems Matrix)
 
 | Category / Modifier Word | Stat Bonus / Mechanical Effect |
-|---|---|
+| :---: | :---: |
 | **1. Rarity** | Base modifier multiplier for all rolled secondary stats. |
 | **2. Value** | Price multiplier for merchants and trade value. |
 | **3. Slow** | +15% Potion brewing time for precision control / -5% ingredient cost. |
@@ -538,7 +538,7 @@ Dictates the primary functional purpose and utility category of the plant.
 This table maps out specific gameplay stat bonuses for the extreme and unique points across all flora trait categories.
 
 | Category / Modifier Word | Stat Bonus / Mechanical Effect |
-|---|---|
+| :---: | :---: |
 | 1. Rarity | Base modifier multiplier for all rolled secondary stats. |
 | 2. Value | Price multiplier for merchants and trade value. |
 | 3. Slow | +15% potion brewing time for more control / -5% ingredient cost |
@@ -1765,7 +1765,7 @@ Integer value determining draw order (higher renders on top):
 This table maps out specific gameplay stat bonuses for the extreme and unique points across all 23 categories.
 
 | Category / Modifier Word | Stat Bonus / Mechanical Effect |
-|---|---|
+| :---: | :---: |
 | 1. Rarity | Base modifier multiplier for all rolled secondary stats. |
 | 2. Value | Price multiplier for merchants and trade value. |
 | 3. Insulative | +20% Lightning / Energy Resistance |
@@ -2321,7 +2321,7 @@ Together these influences create a creature's astrological predispositions.
 Determined by the **Birth Phase**. It represents a creature's foundational nature and influences which personality domains they are naturally affined to.
 
 | Phase | State | Domain Affinities |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | Brigide, Aestium | **Solid** | Temperament, Purpose, Legacy |
 | Imbolka, Mabonel | **Liquid** | Socialization, Interaction, Morals |
 | Floralis, Ceresio | **Gas** | Cognition, Perspective |
@@ -2427,7 +2427,7 @@ Modality primarily affects Personality Resistance.
 Determined by **Selene's Phase**. It influences how readily a creature's personality changes in response to experiences.
 
 | Selene Phase | Modality | Personality Effect |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | New Moon, Full Moon | **Anchor** | Higher Personality Resistance (+20%) |
 | Waxing (Crescent, Quarter, Gibbous) | **Catalyst** | Lower Personality Resistance (-20%) |
 | Waning (Gibbous, Quarter, Crescent) | **Current** | Situational/Contextual Resistance (±15%) |
@@ -2492,7 +2492,7 @@ Different Drives assign greater weight to different categories of memories.
 Determined by **Karael's Orbital Region**. It determines which categories of experiences produce the strongest personality drift.
 
 | Orbital Region | Drive | Memory Affinities |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | Region I | **Growth** | Family, Teaching, Community |
 | Region II | **Conflict** | Rivalry, Victory, Failure |
 | Region III | **Discovery** | Travel, Research, Mystery |
@@ -2779,7 +2779,7 @@ A good rule is:
 
 ## Domain structure (what unlocks when)
 | Age stage | Active domain | Primary purpose | Influenced by |
-|---|---|---|---|
+| :---: | :---: | :---: | :---: |
 | Infant | Temperament | Baseline reactivity and recovery | Genetics, Aethersigns |
 | Toddler | Socialization | Attachment and early social style | Temperament |
 | Child | Cognition | Learning style and mental habits | Temperament, Socialization |
@@ -2845,7 +2845,7 @@ Since Aetherbourne already centers on layered development and long-term personal
 
 ## Suggested axes by domain
 | Domain | Recommended axes | What they control |
-|---|---|---|
+| :---: | :---: | :---: |
 | Temperament | Reactivity, Elasticity | How strongly a creature responds to stimulation; how quickly it returns to baseline after stress or change. |
 | Socialization | Affiliation, Assertiveness | Need for contact and bonding; tendency to initiate, lead, resist, or dominate social situations. |
 | Cognition | Curiosity, Structure | Drive to explore/learn; preference for planning, categorization, and predictable patterns. |
@@ -3633,7 +3633,7 @@ Pressure = (Urgency × BasePriority) × PersonalityWeight
 ## The Need Hierarchy
 
 | Need | BasePriority | Behavioral Manifestation |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | **Health** | 5.0 | Avoidance of hazards, seeking medicine/rest. |
 | **Thirst** | 4.0 | Searching for water sources, migration to rivers. |
 | **Hunger** | 3.5 | Foraging, hunting, or trading for food. |
@@ -4944,7 +4944,7 @@ The simulation should remain deterministic when provided the same seed and input
 In Aetherbourne, one simulation tick is equivalent to one minute.
 
 | Common Term | Aetherbourne Term |
-| --- | --- |
+| :---: | :---: |
 | Minute | Moment |
 | Hour | Bell |
 | Day | Turn |
@@ -4966,7 +4966,7 @@ The calendar year contains ten Phases whose lengths vary slightly to create a mo
 ## Times of Day
 
 | Period | Description |
-| --- | --- |
+| :---: | :---: |
 | Firstlight | Dawn |
 | Brightrise | Morning |
 | Highsun | Midday |
@@ -4985,7 +4985,7 @@ Most creatures think in Bells and named periods rather than precise numerical ti
 The ten annual Phases in order are:
 
 | **Phase** | **Season** |
-| --- | --- |
+| :---: | :---: |
 | Brigide | Voidgleam |
 | Imbolka | Seedwake |
 | Floralis | Seedwake |

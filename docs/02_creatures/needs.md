@@ -22,7 +22,7 @@ Pressure = (Urgency × BasePriority) × PersonalityWeight
 ## The Need Hierarchy
 
 | Need | BasePriority | Behavioral Manifestation |
-| :--- | :--- | :--- |
+| :---: | :---: | :---: |
 | **Health** | 5.0 | Avoidance of hazards, seeking medicine/rest. |
 | **Thirst** | 4.0 | Searching for water sources, migration to rivers. |
 | **Hunger** | 3.5 | Foraging, hunting, or trading for food. |

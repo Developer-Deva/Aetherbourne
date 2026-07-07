@@ -168,7 +168,7 @@ Each biome then drives rendering, tile generation, physics modifiers, flora, fau
 The acoustic profile of a biome directly modifies creature behavior and AI detection logic.
 
 | Profile | Sound Propagation | AI / Stealth Impact |
-| :--- | :--- | :--- |
+| :---: | :--- | :---: |
 | **Deadened** | -50% Range | +20% Stealth; Harder to communicate. |
 | **Standard** | 100% Range | Baseline perception and communication. |
 | **Echoing** | +50% Range | -20% Stealth; +20% Sonic Damage. |

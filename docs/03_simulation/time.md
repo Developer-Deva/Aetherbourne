@@ -45,7 +45,7 @@ The simulation should remain deterministic when provided the same seed and input
 In Aetherbourne, one simulation tick is equivalent to one minute.
 
 | Common Term | Aetherbourne Term |
-| --- | --- |
+| :---: | :---: |
 | Minute | Moment |
 | Hour | Bell |
 | Day | Turn |
@@ -67,7 +67,7 @@ The calendar year contains ten Phases whose lengths vary slightly to create a mo
 ## Times of Day
 
 | Period | Description |
-| --- | --- |
+| :---: | :---: |
 | Firstlight | Dawn |
 | Brightrise | Morning |
 | Highsun | Midday |
@@ -86,7 +86,7 @@ Most creatures think in Bells and named periods rather than precise numerical ti
 The ten annual Phases in order are:
 
 | **Phase** | **Season** |
-| --- | --- |
+| :---: | :---: |
 | Brigide | Voidgleam |
 | Imbolka | Seedwake |
 | Floralis | Seedwake |

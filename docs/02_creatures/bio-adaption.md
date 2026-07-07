@@ -92,7 +92,7 @@ fn process_biological_tick(creature: &mut Creature) {
 ## 4. Edge Case Matrix
 
 | Scenario | Trigger | Logic |
-| --- | --- | --- |
+| :---: | :---: | :---: |
 | **Maturation** | `Age < Maturity` | `Current` moves toward `Target`. |
 | **Senescence** | `Age > Prime` | `Ceiling` and `Current` decay by a factor of $0.05$ annually. |
 | **High Altitude** | `BiomeType == Mountain` | Modifier on `Stamina` adaptation rate. |
