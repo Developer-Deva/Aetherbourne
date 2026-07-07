@@ -10,7 +10,16 @@ FILES=(
 
     # World
     "docs/01_world/world.md"
-    "docs/01_world/flora.md"
+    "docs/flora/01_main.md"
+    "docs/flora/02_overview.md"
+    "docs/flora/03_generation.md"
+    "docs/flora/04_data_tables.md"
+    "docs/flora/05_presentation.md"
+    "docs/flora/06_simulation_engine.md"
+    "docs/flora/07_harvesting_and_processing.md"
+    "docs/flora/08_economics_and_trade.md"
+    "docs/flora/09_preformance.md"
+    "docs/flora/10_future_work.md"
     "docs/01_world/minerals.md"
     "docs/05_content/liquids.md"
     "docs/05_content/gases.md"
@@ -31,8 +40,9 @@ FILES=(
 
     # Decision Systems
     "docs/02_creatures/skills.md"
-    "docs/02_creatures/actions.md"
+    "docs/02_creatures/decisions.md"
     "docs/02_creatures/behavior.md"
+    "docs/02_creatures/actions.md"
 
     # Simulation
     "docs/03_simulation/time.md"
