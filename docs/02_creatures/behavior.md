@@ -104,8 +104,6 @@ The core simulation relies on a standard suite of base behaviors:
 * **Atomic Isolation:** Primitive actions must remain completely decoupled from behaviors. An action like `MoveTo` shouldn't care if it's being called by a foraging routine or a combat routine.
 * **Local State Cleanup:** Behaviors must implement strict `OnActivation` and `OnDeactivation` hooks to clean up localized target variables, pathfinding requests, and temporary animation states when interrupted.
 
-```
-
 ---
 
 ### Key Adjustments Made:
