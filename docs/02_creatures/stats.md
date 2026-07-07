@@ -4,9 +4,9 @@
 
 The Stat Lattice represents **Nature**—the genetic ceiling of a creature. It defines the range of biological and mental limits.
 
- * **Stats** are the "Hardware." They determine potential.
- * **Skills** are the "Software." They determine efficiency and application.
- * **The Golden Rule:** Skills **do not** modify Stats. Modifying stats via skills creates power creep and ruins archetype diversity. Instead, Stats and Skills converge during the **Capability Calculation** (see Section 5).
+* **Stats** are the "Hardware." They determine potential.
+* **Skills** are the "Software." They determine efficiency and application.
+* **The Golden Rule:** Skills **do not** modify Stats. Modifying stats via skills creates power creep and ruins archetype diversity. Instead, Stats and Skills converge during the **Capability Calculation** (see Section 5).
 
 ## 2. The Stat Hierarchy
 
@@ -54,7 +54,7 @@ $$
 \text{Emergent}=\frac{A+B+C}{3}+S
 $$
 
- * **S (Synergy Bonus):** +0 (Standard), +1 (Strong), +2 (Rare/Exceptional).
+* **S (Synergy Bonus):** +0 (Standard), +1 (Strong), +2 (Rare/Exceptional).
 
 ## 4. Implementation: Rust Struct
 
@@ -105,12 +105,12 @@ $$
 \text{Capability}=(\text{Stat}×w_{1})+(\text{Skill}×w_{2})+\text{Environmental Modifier}
 $$
 
- * **Stat ($w_{1}$):** The constant raw material (e.g., *Prowess* for an attack).
- * **Skill ($w_{2}$):** The multiplier representing training (e.g., *Archery Skill* for a hunt).
- * **EnvironmentModifier:** External factors (e.g., weather, terrain).
+* **Stat ($w_{1}$):** The constant raw material (e.g., *Prowess* for an attack).
+* **Skill ($w_{2}$):** The multiplier representing training (e.g., *Archery Skill* for a hunt).
+* **EnvironmentModifier:** External factors (e.g., weather, terrain).
 **Why this prevents bloat:**
- * **Growth:** An agent can increase their *Capability* through Skill growth (Nurture) without altering their genetic *Stat* (Nature).
- * **Decay:** If an agent is injured, their *Stat* drops. Their *Skill* remains high, but the *Capability* outcome is reduced proportionally to the injury.
+* **Growth:** An agent can increase their *Capability* through Skill growth (Nurture) without altering their genetic *Stat* (Nature).
+* **Decay:** If an agent is injured, their *Stat* drops. Their *Skill* remains high, but the *Capability* outcome is reduced proportionally to the injury.
 
 ## 6. Design Rules
 
