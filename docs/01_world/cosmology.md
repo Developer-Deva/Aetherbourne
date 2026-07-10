@@ -147,7 +147,9 @@ Modality influences how readily personality changes throughout life.
 
 Modality primarily affects Personality Resistance.
 
-Determined by **Selene's Phase**. It influences how readily a creature's personality changes in response to experiences.
+Determined by Selene's Phase. It influences how readily a creature's personality changes in response to experiences.
+
+Selene's cycle is completed every 29 Turns.
 
 | Selene Phase | Modality | Personality Effect |
 | :---: | :---: | :---: |
