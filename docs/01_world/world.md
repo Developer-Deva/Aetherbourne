@@ -117,7 +117,7 @@ Water features influence:
 ---
 
 ## Climate & Seasonal Hydrology
-Water systems fluctuate dynamically throughout the year based on the celestial cycles documented in [Cosmology](docs/01_world/cosmology.md).
+Water systems fluctuate dynamically throughout the year based on the celestial cycles documented in [Cosmology](cosmology.md).
 
 ### Seasonal Cycles
 *   **Spring:** Rivers swell, wetlands expand, and plant growth accelerates due to runoff.
