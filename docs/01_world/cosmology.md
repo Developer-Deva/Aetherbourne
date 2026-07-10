@@ -11,7 +11,7 @@ The Cosmology System defines how celestial cycles influence creature development
 
 There are two moons in Aetherbourne; Selene and Karael. Every creature is born under an Aethersign determined by Selene's phase, and Karael's phase at the moment of birth.
 
-Aethersigns do not determine behavior directly. Instead, they create developmental predispositions that influence personality formation throughout life. This system integrates with the [Personality System](docs/02_creatures/personality.md) by affecting initial tendencies, resistance, and memory weighting.
+Aethersigns do not determine behavior directly. Instead, they create developmental predispositions that influence personality formation throughout life. This system integrates with the [Personality System](../02_creatures/personality.md) by affecting initial tendencies, resistance, and memory weighting.
 
 This system integrates with the Personality System by affecting:
 

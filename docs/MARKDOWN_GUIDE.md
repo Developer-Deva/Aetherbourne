@@ -153,7 +153,7 @@ If a doc requires a specialized section, keep the same overall structure and add
 Use these files as pattern references:
 
 - `docs/01_world/minerals.md`
-- `docs/01_world/flora.md`
+- `docs/01_world/flora/01_main.md`
 - `docs/01_world/world.md`
 - `docs/02_creatures/actions.md`
 - `docs/02_creatures/emotions.md`
